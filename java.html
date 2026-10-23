@@ -1,0 +1,2114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Java-Beginner練習帳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Source+Code+Pro:wght@400;600&display=swap">
+<style>
+/* Layout: 1カラムのノート。科目タブ → レベル切り替え → 項目チップ → 本文（解説→コード→クイズ） */
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --surface-2:#e9edf3; --fg:#1d2433; --muted:#5d6779; --line:#d5dbe5;
+  --ok:#1f8a4c; --ok-bg:#e3f4ea; --ng:#c23b3b; --ng-bg:#fbe8e8;
+  --c-html:#d4501f; --c-css:#2d68cf; --c-js:#a87b00; --c-db:#0f8273;
+  --code-bg:#1f2633; --code-fg:#e7ecf4;
+  --f-display:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --f-code:"Source Code Pro",ui-monospace,Menlo,Consolas,monospace;
+  --accent:var(--c-html);
+  --preview-bg:#ffffff; /* プレビューは常に白い紙として表示 */
+  --dg-1:#2d68cf; --dg-2:#d4501f; --dg-hl:#fff3cf; /* 図：JOINの色分け・行の強調 */
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141922; --surface:#1c2330; --surface-2:#252e3e; --fg:#e6ebf3; --muted:#9aa5b8; --line:#323c4f;
+  --ok:#5fd18f; --ok-bg:#173426; --ng:#f08080; --ng-bg:#3a1f22;
+  --c-html:#ff8a5c; --c-css:#7aa7ff; --c-js:#f0c94a; --c-db:#4fd0bd;
+  --code-bg:#0e1219; --code-fg:#e7ecf4; --dg-1:#5b8ff0; --dg-2:#e8794b; --dg-hl:#3a3420; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141922; --surface:#1c2330; --surface-2:#252e3e; --fg:#e6ebf3; --muted:#9aa5b8; --line:#323c4f;
+  --ok:#5fd18f; --ok-bg:#173426; --ng:#f08080; --ng-bg:#3a1f22;
+  --c-html:#ff8a5c; --c-css:#7aa7ff; --c-js:#f0c94a; --c-db:#4fd0bd;
+  --code-bg:#0e1219; --code-fg:#e7ecf4; --dg-1:#5b8ff0; --dg-2:#e8794b; --dg-hl:#3a3420; color-scheme:dark}
+
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.75}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:flex;flex-direction:column;gap:16px}
+header h1{font-family:var(--f-display);font-weight:800;font-size:1.6rem;margin:0;letter-spacing:.02em;text-wrap:balance}
+header p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.cat{font:inherit;color:var(--fg);background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:10px 6px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.cat b{font-family:var(--f-display);font-size:1.05rem;line-height:1.2}
+.cat small{color:var(--muted);font-size:.72rem;font-variant-numeric:tabular-nums}
+.cat .bar{width:80%;height:4px;border-radius:2px;background:var(--surface-2);overflow:hidden}
+.cat .bar i{display:block;height:100%;background:var(--c)}
+.cat[aria-selected="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 10%,var(--surface))}
+.cat[aria-selected="true"] b{color:var(--c)}
+
+.lvs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--surface-2);border-radius:12px;padding:4px}
+.lv{font:inherit;border:0;background:transparent;border-radius:9px;padding:6px 4px;cursor:pointer;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:0;min-width:0}
+.lv b{font-family:var(--f-display);font-size:.95rem;color:var(--fg);line-height:1.4}
+.lv small{font-size:.72rem;font-variant-numeric:tabular-nums}
+.lv[aria-selected="true"]{background:var(--surface);box-shadow:0 1px 3px color-mix(in srgb,var(--fg) 18%,transparent)}
+.lv[aria-selected="true"] b{color:var(--accent)}
+
+.cat:focus-visible,.lv:focus-visible,.chip:focus-visible,.choice:focus-visible,.btn:focus-visible,.exbtn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:.88rem;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--surface-2)}
+.chip .dot.done{background:var(--ok)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.chip.special{border-style:dashed;border-color:var(--accent);color:var(--accent);font-weight:700}
+.chip.special[aria-pressed="true"]{color:var(--surface);border-style:solid}
+.chip.miss{border-color:var(--ng);color:var(--ng);font-weight:700}
+.chip.miss[aria-pressed="true"]{background:var(--ng);border-color:var(--ng);color:var(--surface)}
+.chip .cnt{font-variant-numeric:tabular-nums}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;color:var(--accent);font-weight:700}
+.panel h2{font-family:var(--f-display);font-size:1.35rem;margin:0;line-height:1.4;text-wrap:balance}
+.panel h3{font-family:var(--f-display);font-size:1.05rem;margin:8px 0 0;display:flex;align-items:center;gap:8px}
+.panel h3::before{content:"";width:6px;height:1.1em;border-radius:3px;background:var(--accent)}
+.lead p{margin:0 0 .6em;max-width:65ch}
+.sub{margin:0;color:var(--muted);font-size:.9rem}
+code{font-family:var(--f-code);font-size:.9em;background:var(--surface-2);padding:1px 5px;border-radius:5px;word-break:break-word}
+pre{margin:0;background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:14px 16px;overflow-x:auto;font-family:var(--f-code);font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0;font-size:inherit;word-break:normal;color:inherit}
+.codehead{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--muted);margin-bottom:4px}
+
+.q{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.q .qt{font-weight:700;margin:0}
+.q .qn{color:var(--accent);font-family:var(--f-display);margin-right:6px}
+.qlabel{font-size:.75rem;color:var(--muted);margin:0}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:0 8px;margin-right:6px;vertical-align:2px}
+.choices{display:grid;gap:8px}
+.choice{font:inherit;text-align:left;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;line-height:1.5;min-width:0}
+.choice:hover:not(:disabled){border-color:var(--accent)}
+.choice:disabled{cursor:default}
+.choice.right{background:var(--ok-bg);border-color:var(--ok);color:var(--fg)}
+.choice.wrong{background:var(--ng-bg);border-color:var(--ng)}
+.fb{font-size:.92rem;border-radius:8px;padding:8px 12px;background:var(--surface-2)}
+.fb strong.ok{color:var(--ok)} .fb strong.ng{color:var(--ng)}
+.why{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.why b{color:var(--ng)}
+.why.small{color:var(--muted);font-size:.82rem}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-weight:700;font-size:.9rem;border-radius:10px;padding:8px 16px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:default}
+.score{font-family:var(--f-display);font-size:1.1rem}
+.empty{text-align:center;padding:24px 12px;color:var(--muted)}
+.empty b{display:block;font-family:var(--f-display);color:var(--fg);font-size:1.1rem;margin-bottom:4px}
+
+/* 書いて練習 */
+.note{font-size:.85rem;color:var(--muted);background:var(--surface-2);border-radius:8px;padding:8px 12px;margin:0}
+textarea{width:100%;box-sizing:border-box;min-height:120px;font-family:var(--f-code);font-size:.92rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;resize:vertical;line-height:1.5}
+textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;max-height:320px}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+th,td{padding:6px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{background:var(--surface-2);font-family:var(--f-code);font-weight:600;position:sticky;top:0}
+.tname{font-family:var(--f-code);font-weight:600;font-size:.85rem;margin:4px 0}
+.exlist{display:flex;flex-wrap:wrap;gap:6px}
+.exbtn{font:inherit;font-size:.82rem;width:2.2em;height:2.2em;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;font-variant-numeric:tabular-nums}
+.exbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--surface)}
+.exbtn.done{border-color:var(--ok);color:var(--ok)}
+.exbtn.done[aria-pressed="true"]{background:var(--ok);color:var(--surface)}
+.err{color:var(--ng);font-family:var(--f-code);font-size:.85rem;white-space:pre-wrap}
+.pv{width:100%;box-sizing:border-box;height:200px;border:1px solid var(--line);border-radius:10px;background:var(--preview-bg)}
+pre.console{white-space:pre-wrap;word-break:break-word}
+pre.console .err{color:var(--ng)}
+/* 図 */
+.fig{margin:0;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);min-width:0;overflow-x:auto}
+.fig figcaption{font-size:.84rem;color:var(--muted);line-height:1.6}
+.fig .ft{font-size:.72rem;letter-spacing:.12em;color:var(--accent);font-weight:700}
+.dg-box{border:1.5px solid var(--fg);border-radius:8px;padding:6px 10px 10px;min-width:0}
+.dg-dash{border-style:dashed;border-color:var(--muted)}
+.dg-acc{border-color:var(--accent)}
+.dg-soft{background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.dg-lbl{display:block;font-family:var(--f-code);font-size:.75rem;font-weight:600}
+.dg-acc>.dg-lbl{color:var(--accent)}
+.dg-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.dg-chip{font-family:var(--f-code);font-size:.78rem;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-top:6px}
+.dg-note{display:block;font-size:.75rem;color:var(--muted);margin-top:6px;line-height:1.4}
+.dg-cap{font-size:.78rem;font-weight:700;margin-bottom:4px}
+.dg-bar{border:1.5px solid var(--fg);border-radius:6px;padding:2px 8px;margin-top:6px;font-family:var(--f-code);font-size:.78rem}
+.dg-line{font-size:.9rem;line-height:2;border:1.5px dashed var(--muted);border-radius:6px;padding:4px 8px}
+.dg-inl{border:1.5px solid var(--accent);color:var(--accent);border-radius:4px;padding:0 4px;font-family:var(--f-code);font-size:.75rem}
+.dg-row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.78rem}
+.dg-arrow{color:var(--muted);font-weight:700;font-size:.8rem}
+.fig table.dg-table{width:auto;border-collapse:separate;border-spacing:0;font-size:.82rem}
+.fig .dg-table th,.fig .dg-table td{border:1px solid var(--line);padding:4px 8px;position:static;white-space:nowrap;background:var(--surface)}
+.fig .dg-table th{background:var(--surface-2)}
+.fig .dg-table small{display:block;font-family:var(--f-code);font-size:.68rem;color:var(--muted);font-weight:400}
+.fig .dg-table td.dg-side{border:0;background:none;color:var(--muted);font-size:.72rem;font-family:var(--f-code)}
+.fig .dg-table .hl td{background:var(--dg-hl)}
+.fig .dg-table .pk{font-weight:700;color:var(--accent)}
+.fig .dg-table .dup{background:var(--ng-bg)}
+.swatch{display:inline-block;width:.9em;height:.9em;border-radius:3px;vertical-align:-1px;margin-right:4px}
+.bm{border-radius:8px;padding:6px 12px 12px}
+.bm-m{border:1.5px dashed var(--muted)}
+.bm-b{border:3px solid var(--fg);margin-top:4px}
+.bm-p{background:color-mix(in srgb,var(--accent) 14%,var(--surface));margin-top:4px}
+.bm-c{border:1.5px solid var(--accent);background:var(--surface);text-align:center;padding:10px;margin-top:6px;font-family:var(--f-code);font-size:.8rem}
+.fx{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}
+.fx-box{border:2px solid var(--fg);border-radius:8px;padding:6px 10px 10px}
+.fx-items{display:flex;gap:10px;align-items:center;margin-top:6px}
+.fx-i{border:1.5px solid var(--accent);background:var(--surface);border-radius:6px;width:44px;display:flex;align-items:center;justify-content:center;font-family:var(--f-code);font-size:.8rem}
+.fx-v{display:flex;flex-direction:column;align-items:center;font-size:.72rem;color:var(--muted);text-align:center;line-height:1.3}
+.fx-v span,.fx-h span{color:var(--accent);font-size:1.2rem;font-weight:700}
+.fx-h{font-size:.75rem;color:var(--muted)}
+.ps{position:relative;border:2px solid var(--fg);border-radius:8px;padding:10px 10px 8px;min-height:100px;display:flex;flex-direction:column;justify-content:space-between}
+.ps-badge{position:absolute;top:0;right:0;background:var(--accent);color:var(--surface);border-radius:0 6px 0 8px;padding:4px 10px;font-family:var(--f-code);font-size:.72rem;text-align:center;line-height:1.4}
+.ps-text{font-size:.85rem;color:var(--muted);padding-right:110px}
+.gd{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border:1.5px dashed var(--muted);border-radius:8px;padding:8px}
+.gd-i{border:1.5px solid var(--fg);background:var(--surface);border-radius:6px;text-align:center;padding:6px 4px;font-family:var(--f-code);font-size:.75rem;min-width:0}
+.gd-w{grid-column:span 2;border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.gd-ruler{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 10px;font-family:var(--f-code);font-size:.72rem;color:var(--accent);text-align:center}
+.gd-ruler span{border-top:2px solid var(--accent);padding-top:2px}
+.arr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:2px solid var(--fg);border-radius:8px;overflow:hidden}
+.arr-c{display:flex;flex-direction:column;align-items:center;padding:8px 4px;border-right:1px solid var(--line);background:var(--surface);font-size:.85rem;min-width:0}
+.arr-c:last-child{border-right:0}
+.arr-c small{font-family:var(--f-code);color:var(--accent);font-weight:600}
+.dg-mono{font-family:var(--f-code);font-size:.78rem;overflow-wrap:anywhere}
+.fl{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.fl-q{border:2px solid var(--accent);border-radius:999px;padding:3px 14px;font-family:var(--f-code);font-size:.8rem;color:var(--accent);font-weight:600}
+.fl-br{display:flex;align-items:center;gap:8px;margin-left:24px;flex-wrap:wrap}
+.fl-y{font-size:.75rem;color:var(--ok);font-weight:700}
+.fl-n{font-size:.75rem;color:var(--muted);font-weight:700;margin-left:24px}
+.fl-r{border:1.5px solid var(--fg);border-radius:6px;padding:2px 10px;font-family:var(--f-code);font-size:.8rem;background:var(--surface)}
+.steps{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.st{border:1.5px solid var(--fg);border-radius:8px;padding:6px 10px;font-size:.8rem;background:var(--surface);line-height:1.4;max-width:15em}
+.st b{display:block;font-family:var(--f-code);font-size:.72rem;color:var(--accent)}
+.id1,.id2{display:inline-block;min-width:1.4em;text-align:center;border-radius:4px;color:var(--surface);font-weight:700;font-family:var(--f-code)}
+.id1{background:var(--dg-1)} .id2{background:var(--dg-2)}
+.jn{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.jn-mid{font-family:var(--f-code);font-size:.72rem;color:var(--accent);text-align:center;line-height:1.5}
+.tx-split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tx-ok,.tx-ng{border-radius:8px;padding:8px 10px;font-size:.82rem;line-height:1.5;border:1.5px solid}
+.tx-ok{border-color:var(--ok);background:var(--ok-bg)} .tx-ok b{color:var(--ok)}
+.tx-ng{border-color:var(--ng);background:var(--ng-bg)} .tx-ng b{color:var(--ng)}
+.tx-split small{color:var(--muted)}
+@media (max-width:420px){.dg-cols,.tx-split{grid-template-columns:1fr}.ps-text{padding-right:0;padding-top:40px}}
+
+/* 答えの1行ずつ解説 */
+.ax{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:8px}
+.ax-r{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:4px 14px;padding:6px 12px;border-bottom:1px solid var(--line);align-items:start}
+.ax-r:last-child{border-bottom:0}
+.ax-c{display:block;white-space:pre;overflow-x:auto;background:none;padding:0;font-size:.82rem;color:var(--fg)}
+.ax-t{font-size:.82rem;color:var(--muted);line-height:1.5}
+.ax-h{font-size:.75rem;font-weight:700;color:var(--accent);background:var(--surface-2)}
+.ax-sum{font-size:.85rem;margin-top:8px}
+@media (max-width:520px){.ax-r{grid-template-columns:1fr}}
+
+/* よくあるまちがい */
+.mk{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.mk h3{margin:0}
+.mk-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mk-pair>div{min-width:0}
+.mk-tag{display:inline-block;font-size:.72rem;font-weight:700;padding:0 8px;border-radius:999px;margin-bottom:4px}
+.mk-bad .mk-tag{background:var(--ng-bg);color:var(--ng)}
+.mk-good .mk-tag{background:var(--ok-bg);color:var(--ok)}
+.mk-bad pre{box-shadow:inset 4px 0 0 var(--ng)}
+.mk-good pre{box-shadow:inset 4px 0 0 var(--ok)}
+.mk p{margin:0;font-size:.9rem}
+@media (max-width:560px){.mk-pair{grid-template-columns:1fr}}
+.chip.tips{border-style:dashed;border-color:var(--muted);color:var(--fg);font-weight:700}
+.chip.tips[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--surface)}
+
+/* 動かして確かめる */
+.play{border:1.5px solid var(--accent);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.play .ft{font-size:.72rem;letter-spacing:.12em;color:var(--accent);font-weight:700}
+.pl-ctrls{display:flex;flex-direction:column;gap:8px}
+.pl-c{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.pl-l{font-family:var(--f-code);font-size:.78rem;font-weight:600;min-width:9em}
+.seg{display:flex;flex-wrap:wrap;gap:4px}
+.seg button{font:inherit;font-family:var(--f-code);font-size:.76rem;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:6px;padding:3px 8px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.seg button:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.pl-stage{border:1.5px dashed var(--muted);border-radius:8px;padding:10px;background:var(--bg);min-width:0;overflow:hidden}
+.pl-code{font-size:.8rem}
+.pl-i{border:1.5px solid var(--accent);background:var(--surface);border-radius:6px;min-width:44px;padding:4px 8px;display:flex;align-items:center;justify-content:center;font-family:var(--f-code);font-size:.8rem}
+.pl-flex{min-height:150px}
+.pl-grid .pl-i{min-width:0}
+.pl-bmo{border:1.5px dashed var(--muted);display:flow-root;width:fit-content;max-width:100%}
+.pl-bmbox{background:color-mix(in srgb,var(--accent) 14%,var(--surface));font-family:var(--f-code);font-size:.8rem}
+.pl-bmbox span{display:block;background:var(--surface);text-align:center}
+.pl-meas{font-size:.82rem;margin-top:8px}
+.pl-pos{position:relative;border:1.5px dashed var(--muted);border-radius:8px;padding:30px 12px 12px;min-height:120px}
+.pl-cap{position:absolute;left:8px;top:6px;font-size:.72rem;color:var(--muted);font-family:var(--f-code)}
+.pl-card{border:2px solid var(--fg);border-radius:8px;padding:10px;width:62%;background:var(--surface);font-size:.85rem}
+.pl-badge{background:var(--accent);color:var(--surface);font-family:var(--f-code);font-size:.72rem;padding:2px 8px;border-radius:4px}
+.pl-move{width:120px;margin:16px auto;text-align:center;border:2px solid var(--accent);background:var(--surface);border-radius:8px;padding:16px 8px;font-size:.85rem}
+.pl-dv{font-size:.9rem;line-height:2}
+.pl-dv .pl-t{border-color:var(--accent);border-radius:4px;font-family:var(--f-code);font-size:.8rem;background:var(--surface)}
+.pl-h :is(h1,h2,h3,h4,h5,h6){font-family:var(--f-body);font-weight:700;margin:0 0 4px;display:block;line-height:1.3}
+.pl-h h3::before{display:none}
+.pl-h h1{font-size:2em}.pl-h h2{font-size:1.5em}.pl-h h3{font-size:1.17em}.pl-h h4{font-size:1em}.pl-h h5{font-size:.83em}.pl-h h6{font-size:.67em}
+.pl-h p{margin:0;font-size:.9rem}
+.pl-cd .pl-on{background:color-mix(in srgb,var(--ok) 30%,transparent);border-radius:3px}
+.pl-cd .pl-cm{color:#9fb3c8}
+.pl-out{font-size:.9rem}
+.pl-out b{font-family:var(--f-code)}
+.pl-vals{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.pl-vals span{font-family:var(--f-code);font-size:.8rem;border:1.5px solid var(--accent);border-radius:6px;padding:0 8px;background:var(--surface)}
+.arr-c.on{background:color-mix(in srgb,var(--accent) 18%,var(--surface))}
+.tbl tr.null td{background:var(--dg-hl)}
+
+/* 入力問題 */
+.fill-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fill-in{font:inherit;font-family:var(--f-code);font-size:.95rem;flex:1 1 12em;min-width:0;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+.fill-in:focus{outline:2px solid var(--accent);outline-offset:1px}
+.fill-in.ok{border-color:var(--ok);background:var(--ok-bg)}
+mark.blank{background:color-mix(in srgb,var(--accent) 45%,transparent);color:inherit;border-radius:3px;padding:0 2px}
+
+/* 用語集 */
+.gl{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline dotted var(--accent);text-decoration-thickness:2px;text-underline-offset:3px}
+.gl:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.glpop{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:520px;margin:0 auto;background:var(--surface);border:1.5px solid var(--accent);border-radius:12px;padding:12px 14px;box-shadow:0 6px 24px color-mix(in srgb,var(--fg) 25%,transparent);z-index:20;display:flex;flex-direction:column;gap:6px}
+.glpop b{font-family:var(--f-display);color:var(--accent)}
+.glpop p{margin:0;font-size:.9rem}
+.glpop .btn{align-self:flex-end;padding:4px 12px;font-size:.8rem}
+.gls{width:100%;box-sizing:border-box;font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg)}
+.gls:focus{outline:2px solid var(--accent);outline-offset:1px}
+.gll{margin:0;display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.gll div{padding:10px 14px;border-bottom:1px solid var(--line)}
+.gll div:last-child{border-bottom:0}
+.gll dt{font-weight:700;font-family:var(--f-display)}
+.gll dd{margin:2px 0 0;font-size:.9rem;color:var(--muted)}
+
+/* コード集 */
+.cd-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.cd-tools .gls{flex:1 1 14em;width:auto}
+.cd{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cd-h{display:flex;align-items:flex-start;gap:8px}
+.cd-h h3{margin:0;flex:1;font-size:1rem}
+.cd-h h3::before{display:none}
+.cd-tag{display:inline-block;font-size:.7rem;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:0 8px;margin-bottom:2px}
+.fav{font:inherit;font-size:1.1rem;line-height:1;background:none;border:1px solid var(--line);border-radius:8px;width:2.2em;height:2.2em;cursor:pointer;color:var(--muted);flex:none}
+.fav[aria-pressed="true"]{color:#e0a400;border-color:#e0a400;background:color-mix(in srgb,#e0a400 12%,var(--surface))}
+.fav:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.cd-memo{margin:0;font-size:.85rem;color:var(--muted)}
+.cd-memo b{color:var(--fg)}
+.cd .row .btn{padding:5px 12px;font-size:.8rem}
+.cd-pv iframe{width:100%;box-sizing:border-box;height:220px;border:1px solid var(--line);border-radius:10px;background:var(--preview-bg)}
+.chip.codes{border-color:var(--accent);color:var(--accent);font-weight:700}
+.chip.codes[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+
+/* 次のレベルへの案内 */
+.banner{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;border:1.5px solid var(--ok);background:var(--ok-bg);border-radius:12px;padding:10px 14px;font-size:.9rem}
+.banner b{color:var(--ok);font-family:var(--f-display)}
+.banner .btn{margin-left:auto;border-color:var(--ok);background:var(--ok)}
+
+details summary{cursor:pointer;color:var(--accent);font-weight:700;font-size:.9rem}
+footer{color:var(--muted);font-size:.8rem;text-align:center}
+@media (max-width:420px){.panel{padding:18px 14px}.cat b{font-size:.95rem}}
+@media (prefers-reduced-motion:no-preference){.choice,.chip,.cat,.lv{transition:background .15s,border-color .15s}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Java-Beginner練習帳</h1>
+    <p>Notion の「Java-beginner」の内容に合わせた練習帳。分野とレベルを選んで、解説を読んでからクイズで確認しよう。</p>
+  </header>
+  <nav class="cats" id="cats" role="tablist" aria-label="分野"></nav>
+  <div class="lvs" id="lvs" role="tablist" aria-label="レベル"></div>
+  <div class="chips" id="chips" aria-label="項目"></div>
+  <div class="banner" id="banner" hidden></div>
+  <main class="panel" id="panel"></main>
+  <div class="glpop" id="glpop" role="dialog" aria-label="用語の意味" hidden><b id="glw"></b><p id="gld"></p><button class="btn ghost" id="glx">閉じる</button></div>
+  <footer>正解した問題と苦手リストは、このブラウザに記録されます。</footer>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const md=s=>esc(s).replace(/`([^`]+)`/g,"<code>$1</code>");
+const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const B="`";
+
+const SUBJ={
+  kiso:{name:"基礎編",full:"基礎編（VS Code）",color:"--c-html"},
+  ouyou:{name:"応用編",full:"応用編（Eclipse）",color:"--c-css"}
+};
+const LV=["初級","中級","上級"];
+/* T[科目][レベル] = 項目（各5問）、ADV[科目][レベル] = 応用問題、WR[科目][レベル] = 書いて練習 */
+const T={},ADV={},WR={},GEN={};
+let SQLW=[];
+/* SQL練習・DB問題で使う会員データ */
+const MEM=[[1,"佐藤",28,"東京"],[2,"鈴木",35,"大阪"],[3,"高橋",22,"東京"],[4,"田中",41,"福岡"],[5,"伊藤",30,"札幌"],[6,"渡辺",26,"大阪"]];
+
+/* ================= 基礎編（VS Code） ================= */
+T.kiso=[
+/* 初級 */
+[
+ {title:"変数とデータ型",body:"変数はデータを入れる名前付きの箱で、`データ型 変数名 = 値;` で宣言と初期化を同時にできます。整数は `int`（いちばんよく使う）、小数は `double` が基本です。大きな整数の `long` は末尾に `L`、`float` は末尾に `f` を付けます。\n小さい型から大きい型へは自動で変換されます（拡大変換）が、大きい型から小さい型へはキャスト `(int)` が必要です（縮小変換）。キャストすると小数部は切り捨てられます。文字列は `String` で、内容の比較には `==` ではなく `equals()` を使います。",
+  code:`int x = 10;
+double y = x;            // 小→大は自動（拡大変換）10.0
+
+double a = 12.34;
+int b = (int) a;         // 大→小はキャストが必要（縮小変換）12
+
+long big = 10000000000L; // long は末尾に L
+float f = 3.14f;         // float は末尾に f
+
+String name = "John";
+String full = name + " Doe";                      // 連結
+int len = full.length();                          // 長さ
+boolean same = name.equals("John");               // 内容の比較
+String msg = String.format("%sは%d歳", name, 30);   // フォーマット`,
+  quiz:[
+   {q:"整数で、いちばんよく使う型は？",c:["`int`","`long`","`double`","`float`","`byte`","`short`","`String`"],a:0,e:"整数は `int`、小数は `double` が基本です。",w:{1:"`long` は大きい整数用で、値の末尾に L を付けます。",2:"`double` は小数の型です。",4:"`byte` は小さい数用です。"}},
+   {q:"`long` に大きな数を入れる正しい書き方は？",c:["`long big = 10000000000L;`","`long big = 10000000000;`","`long big = 10000000000f;`","`long big = \"10000000000\";`","`long big = 10000000000.0;`","`long big = long(10000000000);`","`long big = 10000000000D;`"],a:0,e:"int の範囲を超える数は、末尾に L を付けて long の値だと示します。",w:{1:"L がないと int の値として扱われ、範囲を超えてエラーになります。",2:"f は float の印です。"}},
+   {q:"`double a = 12.34; int b = (int) a;` の b は？",c:["12","12.34","13","エラー"],a:0,e:"キャストで小数部が切り捨てられます。"},
+   {q:"`int x = 10; double y = x;` について正しいのは？",c:["自動で変換されて y は 10.0 になる","キャストが必要でコンパイルエラー","y は 10 のまま整数","y は 0.0 になる","x も double になる","実行時エラー","y は \"10\" になる"],a:0,e:"小さい型 → 大きい型は自動で変換されます（拡大変換）。",w:{1:"キャストが必要なのは、大きい型 → 小さい型（縮小変換）のときです。"}},
+   {q:"文字列の内容を比べるときに使うのは？",c:["`equals()`","`==`","`===`","`compare()`","`equal()`","`is()`","`=`"],a:0,e:"`==` は「同じ物か（参照）」を比べるため、内容の比較には `equals()` を使います。",w:{1:"`==` は同じ物か（参照）を比べるので、中身が同じでも false になることがあります。",2:"`===` は JavaScript の演算子です。",6:"`=` は代入です。"}}
+  ]},
+ {title:"演算子・スコープ・命令文",body:"算術演算子は `+` `-` `*` `/` `%`（余り）、比較は `==` `!=` `>` `>=` など、論理は `&&`（かつ）`||`（または）`!`（否定）です。`条件 ? 値1 : 値2` の三項演算子は、条件によって値を選べます。\n`{ }` の中で宣言した変数は、その `{ }` の中でしか使えません（スコープ）。条件分岐は `if`・`switch`、ループは `for`・`while`・`do-while` です。`do-while` は最低1回は実行されます。0 で割ると `ArithmeticException`、int の最大値を超えるとオーバーフローして値がおかしくなります。",
+  code:`int a = 7 % 3;                       // 1（余り）
+String s = (a > 0) ? "正" : "0以下";   // 三項演算子
+
+if (a > 0) { … } else { … }
+
+switch (a) {
+    case 1: System.out.println("1"); break;
+    default: System.out.println("その他");
+}
+
+for (int i = 0; i < 5; i++) { … }
+while (条件) { … }
+do { … } while (条件);   // 最低1回は実行される`,
+  quiz:[
+   {q:"`%` 演算子の意味は？",c:["割り算の余り","割り算の商","パーセント","掛け算","比較","代入","否定"],a:0,e:"`7 % 3` は 1 です。偶数かどうかは `n % 2 == 0` で調べられます。"},
+   {q:"三項演算子の結果は？",c:["\"大\"","\"小\""],a:0,e:"条件で値を選びます。"},
+   {q:"`do { … } while (条件);` の特徴は？",c:["条件に関係なく最低1回は実行される","1回も実行されないことがある","条件が true のときだけ1回実行","無限ループ専用","for と同じ","switch の一種","エラーになる"],a:0,e:"先に1回実行してから条件を調べます。",w:{1:"それは while の特徴です（最初に条件を調べるため）。"}},
+   {q:"次のコードはどうなる？",code:`if (true) {
+    int count = 5;
+}
+System.out.println(count);`,c:["コンパイルエラー（count は { } の外で使えない）","5 と表示される","0 と表示される","null と表示される","実行時に例外","何も表示されない","true と表示される"],a:0,e:"`{ }` の中で宣言した変数は、その中でしか使えません（スコープ）。"},
+   {q:"整数を 0 で割ると？",c:["ArithmeticException が発生する","0 になる","無限大になる","null になる","NumberFormatException が発生する","警告だけ出る","1 になる"],a:0,e:"整数の 0 除算は ArithmeticException です。",w:{4:"NumberFormatException は数字にできない文字列を変換したときです。"}}
+  ]},
+ {title:"命名規則と予約語",body:"名前の付け方にはルールがあります。クラスは大文字始まり（`MyClass`、アッパーキャメル）、メソッド・変数は小文字始まり（`myMethod`、キャメル）、定数は全部大文字と `_`（`MAX_VALUE`）です。\n数字から始まる名前は使えず、大文字・小文字は区別されます。`if`・`class`・`public`・`static`・`return` などの予約語は、そのまま名前にはできません。ただし `ifVariable` のように予約語を含むだけの名前は使えます。",
+  code:`public class CustomerService {          // クラス：大文字始まり
+    static final int MAX_VALUE = 100;    // 定数：全部大文字＋_
+
+    public void findCustomer() {         // メソッド：小文字始まり
+        int customerCount = 0;           // 変数：小文字始まり
+        int ifCount = 1;                 // 予約語を「含む」だけならOK
+        // int if = 1;                   // ✕ 予約語そのものはNG
+        // int 1count = 1;               // ✕ 数字から始まるのはNG
+    }
+}`,
+  quiz:[
+   {q:"クラス名として慣習に合っているのは？",c:["`CustomerService`","`customerService`","`customer_service`","`CUSTOMER_SERVICE`","`1Customer`","`customer-service`","`Customer Service`"],a:0,e:"クラスは大文字始まりで、単語の区切りも大文字にします（アッパーキャメル）。",w:{1:"小文字始まりはメソッドや変数の書き方です。",3:"全部大文字は定数の書き方です。",4:"数字から始まる名前は使えません。",5:"`-` は名前に使えません。",6:"名前にスペースは入れられません。"}},
+   {q:"定数の名前として慣習に合っているのは？",c:["`MAX_VALUE`","`maxValue`","`MaxValue`","`max-value`","`max value`","`maxvalue`","`Max_value`"],a:0,e:"定数は全部大文字で、単語の区切りに `_` を使います。",w:{1:"小文字始まりは変数・メソッドの書き方です。",2:"大文字始まりはクラスの書き方です。"}},
+   {q:"変数名として使えないものは？",c:["`1myVar`","`myVar1`","`ifVariable`","`_count`","`$price`","`userName`","`whileFlag`"],a:0,e:"数字から始まる名前は使えません。",w:{2:"予約語を含むだけの名前は使えます。ダメなのは `if` そのものです。",6:"予約語を含むだけの名前は使えます。"}},
+   {q:"予約語の説明として正しいのは？",c:["Java が特別な意味で使うので、名前にできない単語","大文字で書く単語","クラス名だけに使える単語","コメントの中に書く単語","変数の型のこと","メソッドの戻り値","自分で予約して使う名前"],a:0,e:"if・class・public・static・return などです。"},
+   {q:"`myName` と `myname` は？",c:["別の名前として扱われる","同じ名前として扱われる","どちらもエラー","myname だけ使える","myName だけ使える","コンパイラが自動で直す","実行時にどちらかに統一される"],a:0,e:"Java は大文字・小文字を区別します。"}
+  ]}
+],
+/* 中級 */
+[
+ {title:"クラスとメソッド",body:"クラスはデータ（フィールド）と操作（メソッド）をまとめた設計図で、インスタンスは設計図から作った実物です。`new クラス名()` でインスタンスを作ります。作るときに呼ばれる初期化用の特別なメソッドがコンストラクタです。\nメソッドは `戻り値の型 メソッド名(引数の型 引数名, …)` の形で書き、戻り値がないときは `void` にします。同じ名前で引数の型や数が違うメソッドを複数作ることをオーバーロードと言います。同じクラスのメソッドは、名前だけで呼べます。",
+  code:`public class Car {
+    private String brand;          // フィールド
+
+    public Car(String brand) {     // コンストラクタ（初期化）
+        this.brand = brand;
+    }
+
+    public void start() {          // メソッド
+        System.out.println("The car is starting.");
+    }
+}
+
+Car myCar = new Car("Toyota");    // インスタンス化
+myCar.start();`,
+  quiz:[
+   {q:"クラスからインスタンスを作るキーワードは？",c:["`new`","`create`","`make`","`class`","`this`","`build`","`instance`"],a:0,e:"`new クラス名(…)` でインスタンスを作ります。"},
+   {q:"コンストラクタの特徴は？",c:["クラスと同じ名前で、戻り値の型を書かない","必ず void を書く","static を付ける","名前は自由","return で値を返す","1つのクラスに1つだけ","main から必ず呼ぶ"],a:0,e:"new したときに自動で呼ばれ、フィールドの初期化に使います。",w:{5:"引数の違うコンストラクタを複数作れます。"}},
+   {q:"戻り値がないメソッドの戻り値の型は？",c:["`void`","`null`","`none`","`empty`","`int`","`return`","`undefined`"],a:0,e:"`void` の場合は return で値を返す必要がありません。"},
+   {q:"同じ名前で、引数の型や数が違うメソッドを複数作ることを何と言う？",c:["オーバーロード","オーバーライド","カプセル化","継承","インスタンス化","キャスト","ポリモーフィズム"],a:0,e:"呼ぶときの引数によって、どれが使われるかが決まります。",w:{1:"オーバーライドは、親クラスのメソッドを子クラスで書き換えることです。"}},
+   {q:"同じクラスの中で、method2 から method1 を呼ぶ書き方は？",c:["`method1();`","`new method1();`","`call method1();`","`Car.method1;`","`method1;`","`super.method1();`","`this.class.method1;`"],a:0,e:"同じクラスのメソッドは名前だけで呼べます（`this.method1();` とも書けます）。"}
+  ]},
+ {title:"カプセル化とアクセス修飾子",body:"フィールドは `private` にして、getter / setter というメソッド経由で触らせるのが基本です（カプセル化）。外から勝手に書き換えられないので、データを守れます。\nアクセス修飾子は、どこから使えるかを決めます。`public` はどこからでも、`protected` は同じパッケージとサブクラス、何も書かない（package-private）は同じパッケージのみ、`private` は同じクラスのみです。",
+  code:`public class Customer {
+    private String name;               // 同じクラスからだけ
+
+    public String getName() {          // getter
+        return name;
+    }
+
+    public void setName(String name) { // setter
+        this.name = name;
+    }
+}`,
+  quiz:[
+   {q:"`private` を付けたフィールドにアクセスできる範囲は？",c:["同じクラスのみ","どこからでも","同じパッケージのみ","同じパッケージ＋サブクラス","サブクラスのみ","main メソッドのみ","別のプロジェクトからも"],a:0,e:"最も狭い範囲です。",w:{1:"それは `public` です。",2:"それは修飾子なし（package-private）です。",3:"それは `protected` です。"}},
+   {q:"`protected` でアクセスできる範囲は？",c:["同じパッケージ＋サブクラス","どこからでも","同じクラスのみ","同じパッケージのみ","サブクラスのみ（同じパッケージはダメ）","main メソッドのみ","テストクラスのみ"],a:0,e:"同じパッケージと、継承した子クラスから使えます。"},
+   {q:"アクセス修飾子を何も書かないとき（package-private）の範囲は？",c:["同じパッケージのみ","どこからでも","同じクラスのみ","同じパッケージ＋サブクラス","エラーになる","public と同じ","private と同じ"],a:0,e:"同じパッケージの中だけで使えます。"},
+   {q:"フィールドを private にして getter / setter 経由で使わせることを何と言う？",c:["カプセル化","継承","オーバーロード","インスタンス化","ポリモーフィズム","キャスト","コンパイル"],a:0,e:"外から直接書き換えられないようにして、データを守ります。"},
+   {q:"`name` フィールドの getter の名前として慣習に合っているのは？",c:["`getName`","`name`","`GetName`","`get_name`","`readName`","`nameGet`","`fetchName`"],a:0,e:"getter は `get` + フィールド名（先頭大文字）、setter は `set` + フィールド名です。"}
+  ]},
+ {title:"コレクション（List / Map / Set）",body:"List は順序あり・重複OK・サイズ可変で、一覧データや検索結果に使います。Map はキーと値のペアで、コード値から表示名への変換などに使います。Set は重複なし・順序なしで、重複を取り除いたり、存在チェックに使います。\n配列はサイズが固定ですが、List は後から追加できます。実務では List をよく使います。",
+  code:`List<String> names = new ArrayList<>();
+names.add("田中");
+names.get(0);          // "田中"
+names.size();          // 1
+for (String n : names) { System.out.println(n); }
+
+Map<String, String> statusMap = new HashMap<>();
+statusMap.put("PENDING", "受付中");
+statusMap.get("PENDING");   // "受付中"
+
+Set<String> tags = new HashSet<>();
+tags.add("Java");
+tags.add("Java");      // 重複は無視される`,
+  quiz:[
+   {q:"List の特徴は？",c:["順序あり・重複OK・サイズ可変","重複なし・順序なし","キーと値のペア","サイズが固定","数値しか入れられない","並び順がランダム","1件しか入らない"],a:0,e:"一覧データや検索結果に使います。",w:{1:"それは Set の特徴です。",2:"それは Map の特徴です。",3:"サイズが固定なのは配列です。"}},
+   {q:"`statusMap.put(\"PENDING\", \"受付中\");` の後、`statusMap.get(\"PENDING\")` は？",c:["\"受付中\"","\"PENDING\"","null","1","エラー","true","[PENDING, 受付中]"],a:0,e:"キーを渡すと、対応する値が返ります。"},
+   {q:"Set に同じ値 \"Java\" を2回 add すると？",c:["1つだけ入る（重複は無視される）","2つ入る","エラーになる","例外が発生する","空になる","null が入る","2回目で上書きされて2つになる"],a:0,e:"Set は重複を持たないので、重複排除に使えます。"},
+   {q:"List の要素数を調べるメソッドは？",c:["`size()`","`length`","`length()`","`count()`","`getSize()`","`total()`","`size`"],a:0,e:"List は `size()`、配列は `length`、String は `length()` です。",w:{1:"`length` は配列の要素数です。",2:"`length()` は String の文字数です。"}},
+   {q:"配列と List の違いとして正しいのは？",c:["配列はサイズ固定、List は後から追加できる","List はサイズ固定、配列は後から追加できる","どちらもサイズ固定","どちらも同じもの","List は数値しか入れられない","配列は文字列しか入れられない","List は1つしか作れない"],a:0,e:"大きさが変わるデータは List を使います。"}
+  ]}
+],
+/* 上級 */
+[
+ {title:"例外（Exception）",body:"例外は実行中に起きるエラーです。`try` の中で起きた例外を `catch` で受け止め、`finally` の中は例外があってもなくても必ず実行されます。`throws` はメソッドの横に書いて「この例外を投げるかも」と宣言し、`throw` はメソッドの中で実際に例外を投げます。\n例外は `Throwable` の下に `Error`（キャッチしない）と `Exception` があり、`RuntimeException`（unchecked：対応は任意）と `IOException` など（checked：対応が必須）に分かれます。`RuntimeException` を継承してカスタム例外も作れます。catch の中を空にする（握りつぶす）のは NG です。",
+  code:`try {
+    int n = Integer.parseInt("abc");
+} catch (NumberFormatException e) {
+    System.out.println("数値に変換できません");
+} finally {
+    System.out.println("必ず実行");
+}
+
+// カスタム例外
+public class CustomerNotFoundException extends RuntimeException {
+    public CustomerNotFoundException(Long id) {
+        super("顧客が見つかりません。ID：" + id);
+    }
+}
+
+throw new CustomerNotFoundException(5L);   // 例外を投げる`,
+  quiz:[
+   {q:"null のものを使おうとしたときに起きる例外は？",c:["NullPointerException","ArrayIndexOutOfBoundsException","NumberFormatException","IllegalArgumentException","ArithmeticException","IOException","NullException"],a:0,e:"null の変数のメソッドを呼んだときなどに起きます。",w:{1:"配列の範囲外にアクセスしたときです。",2:"数字にできない文字列を変換したときです。",3:"不正な引数を渡したときです。",4:"0 で割ったときです。"}},
+   {q:"`Integer.parseInt(\"abc\")` で起きる例外は？",c:["NumberFormatException","NullPointerException","ArithmeticException","IllegalStateException","IOException","ParseException","StringException"],a:0,e:"数字にできない文字列を変換すると NumberFormatException です（`parseInt(null)` も同じ）。"},
+   {q:"`throws` と `throw` の違いは？",c:["throws は例外を投げるかもと宣言、throw は実際に投げる","throws は実際に投げる、throw は宣言","どちらも同じ意味","throw は catch の中でしか使えない","throws は finally の中に書く","throw は例外を消す","throws はクラス名の前に書く"],a:0,e:"throws はメソッドの横、throw はメソッドの中に書きます。"},
+   {q:"RuntimeException（unchecked 例外）の説明として正しいのは？",c:["catch や throws での対応は任意","必ず catch しないとコンパイルエラー","Error の一種","絶対に発生しない","IOException の親クラス","キャッチしてはいけない","finally でしか使えない"],a:0,e:"対応が必須なのは IOException などの checked 例外です。",w:{1:"それは IOException などの checked 例外です。",2:"Error ではなく Exception の一種です。"}},
+   {q:"catch の中を空にする（握りつぶす）のがよくない理由は？",c:["問題が起きても見えなくなる","処理が遅くなる","コンパイルエラーになる","finally が動かなくなる","例外が2回起きる","メモリが増える","テストが書けなくなる"],a:0,e:"ログに出すか、上に投げ直すようにします。"}
+  ]},
+ {title:"ラムダ式・Stream API",body:"ラムダ式は `(引数) -> 処理` の形で書く、短い関数の書き方です。引数が1つなら `( )` を省略できます。\nStream API は、リストなどのデータを流れるように処理する仕組みです。`stream()` で始めて、中間操作（`filter` で絞り込み、`map` で変換）をつなげ、最後に終端操作（`collect` でリストにまとめる、`count` で数える）を書きます。`name -> name.toUpperCase()` は、メソッド参照で `String::toUpperCase` とも書けます。",
+  code:`() -> System.out.println("Hello")      // 引数なし
+name -> System.out.println(name)        // 引数1つ
+(a, b) -> a + b                         // 引数2つ
+
+// filter：絞り込み（偶数だけ）
+List<Integer> evens = numbers.stream()
+    .filter(n -> n % 2 == 0)
+    .collect(Collectors.toList());
+
+// map：変換（全部大文字に）
+List<String> upper = names.stream()
+    .map(String::toUpperCase)    // メソッド参照
+    .collect(Collectors.toList());`,
+  quiz:[
+   {q:"引数2つを足すラムダ式として正しいのは？",c:["`(a, b) -> a + b`","`(a, b) => a + b`","`a, b -> a + b`","`function(a, b) { a + b }`","`[a, b] -> a + b`","`a + b -> (a, b)`","`lambda(a, b): a + b`"],a:0,e:"引数が2つ以上なら `( )` で囲み、`->` の後に処理を書きます。",w:{1:"`=>` は JavaScript のアロー関数の書き方です。",2:"引数が2つ以上のときは `( )` が必要です。"}},
+   {q:"Stream の処理の流れとして正しいのは？",c:["stream() → 中間操作（filter / map）→ 終端操作（collect / count）","collect → filter → stream()","filter → stream() → map","map → collect → stream()","stream() → collect → filter","終端操作 → 中間操作","順番は自由"],a:0,e:"終端操作を書いたところで、はじめて処理が実行されます。"},
+   {q:"条件に合う要素だけに絞り込む中間操作は？",c:["`filter`","`map`","`collect`","`count`","`forEach`","`select`","`where`"],a:0,e:"`filter(n -> 条件)` で、条件が true の要素だけが残ります。",w:{1:"`map` は要素を変換します。",2:"`collect` は結果をリストなどにまとめる終端操作です。",3:"`count` は数を数える終端操作です。"}},
+   {q:"`name -> name.toUpperCase()` と同じ意味のメソッド参照は？",c:["`String::toUpperCase`","`String.toUpperCase()`","`name::toUpperCase`","`toUpperCase::String`","`String->toUpperCase`","`this::toUpperCase`","`String:toUpperCase`"],a:0,e:"`クラス名::メソッド名` の形で書きます。"},
+   {q:"次のコードの結果は？",c:["[2, 4]","[1, 3]"],a:0,e:"偶数だけが残ります。"}
+  ]}
+]];
+
+ADV.kiso=[
+[
+ {q:"次のコードの出力は？",c:["3 と 1","3.5 と 1"],a:0,e:"/ は商、% は余りです。"},
+ {q:"次のコードの出力は？",code:`double d = 7 / 2;
+System.out.println(d);`,c:["3.0","3.5","3","4.0","エラー","3.50","0.5"],a:0,e:"右側の `7 / 2` が先に int どうしで計算されて 3 になり、それが double に変換されて 3.0 になります。3.5 にするなら `7 / 2.0` と書きます。"},
+ {q:"次のコードの出力は？（上の行 と 下の行）",code:`String a = "Java";
+String b = new String("Java");
+System.out.println(a == b);
+System.out.println(a.equals(b));`,c:["false と true","true と true","true と false","false と false","エラー","Java と Java","null と true"],a:0,e:"`==` は同じ物（参照）かを比べるので、new で別に作った b とは false。`equals()` は内容を比べるので true です。"}
+],
+[
+ {q:"`show(5)` を呼ぶと、どちらのメソッドが動く？",code:`void show(int n)    { System.out.println("整数：" + n); }
+void show(String s) { System.out.println("文字列：" + s); }
+
+show(5);`,c:["整数：5 と表示される","文字列：5 と表示される","両方とも表示される","コンパイルエラー（同じ名前は使えない）","何も表示されない","5 とだけ表示される","実行時エラー"],a:0,e:"オーバーロードでは、渡した引数の型（int）に合うメソッドが選ばれます。"},
+ {q:"次のコードの出力は？",code:`List<String> list = new ArrayList<>();
+list.add("A");
+list.add("B");
+list.add("C");
+list.remove(0);
+System.out.println(list.get(0) + list.size());`,c:["B2","A3","A2","C2","B3","エラー","AB"],a:0,e:"remove(0) で先頭の A が消えて [B, C] になります。get(0) は B、size() は 2 です。"},
+ {q:"次のコードの出力は？",code:`Set<String> tags = new HashSet<>();
+tags.add("Java");
+tags.add("SQL");
+tags.add("Java");
+tags.add("HTML");
+System.out.println(tags.size());`,c:["3","4","2","1","エラー","0","5"],a:0,e:"Set は重複を持たないので、2回目の Java は無視されて3つです。"}
+],
+[
+ {q:"次のコードの出力は？（表示される順に）",code:`try {
+    int[] a = new int[2];
+    a[2] = 10;
+    System.out.println("OK");
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("範囲外");
+} finally {
+    System.out.println("終了");
+}`,c:["範囲外 → 終了","OK → 終了","OK → 範囲外 → 終了","範囲外","終了","OK","エラーで止まる"],a:0,e:"a[2] で例外が起きるので、その後の OK は実行されずに catch へ。finally は必ず実行されます。"},
+ {q:"次のコードの結果は？",c:["[4, 8]","[2, 4]"],a:0,e:"filter → map の順です。"},
+ {q:"次のコードで表示されるメッセージは？",code:`public class CustomerNotFoundException extends RuntimeException {
+    public CustomerNotFoundException(Long id) {
+        super("顧客が見つかりません。ID：" + id);
+    }
+}
+
+try {
+    throw new CustomerNotFoundException(5L);
+} catch (CustomerNotFoundException e) {
+    System.out.println(e.getMessage());
+}`,c:["顧客が見つかりません。ID：5","CustomerNotFoundException","5","null","ID：5","エラーで止まる","何も表示されない"],a:0,e:"`super(…)` で親（RuntimeException）にメッセージを渡しているので、getMessage() でその文字が取れます。"}
+]];
+
+/* ================= 応用編（Eclipse） ================= */
+T.ouyou=[
+/* 初級 */
+[
+ {title:"継承・オーバーライド・ポリモーフィズム",body:"継承は、親クラスの機能を子クラスが引き継ぐことで、`extends` を使います。オーバーライドは、親のメソッドを子で書き換えることで、`@Override` を付けます。ポリモーフィズムは、子を親の型で扱っても、実際の中身に合わせた処理が動くことです。\nコンストラクタは継承されないので、子のコンストラクタでは `super(…)` で親のコンストラクタを先に呼びます。`instanceof` で、中身がどのクラスかを調べられます。",
+  code:`class Animal {
+    void sound() { System.out.println("動物の鳴き声"); }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() { System.out.println("ワンワン！"); }
+}
+
+Animal a = new Dog();   // 子を親の型で扱う
+a.sound();              // ワンワン！（中身は Dog）
+
+class Dog extends Animal {
+    Dog(String name, String breed) {
+        super(name);          // 親のコンストラクタを先に呼ぶ
+        this.breed = breed;
+    }
+}
+
+if (animal instanceof Dog) { … }   // Dog なら true`,
+  quiz:[
+   {q:"クラスを継承するキーワードは？",c:["`extends`","`implements`","`inherits`","`super`","`extend`","`import`","`parent`"],a:0,e:"`class 子 extends 親` と書きます。",w:{1:"`implements` はインターフェースを実装するときです。",3:"`super` は親クラスを指すキーワードです。"}},
+   {q:"`Animal a = new Dog(); a.sound();` で動くのは？（Dog は sound() をオーバーライド済み）",c:["Dog の sound()（ワンワン！）","Animal の sound()（動物の鳴き声）","両方","どちらも動かない","コンパイルエラー","ランダム","先に定義した方"],a:0,e:"変数の型は Animal でも、中身が Dog なので Dog の処理が動きます（ポリモーフィズム）。"},
+   {q:"子クラスのコンストラクタで、親のコンストラクタを呼ぶのは？",c:["`super(…)`","`this(…)`","`parent(…)`","`Animal(…)`","`extends(…)`","`base(…)`","`new Animal(…)`"],a:0,e:"子のコンストラクタの最初に `super(…)` を書きます。",w:{1:"`this(…)` は同じクラスの別のコンストラクタを呼びます。",6:"これだと別の Animal を新しく作るだけです。"}},
+   {q:"コンストラクタは子クラスに継承される？",c:["継承されない（だから super() で呼ぶ）","継承される","public のものだけ継承される","引数なしのものだけ継承される","static なら継承される","@Override を付ければ継承される","親が abstract なら継承される"],a:0,e:"資料には「継承する」とありますが、正しくは継承されません。"},
+   {q:"`animal instanceof Dog` が調べることは？",c:["animal の中身が Dog（またはその子）かどうか","animal が null かどうか","Dog クラスがあるかどうか","animal を Dog に変換する","Dog の数","animal の名前が Dog かどうか","Dog を継承しているか"],a:0,e:"true / false で返ります。キャストする前の確認に使います。"}
+  ]},
+ {title:"インターフェースと抽象クラス",body:"抽象クラス（`abstract`）は、一部のメソッドだけが未実装のクラスです。共通の処理を持たせたいときに使い、継承は1つだけです。抽象クラスは new で直接インスタンスを作れません。\nインターフェース（`interface`）は「できること」の約束を決めるもので、基本は全部未実装です。`implements` で複数実装でき、実装したら全部の抽象メソッドをオーバーライドする必要があります。インターフェースには定数（`public static final`）や、Java 8 以降は `default` メソッドも書けます。",
+  code:`abstract class Shape {
+    abstract void draw();                 // 未実装
+    void displayInfo() { System.out.println("This is a shape."); }
+}
+
+interface Flyable {
+    void fly();
+}
+
+class Bird implements Flyable {
+    @Override
+    public void fly() { System.out.println("Bird is flying."); }
+}`,
+  quiz:[
+   {q:"インターフェースを実装するキーワードは？",c:["`implements`","`extends`","`interface`","`uses`","`implement`","`abstract`","`override`"],a:0,e:"`class クラス名 implements インターフェース名` と書きます。",w:{1:"`extends` はクラスを継承するときです。"}},
+   {q:"抽象クラスとインターフェースの違いとして正しいのは？",c:["抽象クラスの継承は1つだけ、インターフェースは複数実装できる","抽象クラスは複数継承できる","インターフェースは1つしか実装できない","どちらも new でインスタンスを作れる","抽象クラスには処理を書けない","インターフェースには何も書けない","違いはない"],a:0,e:"共通の処理を持たせたいなら抽象クラス、「できること」の約束なら インターフェースです。"},
+   {q:"インターフェースを implements したクラスがやらなければいけないことは？",c:["全部の抽象メソッドをオーバーライドする","1つだけオーバーライドする","何もしなくてよい","super() を呼ぶ","abstract を付ける","main を書く","フィールドを書く"],a:0,e:"1つでも実装していないとコンパイルエラーになります（そのクラスを abstract にする場合を除く）。"},
+   {q:"`abstract class Shape` について正しいのは？",c:["`new Shape()` で直接インスタンスを作れない","必ず全部のメソッドが未実装","複数のクラスから継承できる","インターフェースと同じもの","static しか書けない","main メソッドが必須","フィールドを持てない"],a:0,e:"抽象クラスは、継承した子クラスでインスタンスを作ります。"},
+   {q:"インターフェースに書けるものとして正しいのは？",c:["定数（public static final）と、Java 8 以降は default メソッド","ふつうのフィールド（値を変えられる変数）","コンストラクタ","private なインスタンス変数","main メソッドだけ","何も書けない","new したオブジェクト"],a:0,e:"資料では触れられていませんが、定数や default メソッドも書けます。"}
+  ]},
+ {title:"カプセル化（応用）",body:"カプセル化の原則は、フィールドは `private`、読み書きは getter / setter 経由、setter では値をチェックしてから代入する、の3つです。\n変更できない（イミュータブル）オブジェクトは、`final` クラス＋ `private final` フィールド＋ setter なし＋コンストラクタで初期化、で作ります。修飾子なし（package-private）は同じパッケージの中だけで使えます。`private` のコンストラクタにすると、外から new させないようにできます（シングルトン）。",
+  code:`public void setAge(int age) {
+    if (age >= 0) {
+        this.age = age;
+    } else {
+        System.out.println("無効な年齢です。");
+    }
+}
+
+// イミュータブル（変更できない）クラス
+public final class Money {
+    private final int amount;
+    public Money(int amount) { this.amount = amount; }
+    public int getAmount() { return amount; }   // setter はなし
+}`,
+  quiz:[
+   {q:"setter の中で値をチェックする理由は？",c:["おかしな値（マイナスの年齢など）が入らないようにするため","処理を速くするため","getter を不要にするため","コンパイルエラーを防ぐため","値を2倍にするため","private を外すため","テストを不要にするため"],a:0,e:"フィールドを private にしておけば、必ず setter を通るので、チェックが効きます。"},
+   {q:"イミュータブル（変更できない）クラスの作り方として正しいのは？",c:["final クラス＋ private final フィールド＋ setter なし＋コンストラクタで初期化","public フィールドにする","setter だけ作る","static フィールドだけにする","abstract クラスにする","getter を作らない","フィールドを protected にする"],a:0,e:"一度作ったら値が変わらないので、安心して使い回せます。"},
+   {q:"コンストラクタを `private` にすると？",c:["外から new させないようにできる（シングルトンなどで使う）","どこからでも new できる","継承専用になる","static になる","コンパイルエラー","インスタンスが2つ作られる","getter が使えなくなる"],a:0,e:"クラスの中で1つだけインスタンスを作って使い回す、シングルトンという作り方で使います。"},
+   {q:"package-private（修飾子なし）のクラスやメソッドは？",c:["同じパッケージの中でしか使えない","どこからでも使える","同じクラスの中だけ","サブクラスからだけ","import すれば別パッケージからも使える","public と同じ","テストからは使えない"],a:0,e:"別のパッケージからは、import しても使えません。"},
+   {q:"次のコードで `setAge(-5)` を呼ぶと？",code:`public void setAge(int age) {
+    if (age >= 0) {
+        this.age = age;
+    } else {
+        System.out.println("無効な年齢です。");
+    }
+}`,c:["「無効な年齢です。」と表示され、age は変わらない","age が -5 になる","age が 0 になる","例外が発生する","コンパイルエラー","age が 5 になる","何も起きず age が -5 になる"],a:0,e:"0 以上ではないので else に進み、代入はされません。"}
+  ]}
+],
+/* 中級 */
+[
+ {title:"デバッグ（Eclipse）",body:"デバッグでは、エラーの行だけでなく「なぜその値になったのか」をさかのぼって追います。Eclipse では、行番号の横をダブルクリックしてブレークポイント（処理を止める目印）を置き、Debug モードで実行します。\n止まったら、ステップイン（メソッドの中に入る）・ステップオーバー（次の行へ進む）・ステップアウト（メソッドの外に出る）で1行ずつ進めます。コールスタックで、どのメソッドから呼ばれてきたかがわかります。特定の条件のときだけ止めるなら、条件付きブレークポイントを使います。",
+  code:`// 例：合計がおかしいときに追う
+int total = 0;
+for (Item item : items) {
+    total += item.getPrice();   // ← ここにブレークポイント
+}                               //   条件：item.getPrice() < 0
+System.out.println(total);`,
+  quiz:[
+   {q:"処理を止める目印を何と言う？",c:["ブレークポイント","コールスタック","ステップイン","ウォッチ","コンソール","ログ","アサーション"],a:0,e:"Debug モードで実行すると、ブレークポイントの行で止まります。"},
+   {q:"呼び出しているメソッドの中に入って、1行ずつ見たいときは？",c:["ステップイン","ステップオーバー","ステップアウト","再開","終了","ブレークポイントを消す","コールスタック"],a:0,e:"中に入るのがステップイン、入らずに次の行へ進むのがステップオーバーです。",w:{1:"ステップオーバーはメソッドの中に入らず、次の行へ進みます。",2:"ステップアウトは今のメソッドの外（呼び出し元）に出ます。"}},
+   {q:"メソッドの中に入らず、次の行へ進むのは？",c:["ステップオーバー","ステップイン","ステップアウト","コールスタック","ブレークポイント","再実行","ビルド"],a:0,e:"呼び出しているメソッドの中身は信頼できるとき、次の行へ進めます。"},
+   {q:"「どのメソッドから呼ばれてきたか」を確認できるのは？",c:["コールスタック","ブレークポイント","ステップオーバー","コンソール","パッケージ・エクスプローラー","アウトライン","問題ビュー"],a:0,e:"呼び出しの順番が下から上に積み重なって表示されます。"},
+   {q:"ループの中で、値がマイナスになったときだけ止めたい。使うのは？",c:["条件付きブレークポイント","ステップアウト","ふつうのブレークポイントを100個置く","System.exit()","コールスタック","Run（ふつうの実行）","コメントアウト"],a:0,e:"ブレークポイントに条件（例：`item.getPrice() < 0`）を設定できます。"}
+  ]},
+ {title:"Spring Boot・MVC・DI",body:"Spring Boot は、細かい設定を自動でやってくれる（自動設定）、Tomcat が入っていて単体で起動できる（組み込みサーバー）、`spring-boot-starter-web` などでまとめて導入できる（スターター）、設定を `application.yml` で一元管理できる、という特徴があります。\n処理は層に分けます。Controller はリクエストを受け取って画面を選び、Service は業務ロジック、Repository は DB アクセス、Entity はテーブルに対応するデータ、View は HTML 画面（Thymeleaf）です。必要なオブジェクトを `new` しないで外から渡してもらう仕組みを DI（依存性注入）と言い、生成・管理を外に任せる考え方を IoC と言います。",
+  code:`// ブラウザ → Controller → Service → Repository → DB
+// ブラウザ ← View ← Controller ← Service ← Entity の List
+
+@Service
+public class CustomerService {
+    private final CustomerRepository customerRepository;
+
+    // コンストラクタインジェクション
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+}`,
+  quiz:[
+   {q:"Spring Boot の特徴として正しいのは？",c:["Tomcat が組み込まれていて、単体で起動できる","サーバーを別にインストールしないと動かない","設定はすべて手で書く必要がある","HTML しか書けない","データベースは使えない","Java 以外の言語で書く","スマホアプリ専用"],a:0,e:"自動設定・組み込みサーバー・スターター・設定ファイルの一元管理が主な特徴です。"},
+   {q:"業務ロジック（処理の中身）を担当する層は？",c:["Service","Controller","Repository","Entity","View","application.yml","Tomcat"],a:0,e:"Controller は受け取り、Service は業務ロジック、Repository は DB アクセスです。",w:{1:"Controller はリクエストを受け取って画面を選ぶ層です。",2:"Repository は DB アクセスの層です。",3:"Entity はテーブルに対応するデータです。",4:"View は HTML 画面です。"}},
+   {q:"リクエストの流れとして正しいのは？",c:["ブラウザ → Controller → Service → Repository → DB","ブラウザ → Repository → Service → Controller → DB","ブラウザ → Service → Controller → Repository → DB","ブラウザ → DB → Repository → Service → Controller","ブラウザ → View → Entity → DB","ブラウザ → Entity → Controller → DB","どの順でもよい"],a:0,e:"結果は逆の順に戻り、最後に View（HTML）でブラウザに表示されます。"},
+   {q:"DI（依存性注入）のイメージとして正しいのは？",c:["必要なオブジェクトを new しないで、外から渡してもらう","必要なオブジェクトを全部自分で new する","クラスを継承する","データベースに保存する","メソッドを上書きする","例外を投げる","画面を作る"],a:0,e:"コーヒーを自分で豆から作らず、お店で受け取るイメージです。"},
+   {q:"IoC と DI の関係として正しいのは？",c:["IoC は生成・管理を外に任せる考え方、DI はその具体的な方法","IoC と DI はまったく関係ない","DI が考え方で、IoC が方法","どちらも DB の用語","IoC はテストの方法","DI はインターフェースのこと","IoC は継承のこと"],a:0,e:"Spring では、コンストラクタインジェクションで DI を行うのがおすすめです。"}
+  ]},
+ {title:"JPA・Entity・トランザクション",body:"ORM はオブジェクトとテーブルを対応づける考え方、JPA はそのための標準仕様、Hibernate は JPA の実装、Spring Data JPA は JPA をもっと楽に使える Spring の仕組みです。\nEntity には `@Entity`・`@Table`・`@Id`（主キー、特に重要）・`@GeneratedValue`（自動採番）・`@Column`（カラム名・制約）を付けます。Repository は `JpaRepository` を継承するだけで `findAll()`・`findById(id)`・`save(entity)`・`deleteById(id)` が使えます。`@Transactional` を付けたメソッドは、全部成功（コミット）か全部取り消し（ロールバック）かになり、基本的に RuntimeException が起きたときにロールバックされます。",
+  code:`@Entity
+@Table(name = "customers")
+public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "customer_name", nullable = false, length = 100)
+    private String name;
+}
+
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+}
+
+@Transactional
+public void createOrder(Order order, List<OrderDetail> details) {
+    orderRepository.save(order);
+    for (OrderDetail d : details) {
+        orderDetailRepository.save(d);   // 途中で失敗したら全部元に戻る
+    }
+}`,
+  quiz:[
+   {q:"JPA の「実装」（実際に動かしているもの）は？",c:["Hibernate","ORM","Spring Data JPA","JDBC","Thymeleaf","Tomcat","PostgreSQL"],a:0,e:"ORM は考え方、JPA は標準仕様、Hibernate はその実装、Spring Data JPA はもっと楽に使う仕組みです。",w:{1:"ORM はオブジェクトとテーブルを対応づける考え方です。",2:"Spring Data JPA は JPA を楽に使うための Spring の仕組みです。"}},
+   {q:"ORM の説明として正しいのは？",c:["オブジェクトとテーブルを対応づける考え方","HTML を作る仕組み","テストの方法","サーバーの名前","SQL の方言","画面遷移の仕組み","Java の文法"],a:0,e:"Object-Relational Mapping の略です。"},
+   {q:"Entity で主キーに付けるアノテーションは？",c:["`@Id`","`@Column`","`@Table`","`@GeneratedValue`","`@Key`","`@PrimaryKey`","`@Entity`"],a:0,e:"主キーは特に重要で、必ず `@Id` を付けます。",w:{3:"`@GeneratedValue` は主キーの自動採番の指定で、`@Id` と一緒に使います。"}},
+   {q:"`JpaRepository` を継承しただけで使えるメソッドとして正しい組は？",c:["findAll・findById・save・deleteById","select・insert・update・delete","getAll・put・remove・clear","query・execute・commit・close","add・get・size・remove","fetch・push・pop・drop","read・write・open・close"],a:0,e:"中身を書かなくても、すぐに使えます。"},
+   {q:"`@Transactional` のメソッドで、途中で RuntimeException が起きると？",c:["それまでの変更も含めて全部ロールバックされる","途中までの変更は確定する","何も起きずに続く","自動で再実行される","アプリが終了する","テーブルが削除される","コミットされる"],a:0,e:"全部成功（コミット）か、全部取り消し（ロールバック）かのどちらかになります。"}
+  ]}
+],
+/* 上級 */
+[
+ {title:"application.yml と DB接続",body:"DB への接続は `application.yml` に書きます。`spring.datasource` に URL・ユーザー名・パスワード・ドライバ、`spring.jpa` に `ddl-auto` や `show-sql` を書きます。yml はインデント（字下げ）で階層を表すので、ずれると読み込めません。\n`ddl-auto` は、`create`（起動時にテーブルを作り直す・データが消える・開発初期のみ）、`update`（差分を自動更新・開発中）、`validate`（Entity とテーブルが合っているか確認だけ・実務や本番）、`none`（何もしない・本番）です。起動に成功するとコンソールに `Started TrainingApplication` と出ます。",
+  code:`spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/training_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true`,
+  quiz:[
+   {q:"`ddl-auto: create` にするとどうなる？",c:["起動時にテーブルを作り直し、データが消える","Entity とテーブルが合っているか確認だけする","差分だけ自動で更新する","何もしない","SQL を表示する","DB に接続しない","テーブルを読み取り専用にする"],a:0,e:"開発初期だけ使います。",w:{1:"それは validate です。",2:"それは update です。",3:"それは none です。"}},
+   {q:"Entity とテーブルが合っているかの確認だけをして、実務や本番で使う設定は？",c:["`validate`","`create`","`update`","`create-drop`","`check`","`verify`","`auto`"],a:0,e:"合っていないと起動に失敗するので、ずれにすぐ気づけます。",w:{1:"create は起動のたびにテーブルを作り直してデータが消えます。",2:"update は差分を自動で変更するので、本番では使いません。"}},
+   {q:"起動時に `Connection refused` と出た。まず確認するのは？",c:["PostgreSQL が起動しているか","テーブル名・カラム名","username / password","Entity とカラムの対応","Java のバージョン","HTML のファイル名","ポート 8080 が空いているか"],a:0,e:"DB に接続を断られている状態なので、DB が動いているか（Docker なども）を確認します。",w:{1:"それは relation does not exist のときです。",2:"それは password authentication failed のときです。"}},
+   {q:"`relation does not exist` と出た。確認するところは？",c:["テーブル名・カラム名","PostgreSQL が起動しているか","username / password","Java のバージョン","ポート番号","Eclipse の設定","ブラウザのキャッシュ"],a:0,e:"指定したテーブル（relation）が見つからないという意味です。"},
+   {q:"PostgreSQL に接続する URL として正しい形は？",c:["`jdbc:postgresql://localhost:5432/training_db`","`http://localhost:5432/training_db`","`jdbc:mysql://localhost:3306/training_db`","`postgresql://training_db`","`localhost:8080/training_db`","`jdbc:postgresql:training_db@5432`","`file://training_db`"],a:0,e:"`jdbc:postgresql://ホスト:ポート/DB名` です。PostgreSQL の初期ポートは 5432 です。",w:{2:"これは MySQL の URL です（ポート 3306）。"}}
+  ]},
+ {title:"Bean Validation",body:"入力チェックは、フォームクラスのフィールドにアノテーションを付けて行います。`@NotNull`（null じゃない）、`@NotBlank`（空文字・空白だけじゃない）、`@Size`（文字数の範囲）、`@Min` / `@Max`（最小値・最大値）、`@Pattern`（正規表現に一致）、`@Email`（メール形式）などがあります。\nコントローラーでは引数に `@Valid` を付け、すぐ後ろの `BindingResult` でエラーを確認します。エラーがあれば入力画面に戻し、なければ保存して `redirect:` で一覧へ移動します。",
+  code:`public class CustomerForm {
+    @NotBlank
+    @Size(max = 100)
+    private String name;
+
+    @Email
+    private String email;
+
+    @Pattern(regexp = "^[0-9-]{10,13}$")
+    private String tel;
+}
+
+@PostMapping("/customers")
+public String create(@Valid @ModelAttribute CustomerForm form,
+                     BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+        return "customer/form";     // エラーなら画面に戻る
+    }
+    customerService.save(form);
+    return "redirect:/customers";
+}`,
+  quiz:[
+   {q:"空文字や空白だけの入力をはじくアノテーションは？",c:["`@NotBlank`","`@NotNull`","`@Size`","`@Email`","`@Min`","`@Pattern`","`@Valid`"],a:0,e:"`@NotNull` は null だけをはじくので、空文字 \"\" は通ってしまいます。",w:{1:"`@NotNull` は null だけをはじき、空文字や空白は通します。",6:"`@Valid` はチェックを実行させるために、コントローラーの引数に付けます。"}},
+   {q:"メールアドレスの形式かどうかをチェックするのは？",c:["`@Email`","`@Pattern`だけ","`@Mail`","`@NotBlank`","`@Size`","`@Address`","`@Format`"],a:0,e:"`@Email` でメール形式をチェックできます。"},
+   {q:"入力チェックを実行させるために、コントローラーの引数に付けるのは？",c:["`@Valid`","`@NotBlank`","`@Check`","`@Validate`","`@Test`","`@Error`","`@Verify`"],a:0,e:"`@Valid` がないと、フォームクラスのチェックは実行されません。"},
+   {q:"エラーがあったときの正しい処理は？",code:`if (bindingResult.hasErrors()) {
+    return ???;
+}`,c:["`\"customer/form\"`（入力画面に戻す）","`\"redirect:/customers\"`","`null`","`\"error\"` ページへ必ず移動","何も返さない","`\"customer/list\"`","例外を投げる"],a:0,e:"入力画面に戻すと、エラーメッセージを表示できます。"},
+   {q:"年齢を 0〜120 に制限したい。使うアノテーションは？",c:["`@Min(0)` と `@Max(120)`","`@Size(min = 0, max = 120)`","`@Range(0-120)`","`@NotBlank`","`@Pattern(0, 120)`","`@Between(0, 120)`","`@Limit(120)`"],a:0,e:"数値の範囲は `@Min` / `@Max` です。",w:{1:"`@Size` は文字数や要素数の範囲です。"}}
+  ]},
+ {title:"テスト（JUnit5 / Mockito）",body:"テストには、1クラス・1メソッドを確かめる単体テスト、Controller から DB までの連携を確かめる結合テスト、画面操作を含む全体を確かめる E2E テストがあります。テストケースは、正常系・異常系・境界値（0、最大値、null）・副作用（save が1回呼ばれたか）の観点で考えます。\nJUnit5 では「準備（Arrange）→ 実行（Act）→ 検証（Assert）」の順に書きます。Mockito では、`@Mock` で Repository を偽物にし、`@InjectMocks` でテスト対象に入れます。`when(…).thenReturn(…)` で偽物の返す値を決め、`verify(…, times(1))` で呼ばれた回数を確認します。",
+  code:`@Test
+void 三と四を足すと七になる() {
+    CalculatorService service = new CalculatorService();  // 準備
+    int result = service.add(3, 4);                       // 実行
+    assertEquals(7, result);                              // 検証
+}
+
+@ExtendWith(MockitoExtension.class)
+class CustomerServiceTest {
+    @Mock
+    private CustomerRepository customerRepository;   // 偽物
+
+    @InjectMocks
+    private CustomerService customerService;         // テスト対象
+
+    @Test
+    void 全件取得() {
+        when(customerRepository.findAll()).thenReturn(List.of(new Customer()));
+        customerService.findAll();
+        verify(customerRepository, times(1)).findAll();  // 1回呼ばれたか
+    }
+}`,
+  quiz:[
+   {q:"Controller から DB までの連携を確かめるテストは？",c:["結合テスト","単体テスト","E2E テスト","負荷テスト","目視テスト","回帰テスト","スモークテスト"],a:0,e:"単体テストは1クラス・1メソッド、E2E は画面操作を含む全体です。",w:{1:"単体テストは1クラス・1メソッドが対象です。",2:"E2E テストは画面操作を含む全体が対象です。"}},
+   {q:"境界値の観点でテストしたい値として、資料に挙げられているのは？",c:["0、最大値、null","1、2、3","ランダムな値","いつも 100","正常な値だけ","文字列だけ","テストしなくてよい"],a:0,e:"境目の値ではバグが起きやすいので、重点的にテストします。"},
+   {q:"JUnit5 のテストを書く順番は？",c:["準備（Arrange）→ 実行（Act）→ 検証（Assert）","検証 → 準備 → 実行","実行 → 検証 → 準備","準備 → 検証 → 実行","実行 → 準備 → 検証","検証 → 実行 → 準備","順番は自由"],a:0,e:"AAA パターンと呼ばれます。"},
+   {q:"`@Mock` と `@InjectMocks` の役割の組み合わせは？",c:["@Mock は偽物を作る、@InjectMocks は偽物を入れるテスト対象","@Mock はテスト対象、@InjectMocks は偽物","どちらも偽物を作る","どちらもテスト対象","@Mock は DB に接続する","@InjectMocks は本物の DB を使う","どちらも JUnit の標準機能"],a:0,e:"Repository を @Mock、Service を @InjectMocks にするのが定番です。"},
+   {q:"`verify(customerRepository, times(1)).findAll();` で確かめていることは？",c:["findAll が1回呼ばれたこと","findAll が1件返したこと","findAll が1秒以内に終わったこと","テストが1回実行されたこと","DB に1件保存されたこと","エラーが1回出たこと","Repository が1つあること"],a:0,e:"呼ばれた回数（副作用）を確認します。",w:{1:"返す値は when…thenReturn で決めるもので、verify では確かめません。"}}
+  ]}
+]];
+
+ADV.ouyou=[
+[
+ {q:"次のコードの出力は？",code:`class Animal {
+    void sound() { System.out.println("動物の鳴き声"); }
+}
+class Cat extends Animal {
+    @Override
+    void sound() { System.out.println("ニャー"); }
+}
+
+Animal[] list = { new Animal(), new Cat() };
+for (Animal a : list) {
+    a.sound();
+}`,c:["動物の鳴き声 → ニャー","ニャー → ニャー","動物の鳴き声 → 動物の鳴き声","ニャー → 動物の鳴き声","コンパイルエラー","ニャーだけ","動物の鳴き声だけ"],a:0,e:"同じ a.sound() でも、中身のクラスに合わせた処理が動きます（ポリモーフィズム）。"},
+ {q:"コンパイルエラーになる行は？",code:`abstract class Shape {
+    abstract void draw();
+}
+class Circle extends Shape {
+    @Override
+    void draw() { System.out.println("○"); }
+}
+
+Shape a = new Circle();   // ①
+Shape b = new Shape();    // ②
+a.draw();                 // ③`,c:["②（抽象クラスは new できない）","①","③","エラーにはならない","① と ②","すべて","@Override の行"],a:0,e:"抽象クラスは直接インスタンスを作れません。子クラス（Circle）を親の型で扱う ① は OK です。"},
+ {q:"次のコードの出力は？",code:`Person p = new Person();
+p.setAge(20);
+p.setAge(-3);
+System.out.println(p.getAge());
+
+// setAge は 0 以上のときだけ代入し、
+// それ以外は「無効な年齢です。」と表示する`,c:["無効な年齢です。 → 20","-3","無効な年齢です。 → -3","0","20 → 無効な年齢です。","エラー","無効な年齢です。 → 0"],a:0,e:"-3 は代入されないので、age は 20 のままです。メッセージが先に表示され、その後に 20 が表示されます。"}
+],
+[
+ {q:"この設計の問題点は？",code:`@Controller
+public class CustomerController {
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @PostMapping("/customers")
+    public String create(…) {
+        // 料金の計算・在庫のチェック・保存をすべてここに書いている
+        customerRepository.save(customer);
+        return "redirect:/customers";
+    }
+}`,c:["業務ロジックを Controller に書いていて、Service に分けていない","@Controller が不要","redirect: が使えない","save は Service でしか使えない","PostMapping ではなく GetMapping","Repository は使ってはいけない","問題はない"],a:0,e:"Controller は受け取りと画面の選択だけにして、業務ロジックは Service に分けます。"},
+ {q:"`createOrder` の途中、3件目の明細の保存で RuntimeException が起きた。DB はどうなる？",code:`@Transactional
+public void createOrder(Order order, List<OrderDetail> details) {
+    orderRepository.save(order);
+    for (OrderDetail d : details) {
+        orderDetailRepository.save(d);
+    }
+}`,c:["注文も明細も、何も保存されない（全部ロールバック）","注文と明細2件だけ保存される","注文だけ保存される","明細だけ保存される","3件目だけ保存されない","全部保存される","DB が壊れる"],a:0,e:"@Transactional のメソッドは、全部成功か全部取り消しのどちらかです。"},
+ {q:"1000件のループの中で、id が 512 のときだけ止めて中身を見たい。いちばん効率がよい方法は？",c:["条件付きブレークポイント（id == 512）を設定する","ブレークポイントで止まるたびに再開を512回押す","System.out.println を1000回書く","ステップアウトを使う","コールスタックを見る","Run（ふつうの実行）にする","ループを消す"],a:0,e:"条件付きブレークポイントなら、条件が true のときだけ止まります。"}
+],
+[
+ {q:"`ddl-auto: validate` にしたら起動に失敗した。確認するところは？",c:["Entity とテーブルのカラムの対応（名前や型）","PostgreSQL のパスワード","ブラウザのキャッシュ","Thymeleaf のテンプレート","ポート 8080","Java のバージョン","テストクラス"],a:0,e:"validate は Entity とテーブルが合っているか確認するので、ずれがあると起動に失敗します。"},
+ {q:"入力が空でも保存されてしまう。原因は？",code:`public class CustomerForm {
+    @NotBlank
+    private String name;
+}
+
+@PostMapping("/customers")
+public String create(@ModelAttribute CustomerForm form,
+                     BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+        return "customer/form";
+    }
+    customerService.save(form);
+    return "redirect:/customers";
+}`,c:["引数に @Valid が付いていない","@NotBlank ではなく @NotNull にする","BindingResult が不要","hasErrors ではなく isError","redirect: を外す","@ModelAttribute を外す","問題はない"],a:0,e:"@Valid がないとチェックが実行されず、hasErrors() は常に false になります。"},
+ {q:"このテストが失敗した。意味は？",code:`customerService.findAll();
+verify(customerRepository, times(1)).findAll();
+
+// 結果：Wanted 1 time but was 2 times`,c:["findAll が1回ではなく2回呼ばれていた","findAll が呼ばれなかった","findAll が2件返した","テストが2回実行された","DB に2件ある","モックが2つある","when が足りない"],a:0,e:"times(1) は「ちょうど1回」なので、2回呼ばれていると失敗します。Service の中で余計に呼んでいないか確認します。"}
+]];
+
+/* ================= 数字や中身が毎回変わる問題 ================= */
+Object.assign(GEN,{
+ "kiso-0-0-2":()=>{const n=ri(3,19),d=pick([1,2,3,4,5,6,7,8,9]),a=`${n}.${d}${pick(["",ri(1,9)])}`;
+  return {q:`${B}double a = ${a}; int b = (int) a;${B} の b は？`,right:`${n}`,wrong:[a,`${n+1}`,"エラー",`${n}.0`,"0"],e:`${B}(int)${B} でキャストすると小数部が切り捨てられるので ${n} です（四捨五入ではありません）。`};},
+ "kiso-0-1-1":()=>{const s=ri(40,95),t=pick([50,60,70,80]),ok=s>=t;
+  return {q:"次のコードの result は？",code:`int score = ${s};\nString result = (score >= ${t}) ? "合格" : "不合格";`,right:`"${ok?"合格":"不合格"}"`,wrong:[`"${ok?"不合格":"合格"}"`,"true","false","エラー",`${s}`],e:`${s} >= ${t} は ${ok} なので、${B}?${B} の${ok?"すぐ後ろ":"、:の後ろ"}の値 "${ok?"合格":"不合格"}" が選ばれます。`};},
+ "kiso-2-1-4":()=>{const nums=[...new Set(shuf([1,2,3,4,5,6,7,8,9,10]).slice(0,5))].sort((a,b)=>a-b),ev=nums.filter(n=>n%2===0),od=nums.filter(n=>n%2!==0);
+  return {q:"次のコードの結果は？",code:`List<Integer> numbers = List.of(${nums.join(", ")});\nList<Integer> result = numbers.stream()\n    .filter(n -> n % 2 == 0)\n    .collect(Collectors.toList());`,right:`[${ev.join(", ")}]`,wrong:[`[${od.join(", ")}]`,`[${nums.join(", ")}]`,`${ev.length}`,"[]",`[${ev.map(x=>x*2).join(", ")}]`],e:`${B}n % 2 == 0${B}（2で割った余りが0＝偶数）が true の要素だけが残ります。`};},
+ "kiso-adv-0-0":()=>{const a=ri(7,29),b=pick([2,3,4,5]),q=Math.floor(a/b),r=a%b;
+  return {q:"次のコードの出力は？（上の行 と 下の行）",code:`int a = ${a};\nint b = ${b};\nSystem.out.println(a / b);\nSystem.out.println(a % b);`,right:`${q} と ${r}`,wrong:[`${(a/b).toFixed(1)} と ${r}`,`${r} と ${q}`,`${q+1} と ${r}`,`${q} と ${q}`,"エラー"],e:`/ は商（int どうしなので小数点以下は切り捨て）、% は余りです。${a} ÷ ${b} = ${q} 余り ${r}。`};},
+ "kiso-adv-2-1":()=>{const nums=[...shuf([2,4,6,8]).slice(0,2),...shuf([1,3,5,7]).slice(0,2)].sort((a,b)=>a-b),k=pick([2,3,10]),ev=nums.filter(n=>n%2===0),m=ev.map(x=>x*k),od=nums.filter(n=>n%2!==0);
+  return {q:"次のコードの結果は？",code:`List<Integer> numbers = List.of(${nums.join(", ")});\nList<Integer> result = numbers.stream()\n    .filter(n -> n % 2 == 0)\n    .map(n -> n * ${k})\n    .collect(Collectors.toList());`,right:`[${m.join(", ")}]`,wrong:[`[${ev.join(", ")}]`,`[${nums.map(x=>x*k).join(", ")}]`,`[${od.map(x=>x*k).join(", ")}]`,`${m.length}`,"[]",`[${m.join(", ")}, ${od.join(", ")}]`],e:`まず filter で偶数 [${ev.join(", ")}] だけが残り、次に map でそれぞれ ${k} 倍されて [${m.join(", ")}] になります。`};},
+ "ouyou-2-2-1":()=>{const t=pick([18,20,60,100]);
+  return {q:`「${t}以上なら OK」という条件の境界値として、必ずテストしたい組は？`,right:`${t-1} と ${t}`,wrong:[`${t} と ${t+10}`,"0 と 1000",`${t+1} だけ`,`${t-10} と ${t+10}`,`${t} だけ`],e:`境目のすぐ下（${t-1}）と境目（${t}）で結果が変わることを確かめます。0・最大値・null も合わせて確認します。`};}
+});
+
+/* ================= まちがいの選択肢の解説（用語辞書） ================= */
+const TERMS={
+ "int":"整数の型です（いちばんよく使う）。","long":"大きい整数の型で、値の末尾に L を付けます。","double":"小数の型です。","float":"小数の型で、値の末尾に f を付けます。","byte":"小さい整数の型です。","short":"小さめの整数の型です。","String":"文字列の型です。",
+ "equals()":"文字列などの内容を比べるメソッドです。","==":"同じ物か（参照）や、基本型の値を比べます。","===":"JavaScript の演算子で、Java にはありません。","=":"代入です。","compare()":null,"equal()":null,"is()":null,
+ "new":"インスタンスを作るキーワードです。","create":null,"make":null,"class":"クラスを宣言するキーワードです。","this":"そのオブジェクト自身を指すキーワードです。","build":null,"instance":null,
+ "void":"値を返さないメソッドの戻り値の型です。","null":"「何も入っていない」ことを表す値で、型ではありません。","none":null,"empty":null,"return":"値を返すキーワードで、型ではありません。","undefined":"JavaScript の値で、Java にはありません。",
+ "extends":"クラスを継承するキーワードです。","implements":"インターフェースを実装するキーワードです。","inherits":null,"extend":null,"implement":null,"uses":null,"parent":null,"super":"親クラスを指すキーワードです。","interface":"インターフェースを宣言するキーワードです。","override":null,"import":"別のパッケージのクラスを使えるようにするキーワードです。","abstract":"抽象クラス・抽象メソッドにするキーワードです。",
+ "size()":"List などのコレクションの要素数です。","length":"配列の要素数です（() は付けません）。","length()":"String の文字数を調べるメソッドです。","count()":null,"getSize()":null,"total()":null,"size":null,
+ "filter":"条件に合う要素だけに絞り込む中間操作です。","map":"要素を変換する中間操作です。","collect":"結果をリストなどにまとめる終端操作です。","count":"要素の数を数える終端操作です。","forEach":"要素を1つずつ処理する終端操作です。","select":null,"where":null,
+ "@Id":"主キーのフィールドに付けます。","@Column":"カラム名や NOT NULL・長さなどを指定します。","@Table":"テーブル名を指定します。","@GeneratedValue":"主キーを自動で採番する指定です。","@Entity":"テーブルに対応するクラスに付けます。","@Key":null,"@PrimaryKey":null,
+ "@NotBlank":"null・空文字・空白だけを許さない入力チェックです。","@NotNull":"null だけを許さない入力チェックです（空文字は通ります）。","@Size":"文字数などの範囲を決める入力チェックです。","@Email":"メールアドレスの形式かを調べる入力チェックです。","@Min":"最小値を決める入力チェックです。","@Pattern":"正規表現に一致するかを調べる入力チェックです。","@Valid":"入力チェックを実行させるために、コントローラーの引数に付けます。","@Check":null,"@Validate":null,"@Test":"テストメソッドに付けます。","@Error":null,"@Verify":null,"@Mail":null,"@Address":null,"@Format":null,
+ "MAX_VALUE":"定数の書き方（全部大文字＋_）です。","maxValue":"変数・メソッドの書き方（小文字始まり）です。","MaxValue":"クラスの書き方（大文字始まり）です。","CustomerService":"クラスの書き方（大文字始まり）です。","customerService":"変数・メソッドの書き方（小文字始まり）です。","CUSTOMER_SERVICE":"定数の書き方です。",
+ "getName":"getter の慣習どおりの名前です。","name":null,"GetName":"大文字始まりはクラスの書き方です。","get_name":"Java では _ で区切らず、キャメルケースで書きます。",
+ "Hibernate":"JPA の仕様を実際に動かしている実装です。","ORM":"オブジェクトとテーブルを対応づける考え方です。","Spring Data JPA":"JPA をもっと楽に使えるようにする Spring の仕組みです。","JDBC":"Java から DB に接続するための基本の仕組みです。","Thymeleaf":"HTML 画面を作るテンプレートエンジンです。","Tomcat":"Spring Boot に組み込まれている Web サーバーです。","PostgreSQL":"データベースの製品名です。",
+ "Service":"業務ロジックを担当する層です。","Controller":"リクエストを受け取って画面を選ぶ層です。","Repository":"DB アクセスを担当する層です。","Entity":"テーブルに対応するデータです。","View":"HTML 画面（Thymeleaf）です。",
+ "validate":"Entity とテーブルが合っているか確認だけします（実務・本番）。","create":"起動時にテーブルを作り直し、データが消えます。","update":"差分を自動で更新します（開発中）。","create-drop":"起動時に作り、終了時に削除します。","check":null,"verify":null,"auto":null
+};
+
+/* ================= 図で見る ================= */
+const FIG={
+"kiso:変数とデータ型":{cap:"小さい型から大きい型へは自動で変換されます（拡大変換）。逆向きはキャスト `(int)` が必要で、小数部は切り捨てられます（縮小変換）。",html:`
+<div class="steps">
+  <div class="st"><b>byte</b>小</div><span class="dg-arrow">→</span>
+  <div class="st"><b>short</b></div><span class="dg-arrow">→</span>
+  <div class="st"><b>int</b>整数の基本</div><span class="dg-arrow">→</span>
+  <div class="st"><b>long</b>末尾に L</div><span class="dg-arrow">→</span>
+  <div class="st"><b>float</b>末尾に f</div><span class="dg-arrow">→</span>
+  <div class="st"><b>double</b>小数の基本</div>
+</div>
+<div class="tx-split">
+  <div class="tx-ok"><b>→ 向きは自動</b><br>int x = 10;<br>double y = x;  // 10.0</div>
+  <div class="tx-ng"><b>← 向きはキャスト</b><br>double a = 12.34;<br>int b = (int) a;  // 12</div>
+</div>`},
+"kiso:クラスとメソッド":{cap:"クラスは設計図で、`new` するたびに、その設計図から別々のインスタンスができます。フィールドの値はインスタンスごとに違います。",html:`
+<div class="dg-box dg-acc dg-soft" style="max-width:260px"><span class="dg-lbl">class Car（設計図）</span>
+  <div class="dg-chip">private String brand;</div><div class="dg-chip">Car(String brand)</div><div class="dg-chip">start()</div></div>
+<div class="dg-arrow">↓ new Car(…) で作る</div>
+<div class="steps">
+  <div class="st"><b>myCar</b>brand = "Toyota"</div>
+  <div class="st"><b>yourCar</b>brand = "Honda"</div>
+  <div class="st"><b>hisCar</b>brand = "Nissan"</div>
+</div>`},
+"kiso:カプセル化とアクセス修飾子":{cap:"上から順に、使える範囲がせまくなります。フィールドは private にして、getter / setter で触らせるのが基本です。",html:`
+<table class="dg-table">
+<tr><th>修飾子</th><th>同じクラス</th><th>同じパッケージ</th><th>サブクラス</th><th>どこでも</th></tr>
+<tr><td class="pk">public</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+<tr><td class="pk">protected</td><td>○</td><td>○</td><td>○</td><td>✕</td></tr>
+<tr><td class="pk">（なし）</td><td>○</td><td>○</td><td>✕</td><td>✕</td></tr>
+<tr class="hl"><td class="pk">private</td><td>○</td><td>✕</td><td>✕</td><td>✕</td></tr>
+</table>`},
+"kiso:コレクション（List / Map / Set）":{cap:"List は順番どおり・重複OK、Map はキーで値を取り出す、Set は重複なし。用途で使い分けます。",html:`
+<div class="steps">
+  <div class="st"><b>List</b>[田中, 佐藤, 田中]<br><small>順序あり・重複OK</small></div>
+  <div class="st"><b>Map</b>PENDING → 受付中<br>DONE → 完了<br><small>キーと値のペア</small></div>
+  <div class="st"><b>Set</b>{Java, SQL}<br><small>重複なし・順序なし</small></div>
+</div>`},
+"kiso:例外（Exception）":{cap:"Error はキャッチしない重大なエラー。Exception のうち RuntimeException の仲間は対応が任意（unchecked）、IOException などは対応が必須（checked）です。",html:`
+<div class="dg-box dg-acc dg-soft" style="max-width:220px"><span class="dg-lbl">Throwable</span></div>
+<div class="dg-arrow">↓</div>
+<div class="tx-split">
+  <div class="tx-ng"><b>Error</b><br>キャッチしない</div>
+  <div class="tx-ok"><b>Exception</b><br>RuntimeException（unchecked・対応は任意）<br>IOException など（checked・対応が必須）</div>
+</div>`},
+"kiso:ラムダ式・Stream API":{cap:"stream() で流れを作り、中間操作をつなげて、最後の終端操作で結果を受け取ります。",html:`
+<div class="steps">
+  <div class="st"><b>[1,2,3,4,5,6]</b>numbers</div><span class="dg-arrow">→</span>
+  <div class="st"><b>stream()</b>流れを作る</div><span class="dg-arrow">→</span>
+  <div class="st"><b>filter</b>偶数だけ<br>[2,4,6]</div><span class="dg-arrow">→</span>
+  <div class="st"><b>map</b>×10<br>[20,40,60]</div><span class="dg-arrow">→</span>
+  <div class="st"><b>collect</b>List にまとめる</div>
+</div>`},
+"ouyou:継承・オーバーライド・ポリモーフィズム":{cap:"Dog と Cat は Animal を継承して sound() をオーバーライドしています。Animal 型の変数で呼んでも、中身に合った鳴き声になります。",html:`
+<div class="dg-box dg-acc dg-soft" style="max-width:260px"><span class="dg-lbl">class Animal</span><div class="dg-chip">sound() → 動物の鳴き声</div></div>
+<div class="dg-arrow">↓ extends</div>
+<div class="steps">
+  <div class="st"><b>Dog</b>@Override sound()<br>→ ワンワン！</div>
+  <div class="st"><b>Cat</b>@Override sound()<br>→ ニャー</div>
+</div>
+<div class="dg-row"><span>Animal a = new Dog();  a.sound();  → ワンワン！</span></div>`},
+"ouyou:インターフェースと抽象クラス":{cap:"抽象クラスは一部が未実装で継承は1つだけ。インターフェースは「できること」の約束で、複数実装できます。",html:`
+<div class="tx-split">
+  <div class="tx-ok"><b>abstract class Shape</b><br>draw() は未実装<br>displayInfo() は実装済み<br><small>extends は1つだけ</small></div>
+  <div class="tx-ok"><b>interface Flyable</b><br>fly() の約束だけ<br><small>implements は複数OK</small></div>
+</div>
+<div class="dg-row"><span>class Bird implements Flyable, Swimmable { … }</span></div>`},
+"ouyou:Spring Boot・MVC・DI":{cap:"リクエストは Controller → Service → Repository → DB の順に流れ、結果は逆の順で戻って View（HTML）で表示されます。",html:`
+<div class="steps">
+  <div class="st"><b>ブラウザ</b>リクエスト</div><span class="dg-arrow">→</span>
+  <div class="st"><b>Controller</b>受け取り・画面を選ぶ</div><span class="dg-arrow">→</span>
+  <div class="st"><b>Service</b>業務ロジック</div><span class="dg-arrow">→</span>
+  <div class="st"><b>Repository</b>DB アクセス</div><span class="dg-arrow">→</span>
+  <div class="st"><b>PostgreSQL</b>データ</div>
+</div>
+<div class="dg-row"><span>new せずに Spring から渡してもらう（DI）：Controller ← Service ← Repository</span></div>`},
+"ouyou:JPA・Entity・トランザクション":{cap:"Entity のクラス1つがテーブル1つ、フィールド1つがカラム1つに対応します。@Column でカラム名や制約を指定します。",html:`
+<div class="jn">
+  <div><div class="dg-cap">Java（@Entity Customer）</div>
+    <table class="dg-table"><tr><th>フィールド</th></tr><tr><td class="pk">@Id Long id</td></tr><tr><td>String name</td></tr></table></div>
+  <div class="jn-mid">対応<br>⟷</div>
+  <div><div class="dg-cap">PostgreSQL（customers）</div>
+    <table class="dg-table"><tr><th class="pk">id<small>主キー</small></th><th>customer_name</th></tr><tr class="hl"><td class="pk">1</td><td>田中</td></tr><tr><td class="pk">2</td><td>佐藤</td></tr></table></div>
+</div>
+<div class="dg-row"><span>@Column(name = "customer_name") で、フィールド名と違うカラム名にもつなげられます</span></div>`},
+"ouyou:application.yml と DB接続":{cap:"ddl-auto は、起動時にテーブルをどう扱うかの設定です。実務では validate や none を使います。",html:`
+<table class="dg-table">
+<tr><th>設定</th><th>動き</th><th>使う場面</th></tr>
+<tr><td class="pk">create</td><td>作り直す（データが消える）</td><td>開発初期のみ</td></tr>
+<tr><td class="pk">update</td><td>差分を自動更新</td><td>開発中</td></tr>
+<tr class="hl"><td class="pk">validate</td><td>合っているか確認だけ</td><td>実務・本番</td></tr>
+<tr><td class="pk">none</td><td>何もしない</td><td>本番</td></tr>
+</table>`},
+"ouyou:テスト（JUnit5 / Mockito）":{cap:"テストしたい Service に、本物の Repository の代わりにモックを入れます。DB の中身に左右されずにテストできます。",html:`
+<div class="steps">
+  <div class="st"><b>Arrange（準備）</b>when(…).thenReturn(…)</div><span class="dg-arrow">→</span>
+  <div class="st"><b>Act（実行）</b>customerService.findAll()</div><span class="dg-arrow">→</span>
+  <div class="st"><b>Assert（検証）</b>assertEquals / verify</div>
+</div>
+<div class="tx-split">
+  <div class="tx-ng"><b>本物を使うと</b><br>Service → Repository → PostgreSQL<br><small>DB の状態で結果が変わる</small></div>
+  <div class="tx-ok"><b>モックを使うと</b><br>Service → @Mock Repository<br><small>決めた値を返すだけ。いつも同じ結果</small></div>
+</div>`}
+};
+
+/* ================= よくあるまちがい（資料の注意点も含む） ================= */
+const MISTAKES={
+ kiso:[
+  {t:"文字列を == で比べる",bad:"if (input == \"yes\") {\n    …\n}",good:"if (input.equals(\"yes\")) {\n    …\n}",e:"`==` は「同じ物か（参照）」を比べるので、中身が同じでも false になることがあります。文字列は `equals()` で比べます。"},
+  {t:"キャストせずに大きい型を小さい型に入れる",bad:"double a = 12.34;\nint b = a;          // コンパイルエラー",good:"double a = 12.34;\nint b = (int) a;    // 12",e:"【資料の注意点】資料には「暗黙的に変換」とありますが、縮小変換はキャストしないとコンパイルエラーです。"},
+  {t:"main メソッドの中で static final を使う",bad:"public static void main(String[] args) {\n    static final int MAX_VALUE = 100;\n}",good:"public class Main {\n    static final int MAX_VALUE = 100;\n\n    public static void main(String[] args) { … }\n}",e:"【資料の注意点】`static` はメソッドの中のローカル変数には付けられません。定数はクラスの中（メソッドの外）に書きます。メソッドの中なら `final int` だけにします。"},
+  {t:"予約語「を含む」名前もダメだと思い込む",bad:"// int ifVariable = 1;  ← 使えないと思い込む",good:"int ifVariable = 1;     // OK\nint whileVariable = 2;  // OK\n// int if = 1;           // ✕ 予約語そのものはNG",e:"【資料の注意点】ダメなのは予約語そのものだけです。`ifVariable` や `whileVariable` は正しい名前です。"},
+  {t:"parseInt(null) は NullPointerException だと思う",bad:"Integer.parseInt(null);   // NullPointerException？",good:"Integer.parseInt(null);   // NumberFormatException",e:"【資料の注意点】`Integer.parseInt(null)` で起きるのは NumberFormatException です。"},
+  {t:"int の割り算で小数が消える",bad:"double avg = 7 / 2;     // 3.0",good:"double avg = 7 / 2.0;   // 3.5",e:"int どうしで割った時点で切り捨てられるので、片方を double にしてから割ります。"},
+  {t:"{ } の外で変数を使う",bad:"if (true) {\n    int count = 5;\n}\nSystem.out.println(count);",good:"int count = 0;\nif (true) {\n    count = 5;\n}\nSystem.out.println(count);",e:"`{ }` の中で宣言した変数は、その中でしか使えません（スコープ）。外で使うなら外で宣言します。"},
+  {t:"catch の中を空にする",bad:"try {\n    …\n} catch (Exception e) {\n}",good:"try {\n    …\n} catch (Exception e) {\n    e.printStackTrace();   // ログに出す\n}",e:"例外を握りつぶすと、問題が起きても気づけません。ログに出すか、上に投げ直します。"},
+  {t:"length と size() を混同する",bad:"list.length\narray.size()",good:"array.length     // 配列\ntext.length()    // String\nlist.size()      // List",e:"配列は `length`、文字列は `length()`、List は `size()` です。"}
+ ],
+ ouyou:[
+  {t:"コンストラクタは継承されると思う",bad:"class Dog extends Animal {\n    Dog(String name) {\n        this.name = name;   // 親の初期化をしていない\n    }\n}",good:"class Dog extends Animal {\n    Dog(String name, String breed) {\n        super(name);\n        this.breed = breed;\n    }\n}",e:"【資料の注意点】資料には「継承する」とありますが、コンストラクタは継承されません。だから子のコンストラクタで `super(…)` を呼びます。"},
+  {t:"インターフェースには何も書けないと思う",bad:"interface Flyable {\n    void fly();   // これしか書けない？\n}",good:"interface Flyable {\n    int MAX_HEIGHT = 1000;          // 定数\n    void fly();\n    default void land() { … }       // Java 8 以降\n}",e:"【資料の注意点】インターフェースには定数（public static final）や、Java 8 以降は default メソッドも書けます。"},
+  {t:"package-private のクラスを別パッケージで使う",bad:"// com.example.a\nclass MyClass { … }\n\n// com.example.b\nimport com.example.a.MyClass;   // ✕",good:"// com.example.a\npublic class MyClass { … }",e:"【資料の注意点】修飾子なしのクラスは、import しても別パッケージからは使えません。使うなら public にします。"},
+  {t:"正規表現の中で \\- と書く",bad:"@Pattern(regexp = \"^[0-9\\-]{10,13}$\")   // コンパイルエラー",good:"@Pattern(regexp = \"^[0-9-]{10,13}$\")",e:"【資料の注意点】Java の文字列では `\\-` は正しいエスケープではないのでコンパイルエラーです。`[ ]` の最後の `-` はそのまま書けます。"},
+  {t:"@Valid を付け忘れる",bad:"public String create(@ModelAttribute CustomerForm form,\n                     BindingResult bindingResult)",good:"public String create(@Valid @ModelAttribute CustomerForm form,\n                     BindingResult bindingResult)",e:"付けないとチェックが実行されず、空の入力でも保存されてしまいます。"},
+  {t:"ddl-auto: create のままにする",bad:"spring:\n  jpa:\n    hibernate:\n      ddl-auto: create",good:"spring:\n  jpa:\n    hibernate:\n      ddl-auto: validate",e:"create は起動のたびにテーブルを作り直すので、データが消えてしまいます。"},
+  {t:"application.yml のインデントがずれる",bad:"spring:\n  datasource:\n  url: jdbc:postgresql://localhost:5432/training_db",good:"spring:\n  datasource:\n    url: jdbc:postgresql://localhost:5432/training_db",e:"yml はインデント（スペース）で階層を表すので、ずれると設定が読み込まれません。タブではなくスペースを使います。"},
+  {t:"Service を自分で new する",bad:"CustomerService service = new CustomerService();",good:"private final CustomerService customerService;\n\npublic CustomerController(CustomerService customerService) {\n    this.customerService = customerService;\n}",e:"new で作ると Spring の管理外になり、中の Repository が入らず null になります。コンストラクタで受け取ります（DI）。"},
+  {t:"Controller に業務ロジックを書く",bad:"@PostMapping(\"/orders\")\npublic String create(…) {\n    // 計算・在庫チェック・保存を全部ここに書く\n}",good:"@PostMapping(\"/orders\")\npublic String create(…) {\n    orderService.createOrder(order, details);\n    return \"redirect:/orders\";\n}",e:"Controller は受け取りと画面の選択だけにして、業務ロジックは Service に書きます。"}
+ ]
+};
+
+const PLAY={};
+
+/* ================= 入力問題 ================= */
+const FILL={
+ kiso:[
+  [{q:"整数でいちばんよく使う型は？",code:"___ age = 20;",ans:["int"],e:"整数は `int` が基本です。"},
+   {q:"文字列を入れる型は？",code:"___ name = \"John\";",ans:["String"],e:"先頭は大文字の `String` です。"},
+   {q:"文字列の内容を比べるメソッドは？",code:"if (name.___(\"John\")) {",ans:["equals"],e:"文字列は `==` ではなく `equals()` で比べます。"},
+   {q:"double を int に変換（キャスト）する書き方は？",code:"double a = 12.34;\nint b = (___) a;",ans:["int"],e:"`(型)` を前に付けてキャストします。"}],
+  [{q:"インスタンスを作るキーワードは？",code:"Car myCar = ___ Car(\"Toyota\");",ans:["new"],e:"`new クラス名(…)` でインスタンスを作ります。"},
+   {q:"値を返さないメソッドの戻り値の型は？",code:"public ___ start() {",ans:["void"],e:"返す値がないときは `void` です。"},
+   {q:"同じクラスの中からだけ使えるようにする修飾子は？",code:"___ String name;",ans:["private"],e:"フィールドは `private` にするのが基本です。"},
+   {q:"List に要素を追加するメソッドは？",code:"List<String> names = new ArrayList<>();\nnames.___(\"田中\");",ans:["add"],e:"`add()` で追加します。"}],
+  [{q:"例外を受け止めるキーワードは？",code:"try {\n    int n = Integer.parseInt(\"abc\");\n} ___ (NumberFormatException e) {",ans:["catch"],e:"`try` で起きた例外を `catch` で受け止めます。"},
+   {q:"例外があってもなくても必ず実行されるブロックは？",code:"} ___ {\n    System.out.println(\"必ず実行\");\n}",ans:["finally"],e:"`finally` の中は必ず実行されます。"},
+   {q:"メソッドの中で実際に例外を投げるキーワードは？",code:"___ new CustomerNotFoundException(id);",ans:["throw"],e:"宣言は `throws`、実際に投げるのは `throw` です。"},
+   {q:"条件に合う要素だけに絞り込む Stream の操作は？",code:"numbers.stream()\n    .___(n -> n % 2 == 0)\n    .collect(Collectors.toList());",ans:["filter"],e:"`filter` で絞り込み、`map` で変換です。"}]
+ ],
+ ouyou:[
+  [{q:"クラスを継承するキーワードは？",code:"class Dog ___ Animal {",ans:["extends"],e:"クラスの継承は `extends` です。"},
+   {q:"親のメソッドを書き換えるときに付けるアノテーションは？（@ の後ろ）",code:"@___\nvoid sound() { System.out.println(\"ワンワン！\"); }",ans:["Override"],e:"`@Override` を付けると、書きまちがいをコンパイラが見つけてくれます。"},
+   {q:"インターフェースを実装するキーワードは？",code:"class Bird ___ Flyable {",ans:["implements"],e:"インターフェースは `implements` で、複数実装できます。"},
+   {q:"親クラスのコンストラクタを呼ぶキーワードは？",code:"Dog(String name, String breed) {\n    ___(name);\n    this.breed = breed;\n}",ans:["super"],e:"子のコンストラクタの最初に `super(…)` を書きます。"}],
+  [{q:"業務ロジックを書くクラスのアノテーションは？（@ の後ろ）",code:"@___\npublic class CustomerService {",ans:["Service"],e:"`@Service` です。"},
+   {q:"テーブルに対応するクラスのアノテーションは？（@ の後ろ）",code:"@___\n@Table(name = \"customers\")\npublic class Customer {",ans:["Entity"],e:"`@Entity` です。"},
+   {q:"Repository が継承するインターフェースは？",code:"public interface CustomerRepository extends ___<Customer, Long> {",ans:["JpaRepository"],e:"`JpaRepository<Entity, 主キーの型>` です。"},
+   {q:"全部成功か全部取り消しにするアノテーションは？（@ の後ろ）",code:"@___\npublic void createOrder(Order order, List<OrderDetail> details) {",ans:["Transactional"],e:"`@Transactional` です。"}],
+  [{q:"Entity とテーブルが合っているか確認だけする ddl-auto の値は？",code:"spring:\n  jpa:\n    hibernate:\n      ddl-auto: ___",ans:["validate"],e:"実務や本番では `validate` です。"},
+   {q:"入力チェックを実行させるアノテーションは？（@ の後ろ）",code:"public String create(@___ @ModelAttribute CustomerForm form,\n                     BindingResult bindingResult)",ans:["Valid"],e:"`@Valid` を付けるとチェックが実行されます。"},
+   {q:"偽物を作るアノテーションは？（@ の後ろ）",code:"@___\nprivate CustomerRepository customerRepository;",ans:["Mock"],e:"`@Mock` です。テスト対象には `@InjectMocks` を付けます。"},
+   {q:"1回呼ばれたかを確かめるときの times の引数は？",code:"verify(customerRepository, times(___)).findAll();",ans:["1"],e:"`times(1)` は「ちょうど1回」です。"}]
+ ]
+};
+
+/* ===== 入力問題（追加分） ===== */
+FILL.kiso[0].push(
+ {q:"小数でいちばんよく使う型は？",code:"___ price = 980.5;",ans:["double"],e:"小数は `double` が基本です。"},
+ {q:"long の値の末尾に付ける文字は？",code:"long big = 10000000000___;",ans:["L","l"],e:"long は末尾に `L` を付けます（小文字の l は 1 とまぎらわしいので大文字が◎）。"},
+ {q:"割り算の余りを求める演算子は？",code:"int r = 7 ___ 3;   // 1",ans:["%"],e:"`%` は余りです。偶数かどうかは `n % 2 == 0` で調べます。"},
+ {q:"「かつ」を表す論理演算子は？",code:"if (age >= 20 ___ isMember) {",ans:["&&"],e:"`&&` は「かつ」、`||` は「または」です。"},
+ {q:"最低1回は実行されるループで、先頭に書くキーワードは？",code:"___ {\n    System.out.println(\"最低1回\");\n} while (false);",ans:["do"],e:"`do-while` は先に1回実行してから条件を調べます。"},
+ {q:"文字列の文字数を調べるメソッドは？",code:"int len = full.___();",ans:["length"],e:"String は `length()`、配列は `length`、List は `size()` です。"}
+);
+FILL.kiso[1].push(
+ {q:"コンストラクタで、フィールドと引数を区別するキーワードは？",code:"public Car(String brand) {\n    ___.brand = brand;\n}",ans:["this"],e:"`this.brand` はフィールド、右の `brand` は引数です。"},
+ {q:"name の getter の名前は？",code:"public String ___() {\n    return name;\n}",ans:["getName"],e:"getter は `get` + フィールド名（先頭を大文字）です。"},
+ {q:"どこからでも使えるアクセス修飾子は？",code:"___ class Customer {",ans:["public"],e:"`public` はどこからでも使えます。"},
+ {q:"同じパッケージとサブクラスから使える修飾子は？",code:"___ String name;",ans:["protected"],e:"`protected` は同じパッケージ＋サブクラスです。"},
+ {q:"Map にキーと値を入れるメソッドは？",code:"statusMap.___(\"PENDING\", \"受付中\");",ans:["put"],e:"`put(キー, 値)` で入れて、`get(キー)` で取り出します。"},
+ {q:"List の要素数を調べるメソッドは？",code:"System.out.println(names.___());",ans:["size"],e:"List は `size()` です。"}
+);
+FILL.kiso[2].push(
+ {q:"「この例外を投げるかも」とメソッドの横で宣言するキーワードは？",code:"public void readFile() ___ IOException {",ans:["throws"],e:"宣言は `throws`、実際に投げるのは `throw` です。"},
+ {q:"カスタム例外が継承するクラスは？（対応が任意な例外）",code:"public class CustomerNotFoundException extends ___ {",ans:["RuntimeException"],e:"`RuntimeException` を継承すると unchecked 例外になります。"},
+ {q:"親クラスにメッセージを渡すキーワードは？",code:"public CustomerNotFoundException(Long id) {\n    ___(\"顧客が見つかりません。ID：\" + id);\n}",ans:["super"],e:"`super(…)` で RuntimeException のコンストラクタにメッセージを渡します。"},
+ {q:"ラムダ式で、引数と処理の間に書く記号は？",code:"(a, b) ___ a + b",ans:["->"],e:"Java のラムダ式は `->` です（JavaScript の `=>` とは違います）。"},
+ {q:"要素を変換する Stream の操作は？",code:"names.stream()\n    .___(String::toUpperCase)\n    .collect(Collectors.toList());",ans:["map"],e:"`map` で変換、`filter` で絞り込みです。"},
+ {q:"メソッド参照で、クラス名とメソッド名の間に書く記号は？",code:"String___toUpperCase",ans:["::"],e:"`クラス名::メソッド名` の形で書きます。"}
+);
+FILL.ouyou[0].push(
+ {q:"中身がどのクラスかを調べる演算子は？",code:"if (animal ___ Dog) {",ans:["instanceof"],e:"`instanceof` は true / false を返します。"},
+ {q:"一部が未実装のクラスにするキーワードは？",code:"___ class Shape {\n    ___ void draw();\n}",ans:["abstract"],e:"`abstract` クラスは直接 new できません。"},
+ {q:"インターフェースを宣言するキーワードは？",code:"___ Flyable {\n    void fly();\n}",ans:["interface"],e:"`interface` で「できること」の約束を決めます。"},
+ {q:"変更できないフィールドにするキーワードは？",code:"private ___ int amount;",ans:["final"],e:"`final` を付けると、一度入れた値を変えられません。"},
+ {q:"インターフェースの中で処理を書けるメソッドに付けるキーワードは？（Java 8 以降）",code:"interface Flyable {\n    ___ void land() { … }\n}",ans:["default"],e:"`default` メソッドは中身を書けます。"},
+ {q:"外から new させないコンストラクタにする修飾子は？",code:"___ Singleton() { }",ans:["private"],e:"`private` コンストラクタはシングルトンなどで使います。"}
+);
+FILL.ouyou[1].push(
+ {q:"画面を返すクラスに付けるアノテーションは？（@ の後ろ）",code:"@___\npublic class CustomerController {",ans:["Controller"],e:"`@Controller` です。"},
+ {q:"DB アクセスのクラスに付けるアノテーションは？（@ の後ろ）",code:"@___\npublic interface CustomerRepository extends JpaRepository<Customer, Long> {",ans:["Repository"],e:"`@Repository` です（JpaRepository を継承していれば省略もできます）。"},
+ {q:"主キーに付けるアノテーションは？（@ の後ろ）",code:"@___\n@GeneratedValue(strategy = GenerationType.IDENTITY)\nprivate Long id;",ans:["Id"],e:"主キーは `@Id` です。"},
+ {q:"テーブル名を指定するアノテーションは？（@ の後ろ）",code:"@Entity\n@___(name = \"customers\")\npublic class Customer {",ans:["Table"],e:"`@Table(name = \"…\")` です。"},
+ {q:"カラム名を指定するアノテーションは？（@ の後ろ）",code:"@___(name = \"customer_name\", nullable = false, length = 100)\nprivate String name;",ans:["Column"],e:"`@Column` でカラム名・NOT NULL・長さを指定します。"},
+ {q:"id で1件検索する JpaRepository のメソッドは？",code:"customerRepository.___(1L);",ans:["findById"],e:"`findById` は Optional を返します。"}
+);
+FILL.ouyou[2].push(
+ {q:"PostgreSQL の初期ポート番号は？",code:"url: jdbc:postgresql://localhost:___/training_db",ans:["5432"],e:"PostgreSQL は `5432` です（MySQL は 3306）。"},
+ {q:"実行された SQL を表示する設定は？",code:"spring:\n  jpa:\n    ___: true",ans:["show-sql"],e:"`show-sql: true` でコンソールに SQL が出ます。"},
+ {q:"空文字・空白だけを許さないアノテーションは？（@ の後ろ）",code:"@___\nprivate String name;",ans:["NotBlank"],e:"`@NotNull` は空文字を通してしまうので、文字列は `@NotBlank` が◎。"},
+ {q:"入力エラーがあるか調べるメソッドは？",code:"if (bindingResult.___()) {\n    return \"customer/form\";\n}",ans:["hasErrors"],e:"`hasErrors()` が true なら入力画面に戻します。"},
+ {q:"期待値と等しいか確かめるメソッドは？",code:"___(7, result);",ans:["assertEquals"],e:"`assertEquals(期待値, 実際の値)` の順です。"},
+ {q:"例外が起きることを確かめるメソッドは？",code:"___(CustomerNotFoundException.class,\n    () -> customerService.findById(99L));",ans:["assertThrows"],e:"`assertThrows(例外クラス, 処理)` です。"}
+);
+
+/* ================= コード集 ================= */
+const CODES={
+ kiso:[
+  {id:"c-kiso-1",g:"基本",t:"変数を宣言して使いたい",link:"変数とデータ型",memo:"long は末尾に L、float は末尾に f を付けます。",code:`int age = 20;
+double price = 980.5;
+long big = 10000000000L;
+float rate = 3.14f;
+boolean isMember = true;
+String name = "John";`},
+  {id:"c-kiso-2",g:"文字列",t:"文字列をつなげる・長さ・比較・フォーマット",link:"変数とデータ型",memo:"比較は `equals()`。`%s` は文字列、`%d` は整数を埋め込みます。",code:`String full = "John" + " Doe";
+int len = full.length();
+boolean same = full.equals("John Doe");
+String msg = String.format("%sは%d歳です", "John", 30);
+System.out.println("1行目\\n2行目\\t\\"引用\\"");`},
+  {id:"c-kiso-3",g:"基本",t:"型を変換（キャスト）したい",link:"変数とデータ型",memo:"大→小のキャストでは小数部が切り捨てられます。文字列 → 数値は `Integer.parseInt()`。",code:`double a = 12.34;
+int b = (int) a;              // 12
+
+int x = 10;
+double y = x;                 // 10.0（自動）
+
+int n = Integer.parseInt("42");`},
+  {id:"c-kiso-4",g:"制御",t:"条件で分けたい（if / 三項演算子 / switch）",link:"演算子・スコープ・命令文",memo:"switch の case には `break` を忘れずに。",code:`if (score >= 80) {
+    System.out.println("合格");
+} else {
+    System.out.println("不合格");
+}
+
+String result = (score >= 80) ? "合格" : "不合格";
+
+switch (rank) {
+    case "A": System.out.println("優"); break;
+    case "B": System.out.println("良"); break;
+    default:  System.out.println("可");
+}`},
+  {id:"c-kiso-5",g:"制御",t:"くり返したい（for / while / do-while）",link:"演算子・スコープ・命令文",memo:"do-while は最低1回は実行されます。",code:`for (int i = 0; i < 5; i++) {
+    System.out.println(i);
+}
+
+int count = 0;
+while (count < 3) {
+    count++;
+}
+
+do {
+    System.out.println("最低1回");
+} while (false);`},
+  {id:"c-kiso-6",g:"配列",t:"配列・2次元配列を使いたい",link:"変数とデータ型",memo:"番号は 0 から。要素数は `length`。",code:`int[] nums = {10, 20, 30};
+System.out.println(nums[0]);       // 10
+System.out.println(nums.length);   // 3
+
+int[][] grid = {{1, 2}, {3, 4}};
+System.out.println(grid[1][0]);    // 3`},
+  {id:"c-kiso-7",g:"クラス",t:"クラスを作ってインスタンス化したい",link:"クラスとメソッド",memo:"コンストラクタはクラスと同じ名前で、戻り値の型を書きません。",code:`public class Car {
+    private String brand;
+
+    public Car(String brand) {
+        this.brand = brand;
+    }
+
+    public void start() {
+        System.out.println(brand + " is starting.");
+    }
+}
+
+Car myCar = new Car("Toyota");
+myCar.start();`},
+  {id:"c-kiso-8",g:"クラス",t:"メソッドをオーバーロードしたい",link:"クラスとメソッド",memo:"同じ名前でも、引数の型や数が違えば別のメソッドとして作れます。",code:`public int add(int a, int b) {
+    return a + b;
+}
+
+public double add(double a, double b) {
+    return a + b;
+}
+
+public int add(int a, int b, int c) {
+    return a + b + c;
+}`},
+  {id:"c-kiso-9",g:"クラス",t:"getter / setter を書きたい",link:"カプセル化とアクセス修飾子",memo:"フィールドは private、読み書きはメソッド経由にします。",code:`public class Customer {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}`},
+  {id:"c-kiso-10",g:"コレクション",t:"List に追加・取り出し・全部表示したい",link:"コレクション（List / Map / Set）",memo:"要素数は `size()`。",code:`List<String> names = new ArrayList<>();
+names.add("田中");
+names.add("佐藤");
+
+System.out.println(names.get(0));
+System.out.println(names.size());
+
+for (String n : names) {
+    System.out.println(n);
+}`},
+  {id:"c-kiso-11",g:"コレクション",t:"コード値を表示名に変換したい（Map）",link:"コレクション（List / Map / Set）",memo:"`get()` で、キーに対応する値が取れます。",code:`Map<String, String> statusMap = new HashMap<>();
+statusMap.put("PENDING", "受付中");
+statusMap.put("DONE", "完了");
+
+System.out.println(statusMap.get("PENDING"));   // 受付中`},
+  {id:"c-kiso-12",g:"コレクション",t:"重複を取り除きたい（Set）",link:"コレクション（List / Map / Set）",memo:"Set は同じ値を2回入れても1つになります。",code:`Set<String> tags = new HashSet<>();
+tags.add("Java");
+tags.add("SQL");
+tags.add("Java");
+
+System.out.println(tags.size());           // 2
+System.out.println(tags.contains("SQL"));  // true`},
+  {id:"c-kiso-13",g:"例外",t:"例外を受け止めたい（try-catch-finally）",link:"例外（Exception）",memo:"catch の中は空にせず、ログに出すなどします。",code:`try {
+    int n = Integer.parseInt("abc");
+} catch (NumberFormatException e) {
+    System.out.println("数値に変換できません");
+} finally {
+    System.out.println("必ず実行");
+}`},
+  {id:"c-kiso-14",g:"例外",t:"自分の例外（カスタム例外）を作りたい",link:"例外（Exception）",memo:"RuntimeException を継承すると、throws の宣言は不要です。",code:`public class CustomerNotFoundException extends RuntimeException {
+    public CustomerNotFoundException(Long id) {
+        super("顧客が見つかりません。ID：" + id);
+    }
+}
+
+throw new CustomerNotFoundException(id);`},
+  {id:"c-kiso-15",g:"Stream",t:"リストを絞り込む・変換する（Stream）",link:"ラムダ式・Stream API",memo:"中間操作（filter / map）をつなげて、最後に collect します。",code:`List<Integer> evens = numbers.stream()
+    .filter(n -> n % 2 == 0)
+    .collect(Collectors.toList());
+
+List<String> upper = names.stream()
+    .map(String::toUpperCase)
+    .collect(Collectors.toList());
+
+long count = names.stream()
+    .filter(n -> n.length() > 2)
+    .count();`}
+ ],
+ ouyou:[
+  {id:"c-ouyou-1",g:"継承",t:"継承してメソッドをオーバーライドしたい",link:"継承・オーバーライド・ポリモーフィズム",memo:"`@Override` を付けておくと、名前のまちがいに気づけます。",code:`class Animal {
+    void sound() { System.out.println("動物の鳴き声"); }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() { System.out.println("ワンワン！"); }
+}
+
+Animal a = new Dog();
+a.sound();   // ワンワン！`},
+  {id:"c-ouyou-2",g:"継承",t:"親のコンストラクタを呼びたい",link:"継承・オーバーライド・ポリモーフィズム",memo:"`super(…)` は子のコンストラクタの最初に書きます。",code:`class Animal {
+    protected String name;
+    Animal(String name) { this.name = name; }
+}
+
+class Dog extends Animal {
+    private String breed;
+    Dog(String name, String breed) {
+        super(name);
+        this.breed = breed;
+    }
+}`},
+  {id:"c-ouyou-3",g:"継承",t:"中身のクラスを調べたい（instanceof）",link:"継承・オーバーライド・ポリモーフィズム",memo:"キャストする前に確認すると安全です。",code:`if (animal instanceof Dog) {
+    Dog dog = (Dog) animal;
+    dog.fetch();
+}`},
+  {id:"c-ouyou-4",g:"インターフェース",t:"抽象クラス・インターフェースを作りたい",link:"インターフェースと抽象クラス",memo:"インターフェースは複数 implements できます。",code:`abstract class Shape {
+    abstract void draw();
+    void displayInfo() { System.out.println("This is a shape."); }
+}
+
+interface Flyable {
+    void fly();
+}
+
+class Bird implements Flyable {
+    @Override
+    public void fly() { System.out.println("Bird is flying."); }
+}`},
+  {id:"c-ouyou-5",g:"カプセル化",t:"setter で値をチェックしたい",link:"カプセル化（応用）",memo:"おかしな値は代入しないようにします。",code:`public void setAge(int age) {
+    if (age >= 0) {
+        this.age = age;
+    } else {
+        System.out.println("無効な年齢です。");
+    }
+}`},
+  {id:"c-ouyou-6",g:"カプセル化",t:"変更できない（イミュータブル）クラスを作りたい",link:"カプセル化（応用）",memo:"final クラス＋ private final フィールド＋ setter なし。",code:`public final class Money {
+    private final int amount;
+
+    public Money(int amount) {
+        this.amount = amount;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+}`},
+  {id:"c-ouyou-7",g:"Spring",t:"Service をコンストラクタで受け取りたい（DI）",link:"Spring Boot・MVC・DI",memo:"new せずに、Spring に渡してもらいます。",code:`@Service
+public class CustomerService {
+    private final CustomerRepository customerRepository;
+
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
+    public List<Customer> findAll() {
+        return customerRepository.findAll();
+    }
+}`},
+  {id:"c-ouyou-8",g:"JPA",t:"Entity を作りたい",link:"JPA・Entity・トランザクション",memo:"主キーには `@Id`、自動採番は `@GeneratedValue`。",code:`@Entity
+@Table(name = "customers")
+public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "customer_name", nullable = false, length = 100)
+    private String name;
+}`},
+  {id:"c-ouyou-9",g:"JPA",t:"Repository を作りたい",link:"JPA・Entity・トランザクション",memo:"継承するだけで findAll・findById・save・deleteById が使えます。",code:`public interface CustomerRepository extends JpaRepository<Customer, Long> {
+}
+
+customerRepository.findAll();
+customerRepository.findById(1L);
+customerRepository.save(customer);
+customerRepository.deleteById(1L);`},
+  {id:"c-ouyou-10",g:"JPA",t:"まとめて保存（トランザクション）したい",link:"JPA・Entity・トランザクション",memo:"途中で RuntimeException が起きると全部ロールバックされます。",code:`@Transactional
+public void createOrder(Order order, List<OrderDetail> details) {
+    orderRepository.save(order);
+    for (OrderDetail d : details) {
+        orderDetailRepository.save(d);
+    }
+}`},
+  {id:"c-ouyou-11",g:"設定",t:"PostgreSQL に接続したい（application.yml）",link:"application.yml と DB接続",memo:"インデントはスペースで。実務では ddl-auto: validate。",code:`spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/training_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true`},
+  {id:"c-ouyou-12",g:"入力チェック",t:"フォームに入力チェックを付けたい",link:"Bean Validation",memo:"コントローラー側で `@Valid` を付けないとチェックされません。",code:`public class CustomerForm {
+    @NotBlank
+    @Size(max = 100)
+    private String name;
+
+    @Email
+    private String email;
+
+    @Pattern(regexp = "^[0-9-]{10,13}$")
+    private String tel;
+
+    @Min(0)
+    @Max(120)
+    private Integer age;
+}`},
+  {id:"c-ouyou-13",g:"入力チェック",t:"エラーなら入力画面に戻したい",link:"Bean Validation",memo:"`BindingResult` は `@Valid` の引数のすぐ後ろに書きます。",code:`@PostMapping("/customers")
+public String create(@Valid @ModelAttribute CustomerForm form,
+                     BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+        return "customer/form";
+    }
+    customerService.save(form);
+    return "redirect:/customers";
+}`},
+  {id:"c-ouyou-14",g:"テスト",t:"JUnit5 で単体テストを書きたい",link:"テスト（JUnit5 / Mockito）",memo:"準備 → 実行 → 検証（AAA）の順に書きます。",code:`class CalculatorServiceTest {
+    @Test
+    void 三と四を足すと七になる() {
+        CalculatorService service = new CalculatorService();  // 準備
+        int result = service.add(3, 4);                       // 実行
+        assertEquals(7, result);                              // 検証
+    }
+}`},
+  {id:"c-ouyou-15",g:"テスト",t:"Mockito で Repository を偽物にしたい",link:"テスト（JUnit5 / Mockito）",memo:"`verify(…, times(1))` で呼ばれた回数、`assertThrows` で例外を確認します。",code:`@ExtendWith(MockitoExtension.class)
+class CustomerServiceTest {
+    @Mock
+    private CustomerRepository customerRepository;
+
+    @InjectMocks
+    private CustomerService customerService;
+
+    @Test
+    void 全件取得できる() {
+        when(customerRepository.findAll()).thenReturn(List.of(new Customer()));
+        List<Customer> result = customerService.findAll();
+        assertEquals(1, result.size());
+        verify(customerRepository, times(1)).findAll();
+    }
+
+    @Test
+    void 存在しないIDなら例外() {
+        when(customerRepository.findById(99L)).thenReturn(Optional.empty());
+        assertThrows(CustomerNotFoundException.class,
+            () -> customerService.findById(99L));
+    }
+}`}
+ ]
+};
+
+/* ================= 用語集 ================= */
+const GLOSS={
+ kiso:[
+  ["変数","データを入れる名前付きの箱。`データ型 変数名 = 値;` で宣言します。"],
+  ["データ型","変数に入れられるデータの種類。int・double・String など。"],
+  ["拡大変換","小さい型から大きい型への変換。自動で行われます。"],
+  ["縮小変換","大きい型から小さい型への変換。キャストが必要です。"],
+  ["キャスト","型を変換すること。`(int) 3.7` のように書きます。"],
+  ["スコープ","変数が使える範囲。`{ }` の中で宣言した変数は、その中だけで使えます。"],
+  ["三項演算子","`条件 ? 値1 : 値2` で、条件によって値を選ぶ書き方。"],
+  ["予約語","if・class・public など、Java が特別な意味で使うので名前にできない単語。"],
+  ["クラス","データ（フィールド）と操作（メソッド）をまとめた設計図。"],
+  ["インスタンス","クラスから new して作った実物。"],
+  ["コンストラクタ","new したときに呼ばれる初期化用の特別なメソッド。"],
+  ["オーバーロード","同じ名前で、引数の型や数が違うメソッドを複数作ること。"],
+  ["カプセル化","フィールドを private にして、getter / setter 経由で使わせ、データを守ること。"],
+  ["アクセス修飾子","public・protected・private など、どこから使えるかを決めるもの。"],
+  ["コレクション","List・Map・Set など、複数のデータをまとめて扱う仕組み。"],
+  ["例外","実行中に起きるエラー。try-catch で受け止められます。"],
+  ["checked 例外","IOException など、catch か throws での対応が必須の例外。"],
+  ["unchecked 例外","RuntimeException の仲間。対応は任意です。"],
+  ["ラムダ式","`(引数) -> 処理` の形で書く、短い関数。"],
+  ["Stream API","リストなどのデータを、filter・map などをつなげて流れるように処理する仕組み。"],
+  ["メソッド参照","`String::toUpperCase` のように、ラムダ式をもっと短く書く方法。"]
+ ],
+ ouyou:[
+  ["継承","extends で親クラスの機能を引き継ぐこと。"],
+  ["オーバーライド","親のメソッドを子で書き換えること。@Override を付けます。"],
+  ["ポリモーフィズム","子を親の型で扱っても、中身に合わせた処理が動くこと。"],
+  ["抽象クラス","一部のメソッドが未実装のクラス。直接 new できません。"],
+  ["インターフェース","「できること」の約束。implements で複数実装できます。"],
+  ["イミュータブル","一度作ったら値が変わらないこと。"],
+  ["シングルトン","インスタンスを1つだけにする作り方。private コンストラクタを使います。"],
+  ["ブレークポイント","デバッグで処理を止める目印。"],
+  ["コールスタック","どのメソッドから呼ばれてきたかの積み重なり。"],
+  ["自動設定","Spring Boot が、必要な設定を自動でやってくれる仕組み。"],
+  ["組み込みサーバー","Spring Boot に入っている Tomcat。単体で起動できます。"],
+  ["DI","依存性注入。必要なオブジェクトを new せずに外から渡してもらうこと。"],
+  ["IoC","制御の反転。オブジェクトの生成・管理を外（Spring）に任せる考え方。"],
+  ["ORM","オブジェクトとテーブルを対応づける考え方。"],
+  ["JPA","ORM のための Java の標準仕様。"],
+  ["Hibernate","JPA の実装。"],
+  ["Entity","テーブルに対応するクラス。@Entity を付けます。"],
+  ["トランザクション","複数の DB 操作を「全部成功」か「全部取り消し」にまとめる仕組み。"],
+  ["ロールバック","途中までの変更を取り消して、元に戻すこと。"],
+  ["ddl-auto","起動時にテーブルをどう扱うかの設定（create / update / validate / none）。"],
+  ["Bean Validation","アノテーションで入力チェックをする仕組み。"],
+  ["単体テスト","1クラス・1メソッドを確かめるテスト。"],
+  ["結合テスト","Controller から DB までの連携を確かめるテスト。"],
+  ["E2E テスト","画面操作を含む全体を確かめるテスト。"],
+  ["境界値","0・最大値・null など、条件の境目の値。"],
+  ["モック","本物の代わりに、決まった値を返す偽物。@Mock で作ります。"]
+ ]
+};
+
+/* ===== 問題に番号（記録用のID）をつける ===== */
+for(const k in T){
+  T[k].forEach((tops,lv)=>tops.forEach((tp,ti)=>tp.quiz.forEach((q,qi)=>{q.id=q.id||`${k}-${lv}-${ti}-${qi}`;})));
+  ADV[k].forEach((l,lv)=>l.forEach((q,i)=>{q.id=q.id||`${k}-adv-${lv}-${i}`;}));
+  FILL[k].forEach((l,lv)=>l.forEach((q,i)=>{q.id=q.id||`f-${k}-${lv}-${i}`;}));
+}
+
+/* ===== 問題の索引 ===== */
+const QIDX={};
+for(const k in T){
+  T[k].forEach((tops,lv)=>tops.forEach((tp,ti)=>tp.quiz.forEach(q=>{QIDX[q.id]={cat:k,lv,ti,base:q,title:tp.title};})));
+  ADV[k].forEach((list,lv)=>list.forEach(q=>{QIDX[q.id]={cat:k,lv,base:q,title:"応用",adv:true};}));
+}
+
+/* ===== 保存 ===== */
+const KEY="java-drill-v2";
+let store={ok:{},sql:{},write:{},miss:{},fill:{},fav:{},last:null};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s) store=Object.assign(store,s);}catch(e){}
+for(const k of ["ok","sql","write","miss","fill","fav"]) if(!store[k]||typeof store[k]!=="object") store[k]={};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+
+let state={cat:"kiso",lv:0,view:0};
+if(store.last&&SUBJ[store.last.cat]&&typeof store.last.lv==="number") state=store.last;
+
+/* ===== 集計 ===== */
+const lvIds=(cat,lv)=>[...T[cat][lv].flatMap(tp=>tp.quiz.map(q=>q.id)),...ADV[cat][lv].map(q=>q.id)];
+const catIds=cat=>[0,1,2].flatMap(lv=>lvIds(cat,lv));
+const tally=ids=>({t:ids.length,d:ids.filter(id=>store.ok[id]).length});
+const missIds=cat=>Object.keys(store.miss).filter(id=>QIDX[id]&&QIDX[id].cat===cat);
+const topicDone=tp=>tp.quiz.every(q=>store.ok[q.id]);
+
+/* ===== 問題を作る：正解1つ＋まちがい候補から3つ、並びもシャッフル ===== */
+function makeQ(base){
+  let g=null;
+  if(GEN[base.id]){try{g=GEN[base.id]();}catch(e){g=null;}}
+  if(!g){
+    const why={}; Object.entries(base.w||{}).forEach(([k,v])=>{why[base.c[k]]=v;});
+    g={q:base.q,code:base.code,e:base.e,right:base.c[base.a],wrong:base.c.filter((x,i)=>i!==base.a),why};
+  }
+  const right=String(g.right);
+  const wrong=shuf([...new Set(g.wrong.map(String))].filter(w=>w!==right)).slice(0,3);
+  const c=shuf([right,...wrong]);
+  return {q:g.q,code:g.code,e:g.e,c,a:c.indexOf(right),why:g.why||{}};
+}
+/* まちがえた選択肢の解説 */
+function whyOf(q,txt){
+  if(q.why&&q.why[txt]) return q.why[txt];
+  const m=/^`([^`]+)`$/.exec(txt); const k=m?m[1]:txt;
+  if(Object.prototype.hasOwnProperty.call(TERMS,k)) return TERMS[k]===null?"このような書き方はありません。":TERMS[k];
+  return "";
+}
+
+/* ===== 画面 ===== */
+function renderCats(){
+  $("#cats").innerHTML=Object.keys(SUBJ).map(k=>{
+    const {t,d}=tally(catIds(k));
+    return `<button class="cat" role="tab" id="cat-${k}" aria-selected="${state.cat===k}" style="--c:var(${SUBJ[k].color})" data-cat="${k}">
+      <b>${SUBJ[k].name}</b><small>${d} / ${t}</small><span class="bar"><i style="width:${t?d/t*100:0}%"></i></span></button>`;
+  }).join("");
+  document.documentElement.style.setProperty("--accent",`var(${SUBJ[state.cat].color})`);
+}
+function renderLvs(){
+  $("#lvs").innerHTML=LV.map((n,lv)=>{
+    const {t,d}=tally(lvIds(state.cat,lv));
+    return `<button class="lv" role="tab" id="lv-${lv}" aria-selected="${state.lv===lv}" data-lv="${lv}"><b>${n}${t&&d===t?" ✓":""}</b><small>${d} / ${t}</small></button>`;
+  }).join("");
+}
+function renderChips(){
+  const tops=T[state.cat][state.lv];
+  let h=tops.map((tp,i)=>`<button class="chip" aria-pressed="${state.view===i}" data-view="${i}"><span class="dot ${topicDone(tp)?"done":""}"></span>${esc(tp.title)}</button>`).join("");
+  h+=`<button class="chip special" aria-pressed="${state.view==="mix"}" data-view="mix">まとめクイズ</button>`;
+  h+=`<button class="chip special" aria-pressed="${state.view==="fill"}" data-view="fill">入力問題</button>`;
+  h+=`<button class="chip codes" aria-pressed="${state.view==="codes"}" data-view="codes">コード集</button>`;
+  h+=`<button class="chip tips" aria-pressed="${state.view==="tips"}" data-view="tips">よくあるまちがい</button>`;
+  h+=`<button class="chip tips" aria-pressed="${state.view==="gloss"}" data-view="gloss">用語集</button>`;
+  h+=`<button class="chip miss" aria-pressed="${state.view==="miss"}" data-view="miss">苦手リスト <span class="cnt">${missIds(state.cat).length}</span></button>`;
+  $("#chips").innerHTML=h;
+}
+function refreshNav(){renderCats();renderLvs();renderChips();renderBanner();}
+/* 次のレベルへの案内 */
+function renderBanner(){
+  const el=$("#banner"),{t,d}=tally(lvIds(state.cat,state.lv));
+  const basicDone=T[state.cat][state.lv].every(topicDone);
+  let h="";
+  if(t&&d===t){
+    h=state.lv<2?`<b>${LV[state.lv]}をすべて正解しました！</b><span>次は${LV[state.lv+1]}に進みましょう。</span><button class="btn" data-golv="${state.lv+1}">${LV[state.lv+1]}へ進む</button>`
+      :`<b>上級まですべて正解しました！</b><span>入力問題や苦手リストで仕上げをしましょう。</span>`;
+  }else if(basicDone&&state.view!=="mix"){
+    h=`<b>${LV[state.lv]}の基本問題はすべて正解！</b><span>まとめクイズで応用問題に挑戦しよう。</span><button class="btn" data-go="mix">まとめクイズへ</button>`;
+  }
+  el.innerHTML=h; el.hidden=!h;
+}
+
+function quizHTML(items){
+  return items.map((it,n)=>`<div class="q" data-id="${it.id}" data-a="${it.q.a}">
+      ${it.label?`<p class="qlabel">${esc(it.label)}</p>`:""}
+      <p class="qt"><span class="qn">Q${n+1}</span>${it.adv?`<span class="tag">応用</span>`:""}${md(it.q.q)}</p>
+      ${it.q.code?`<pre><code>${esc(it.q.code)}</code></pre>`:""}
+      <div class="choices">${it.q.c.map((c,i)=>`<button class="choice" data-i="${i}">${md(c)}</button>`).join("")}</div>
+      <div class="fb" hidden></div>
+      ${store.ok[it.id]?`<small style="color:var(--ok)">● 前に正解済み</small>`:""}
+    </div>`).join("");
+}
+function bindQuiz(root,items,onAnswer){
+  root.querySelectorAll(".q").forEach((box,idx)=>{
+    const it=items[idx];
+    box.querySelectorAll(".choice").forEach(b=>b.addEventListener("click",()=>{
+      const a=it.q.a, i=+b.dataset.i, ok=a===i, chosen=it.q.c[i];
+      box.querySelectorAll(".choice").forEach((x,j)=>{x.disabled=true; if(j===a) x.classList.add("right");});
+      let extra="";
+      if(ok){
+        store.ok[it.id]=true;
+        if(store.miss[it.id]){delete store.miss[it.id]; extra=`<div class="why small">苦手リストから外しました。</div>`;}
+      }else{
+        b.classList.add("wrong");
+        store.miss[it.id]=(store.miss[it.id]||0)+1;
+        const w=whyOf(it.q,chosen);
+        if(w) extra+=`<div class="why"><b>あなたの答え</b> ${md(chosen)}<br>${md(w)}</div>`;
+        extra+=`<div class="why small">苦手リストに追加しました。</div>`;
+      }
+      save(); refreshNav();
+      const fb=box.querySelector(".fb"); fb.hidden=false;
+      fb.innerHTML=`<strong class="${ok?"ok":"ng"}">${ok?"正解！":"おしい！"}</strong> ${md(it.q.e)}${extra}`;
+      onAnswer&&onAnswer(ok);
+    }));
+  });
+}
+
+function renderTopic(){
+  const tops=T[state.cat][state.lv], ti=state.view, tp=tops[ti];
+  const items=shuf(tp.quiz).slice(0,3).map(b=>({q:makeQ(b),id:b.id}));
+  const next=ti<tops.length-1?`<button class="btn ghost" data-go="${ti+1}">次の項目「${esc(tops[ti+1].title)}」へ</button>`:`<button class="btn ghost" data-go="mix">${LV[state.lv]}のまとめクイズへ</button>`;
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">${SUBJ[state.cat].full} ・ ${LV[state.lv]} ・ ${ti+1} / ${tops.length}</div><h2>${esc(tp.title)}</h2></div>
+    <div class="lead">${tp.body.split("\n").map(p=>`<p>${md(p)}</p>`).join("")}</div>
+    ${figHTML(state.cat,tp.title)}
+    ${PLAY[`${state.cat}:${tp.title}`]?`<section class="play"><div class="ft">動かして確かめる</div><div id="play"></div></section>`:""}
+    <div><div class="codehead"><span>コード例</span><button class="btn ghost" id="copy" style="padding:2px 10px;font-size:.75rem">コピー</button></div><pre><code>${esc(tp.code)}</code></pre></div>
+    <h3>確認クイズ</h3>
+    <p class="sub">この項目の${tp.quiz.length}問から、毎回3問を出題します。</p>
+    ${quizHTML(items)}
+    <div class="row"><button class="btn" id="reshuffle">別の問題でもう一度</button>${next}</div>`;
+  bindQuiz($("#panel"),items);
+  const pl=PLAY[`${state.cat}:${tp.title}`]; if(pl) pl($("#play"));
+  linkTerms($("#panel .lead"));
+  $("#reshuffle").addEventListener("click",renderTopic);
+  $("#copy").addEventListener("click",e=>{
+    const btn=e.currentTarget;
+    const done=()=>{btn.textContent="コピーしました"; setTimeout(()=>btn.textContent="コピー",1500);};
+    try{navigator.clipboard.writeText(tp.code).then(done,selectCode);}catch(err){selectCode();}
+  });
+}
+function selectCode(){const r=document.createRange(); r.selectNodeContents($("#panel pre")); const s=getSelection(); s.removeAllRanges(); s.addRange(r);}
+
+function renderMix(){
+  const pool=T[state.cat][state.lv].flatMap(tp=>tp.quiz);
+  const items=[...shuf(pool).slice(0,3).map(b=>({q:makeQ(b),id:b.id})),...shuf(ADV[state.cat][state.lv]).slice(0,3).map(b=>({q:makeQ(b),id:b.id,adv:true}))];
+  let answered=0,score=0;
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">${SUBJ[state.cat].full} ・ ${LV[state.lv]} ・ まとめ</div><h2>${LV[state.lv]}のまとめクイズ</h2></div>
+    <p class="sub">${LV[state.lv]}の範囲から、基本3問と、コードを読んで考える応用3問を出題します。</p>
+    ${quizHTML(items)}
+    <div class="row"><span class="score" id="score" hidden></span><button class="btn" id="again">別の6問に挑戦</button></div>`;
+  bindQuiz($("#panel"),items,ok=>{answered++; if(ok) score++; if(answered===items.length){const s=$("#score"); s.hidden=false; s.textContent=`結果：${score} / ${items.length} 問正解`;}});
+  $("#again").addEventListener("click",renderMix);
+}
+
+function renderMiss(){
+  const ids=missIds(state.cat);
+  if(!ids.length){
+    $("#panel").innerHTML=`
+      <div><div class="eyebrow">${SUBJ[state.cat].full} ・ 復習</div><h2>苦手リスト</h2></div>
+      <div class="empty"><b>苦手な問題はありません</b>クイズで間違えた問題がここに集まります。<br>正解するとリストから外れます。</div>`;
+    return;
+  }
+  const items=shuf(ids).slice(0,8).map(id=>{const x=QIDX[id];return {q:makeQ(x.base),id,adv:x.adv,label:`${LV[x.lv]}・${x.title}`};});
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">${SUBJ[state.cat].full} ・ 復習 ・ ${ids.length}問</div><h2>苦手リスト</h2></div>
+    <p class="sub">間違えた問題が集まっています（全レベル）。正解するとリストから外れます。${ids.length>8?"一度に8問ずつ出題します。":""}</p>
+    ${quizHTML(items)}
+    <div class="row"><button class="btn" id="again">残りの問題でもう一度</button></div>`;
+  bindQuiz($("#panel"),items);
+  $("#again").addEventListener("click",renderMiss);
+}
+
+/* ===== 図・答えの解説・よくあるまちがい ===== */
+function figHTML(cat,title){
+  const f=FIG[`${cat}:${title}`]; if(!f) return "";
+  return `<figure class="fig"><div class="ft">図で見る</div><div role="img" aria-label="${esc(f.cap)}">${f.html}</div><figcaption>${md(f.cap)}</figcaption></figure>`;
+}
+function answerHTML(ex){
+  if(!ex.x) return `<pre><code>${esc(ex.a)}</code></pre>${ex.ae?`<div class="fb ax-sum">${md(ex.ae)}</div>`:""}`;
+  const lines=ex.a.split("\n");
+  return `<div class="ax"><div class="ax-r ax-h"><span>正解のコード</span><span>この行でやっていること</span></div>${lines.map((l,i)=>`<div class="ax-r"><code class="ax-c">${esc(l)||" "}</code><span class="ax-t">${md(ex.x[i]||"")}</span></div>`).join("")}</div>${ex.ae?`<div class="fb ax-sum"><b>ポイント</b> ${md(ex.ae)}</div>`:""}`;
+}
+function renderTips(){
+  const list=MISTAKES[state.cat];
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">${SUBJ[state.cat].full} ・ つまずきやすいところ</div><h2>よくあるまちがい</h2></div>
+    <p class="sub">初心者がつまずきやすい書き方を、まちがいと正しい書き方で並べました。エラーが出たときや、思ったように動かないときに見直してみましょう。</p>
+    ${list.map((m,i)=>`<section class="mk">
+      <h3>${i+1}. ${esc(m.t)}</h3>
+      <div class="mk-pair">
+        <div class="mk-bad"><span class="mk-tag">✕ まちがい</span><pre><code>${esc(m.bad)}</code></pre></div>
+        <div class="mk-good"><span class="mk-tag">○ 正しい</span><pre><code>${esc(m.good)}</code></pre></div>
+      </div>
+      <p>${md(m.e)}</p>
+    </section>`).join("")}`;
+}
+
+/* ===== 動かして確かめる（部品） ===== */
+function mkPlay(cfg){
+  return root=>{
+    const st={}; cfg.controls.forEach(c=>{st[c.k]=c.d!==undefined?c.d:c.v[0];});
+    root.innerHTML=`<div class="pl-ctrls">${cfg.controls.map(c=>`<div class="pl-c"><span class="pl-l">${esc(c.label||c.k)}</span><div class="seg" role="group" aria-label="${esc(c.label||c.k)}">${c.v.map(v=>`<button type="button" data-k="${esc(c.k)}" data-v="${esc(v)}" aria-pressed="${String(st[c.k])===String(v)}">${esc(v)}</button>`).join("")}</div></div>`).join("")}</div>${cfg.stage||""}<div class="pl-view"></div>${cfg.note?`<p class="sub">${md(cfg.note)}</p>`:""}`;
+    const draw=()=>{if(cfg.view) root.querySelector(".pl-view").innerHTML=cfg.view(st); if(cfg.update) cfg.update(root,st);};
+    root.addEventListener("click",e=>{
+      const b=e.target.closest("[data-k]"); if(!b) return;
+      const c=cfg.controls.find(x=>x.k===b.dataset.k); st[c.k]=c.v.find(v=>String(v)===b.dataset.v);
+      b.parentNode.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b))); draw();
+    });
+    draw();
+  };
+}
+/* CSSの値を切り替えて見本に当てる */
+function cssPlay({stage,rules,note,after}){
+  const controls=rules.flatMap((r,ri)=>r.props.map(p=>({k:ri+"|"+p.p,label:(rules.length>1?r.sel+" の ":"")+p.p,v:p.v,d:p.d})));
+  return mkPlay({controls,note,stage:`<div class="pl-stage">${stage}</div><pre class="pl-code"><code></code></pre>`,
+    update:(root,st)=>{
+      rules.forEach((r,ri)=>root.querySelectorAll(r.t).forEach(el=>r.props.forEach(p=>el.style.setProperty(p.p,st[ri+"|"+p.p]))));
+      root.querySelector(".pl-code code").textContent=rules.map((r,ri)=>`${r.sel} {\n${(r.fixed||[]).map(f=>`  ${f}\n`).join("")}${r.props.map(p=>`  ${p.p}: ${st[ri+"|"+p.p]};`).join("\n")}\n}`).join("\n");
+      if(after) after(root,st);
+    }});
+}
+const miniTable=(cols,rows,cls)=>`<div class="tbl"><table><thead><tr>${cols.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows.length?rows.map((r,i)=>`<tr class="${cls?cls(r,i):""}">${r.map(v=>`<td>${v===null?"NULL":esc(v)}</td>`).join("")}</tr>`).join(""):`<tr><td colspan="${cols.length}">（0行）</td></tr>`}</tbody></table></div>`;
+
+/* ===== 入力問題 ===== */
+const normAns=(s,cs)=>{const x=String(s).replace(/[\s　]+/g,"").replace(/;+$/,"").replace(/'/g,'"');return cs?x:x.toLowerCase();};
+function renderFill(){
+  const list=FILL[state.cat][state.lv], cs=true;
+  const cleared=list.filter(q=>store.fill[q.id]).length;
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">${SUBJ[state.cat].full} ・ ${LV[state.lv]} ・ 入力問題 ・ ${cleared} / ${list.length} 正解</div><h2>入力問題</h2></div>
+    <p class="sub">コードの <mark class="blank">___</mark> に入る言葉を入力して、Enter か「答え合わせ」を押しましょう。前後のスペースや ; は気にしなくて大丈夫です。Java は大文字・小文字を区別するので注意しましょう（例：String と string は別物）。</p>
+    <div id="fillbox" style="display:flex;flex-direction:column;gap:16px">${list.map((q,n)=>`<div class="q" data-n="${n}">
+      <p class="qt"><span class="qn">Q${n+1}</span>${md(q.q)}${store.fill[q.id]?` <small style="color:var(--ok);font-weight:400">● 正解済み</small>`:""}</p>
+      <pre><code>${esc(q.code).replace(/___/g,'<mark class="blank">___</mark>')}</code></pre>
+      <div class="fill-row">
+        <input class="fill-in" id="fill-${q.id}" aria-label="Q${n+1}の答え" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ここに入力">
+        <button class="btn" data-check="${n}">答え合わせ</button>
+        <button class="btn ghost" data-hint="${n}">ヒント</button>
+      </div>
+      <div class="fb" hidden></div>
+    </div>`).join("")}</div>`;
+  const panel=$("#fillbox");
+  const check=n=>{
+    const q=list[n],box=panel.querySelector(`.q[data-n="${n}"]`),inp=box.querySelector("input"),fb=box.querySelector(".fb");
+    if(!inp.value.trim()){fb.hidden=false;fb.innerHTML=`<strong class="ng">入力してください</strong> ___ に入る言葉を書いてから答え合わせしましょう。`;return;}
+    const ok=q.ans.some(a=>normAns(a,cs)===normAns(inp.value,cs));
+    fb.hidden=false;
+    if(ok){
+      inp.classList.add("ok");
+      fb.innerHTML=`<strong class="ok">正解！</strong> ${md(q.e)}`;
+      if(!store.fill[q.id]){store.fill[q.id]=true;save();}
+    }else{
+      const near=q.ans.some(a=>normAns(a,false)===normAns(inp.value,false));
+      fb.innerHTML=`<strong class="ng">もう少し</strong> ${near?"大文字・小文字が違います。Java では区別されます。":"もう一度考えてみましょう。"} <button class="btn ghost" data-show="${n}" style="padding:2px 10px;font-size:.78rem">答えを見る</button>`;
+    }
+  };
+  panel.addEventListener("click",e=>{
+    const c=e.target.closest("[data-check]"); if(c) return check(+c.dataset.check);
+    const h=e.target.closest("[data-hint]");
+    if(h){const q=list[+h.dataset.hint],fb=panel.querySelector(`.q[data-n="${h.dataset.hint}"] .fb`);fb.hidden=false;fb.innerHTML=`<strong>ヒント</strong> ${q.h?md(q.h)+" ":""}最初の文字は「${esc(q.ans[0][0])}」、全部で${[...q.ans[0]].length}文字です。`;return;}
+    const s=e.target.closest("[data-show]");
+    if(s){const q=list[+s.dataset.show],fb=panel.querySelector(`.q[data-n="${s.dataset.show}"] .fb`);fb.innerHTML=`<strong>答え</strong> <code>${esc(q.ans[0])}</code>　${md(q.e)}`;}
+  });
+  panel.querySelectorAll(".fill-in").forEach(inp=>inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();check(+inp.closest(".q").dataset.n);}}));
+}
+
+/* ===== コード集 ===== */
+let codeQ="",codeFav=false;
+function topicPos(cat,title){for(let lv=0;lv<3;lv++){const i=T[cat][lv].findIndex(t=>t.title===title);if(i>=0)return [lv,i];}return null;}
+function renderCodes(){
+  const cat=state.cat,list=CODES[cat];
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">${SUBJ[cat].full} ・ ${list.length}個</div><h2>コード集</h2></div>
+    <p class="sub">「〜したい」から探して、コピーして使えるコードです。☆を押すとお気に入りに入ります。</p>
+    <div class="cd-tools">
+      <input class="gls" id="cdq" type="search" placeholder="やりたいことで探す" autocomplete="off" value="${esc(codeQ)}">
+      <button class="btn ${codeFav?"":"ghost"}" id="cdfav" aria-pressed="${codeFav}">★ お気に入りだけ</button>
+    </div>
+    <div id="cdlist" style="display:flex;flex-direction:column;gap:14px"></div>`;
+  const draw=()=>{
+    const q=codeQ.trim().toLowerCase();
+    const hit=list.filter(s=>(!codeFav||store.fav[s.id])&&(!q||(s.t+s.g+s.memo+s.code).toLowerCase().includes(q)));
+    $("#cdlist").innerHTML=hit.length?hit.map(s=>`<section class="cd" data-id="${s.id}">
+      <div class="cd-h"><div style="flex:1;min-width:0"><span class="cd-tag">${esc(s.g)}</span><h3>${esc(s.t)}</h3></div>
+        <button class="fav" data-fav="${s.id}" aria-pressed="${!!store.fav[s.id]}" aria-label="お気に入り">${store.fav[s.id]?"★":"☆"}</button></div>
+      <pre><code>${esc(s.code)}</code></pre>
+      <p class="cd-memo"><b>使い方</b> ${md(s.memo)}</p>
+      <div class="row">
+        <button class="btn" data-copy="${s.id}">コピー</button>
+        ${s.pv?`<button class="btn ghost" data-pv="${s.id}">見た目を見る</button>`:""}
+        ${s.link&&topicPos(cat,s.link)?`<button class="btn ghost" data-goto="${esc(s.link)}">解説：${esc(s.link)}</button>`:""}
+      </div>
+      <div class="cd-pv"></div>
+    </section>`).join(""):`<div class="empty"><b>見つかりませんでした</b>${codeFav?"☆を押したコードがここに表示されます。":"別の言葉で探してみましょう。"}</div>`;
+  };
+  $("#cdq").addEventListener("input",e=>{codeQ=e.target.value;draw();});
+  $("#cdfav").addEventListener("click",e=>{codeFav=!codeFav;e.currentTarget.setAttribute("aria-pressed",codeFav);e.currentTarget.classList.toggle("ghost",!codeFav);draw();});
+  $("#cdlist").addEventListener("click",e=>{
+    const f=e.target.closest("[data-fav]");
+    if(f){const id=f.dataset.fav;if(store.fav[id])delete store.fav[id];else store.fav[id]=true;save();f.setAttribute("aria-pressed",!!store.fav[id]);f.textContent=store.fav[id]?"★":"☆";if(codeFav)draw();return;}
+    const c=e.target.closest("[data-copy]");
+    if(c){const s=list.find(x=>x.id===c.dataset.copy);const done=()=>{c.textContent="コピーしました";setTimeout(()=>c.textContent="コピー",1500);};
+      const sel=()=>{const r=document.createRange();r.selectNodeContents(c.closest(".cd").querySelector("pre"));const g=getSelection();g.removeAllRanges();g.addRange(r);c.textContent="選択しました（コピーしてください）";};
+      try{navigator.clipboard.writeText(s.code).then(done,sel);}catch(err){sel();}return;}
+    const p=e.target.closest("[data-pv]");
+    if(p){const s=list.find(x=>x.id===p.dataset.pv),box=p.closest(".cd").querySelector(".cd-pv");
+      if(box.innerHTML){box.innerHTML="";p.textContent="見た目を見る";return;}
+      const fr=document.createElement("iframe");fr.title=s.t+"のプレビュー";fr.setAttribute("sandbox","allow-scripts");
+      fr.srcdoc=PV_BASE+(s.pv===true?s.code:s.pv);box.appendChild(fr);p.textContent="プレビューを閉じる";return;}
+    const g=e.target.closest("[data-goto]");
+    if(g){const pos=topicPos(cat,g.dataset.goto);state={cat,lv:pos[0],view:pos[1]};render();window.scrollTo({top:0,behavior:"smooth"});}
+  });
+  draw();
+}
+
+/* ===== 用語集 ===== */
+function renderGloss(){
+  const list=GLOSS[state.cat];
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">${SUBJ[state.cat].full} ・ ${list.length}語</div><h2>用語集</h2></div>
+    <p class="sub">各項目の解説の中で、点線の下線がついた言葉をタップしても意味が見られます。</p>
+    <input class="gls" id="glq" type="search" placeholder="用語をさがす（例：${esc(list[0][0])}）" autocomplete="off">
+    <dl class="gll" id="gll"></dl>`;
+  const draw=()=>{
+    const q=$("#glq").value.trim().toLowerCase();
+    const hit=list.filter(([w,d])=>!q||w.toLowerCase().includes(q)||d.toLowerCase().includes(q));
+    $("#gll").innerHTML=hit.length?hit.map(([w,d])=>`<div><dt>${esc(w)}</dt><dd>${md(d)}</dd></div>`).join(""):`<div><dd>「${esc(q)}」に当てはまる用語はありません。</dd></div>`;
+  };
+  $("#glq").addEventListener("input",draw); draw();
+}
+function linkTerms(root){
+  const list=GLOSS[state.cat]; if(!list||!root) return;
+  const terms=list.map(g=>g[0]).filter(t=>t.length>1).sort((a,b)=>b.length-a.length);
+  const re=new RegExp(terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|"),"g");
+  const used=new Set(), nodes=[];
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentNode.closest("code,button")?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
+  while(w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n=>{
+    const t=n.nodeValue; let last=0,m,frag=null; re.lastIndex=0;
+    while((m=re.exec(t))){
+      if(used.has(m[0])) continue; used.add(m[0]);
+      frag=frag||document.createDocumentFragment();
+      frag.append(t.slice(last,m.index));
+      const b=document.createElement("button"); b.type="button"; b.className="gl"; b.dataset.g=m[0]; b.textContent=m[0];
+      frag.append(b); last=m.index+m[0].length;
+    }
+    if(frag){frag.append(t.slice(last)); n.replaceWith(frag);}
+  });
+}
+function showGl(w){
+  const g=GLOSS[state.cat].find(x=>x[0]===w); if(!g) return;
+  $("#glw").textContent=g[0]; $("#gld").innerHTML=md(g[1]); $("#glpop").hidden=false; $("#glx").focus({preventScroll:true});
+}
+function hideGl(){const p=$("#glpop"); if(p) p.hidden=true;}
+
+/* ===== コードを書いて練習 ===== */
+const PV_BASE='<meta charset="utf-8"><style>body{font-family:sans-serif;margin:0;padding:10px;color:#222;background:#fff;line-height:1.6}</style>';
+/* JSを別スレッドで実行（2秒で打ち切り） */
+function runJS(code){
+  return new Promise(res=>{
+    const pre='const __o=[];const __f=v=>{if(typeof v==="string")return v;if(v===undefined)return"undefined";try{const s=JSON.stringify(v);return s===undefined?String(v):s;}catch(e){return String(v);}};self.console={log:(...a)=>__o.push(a.map(__f).join(" "))};let __e=null;\ntry{\n';
+    const post='\n}catch(e){__e=e.name+": "+e.message;}\npostMessage({out:__o,err:__e});';
+    let wk,url,done=false;
+    const fin=r=>{if(done)return;done=true;try{wk&&wk.terminate();}catch(e){}try{url&&URL.revokeObjectURL(url);}catch(e){}res(r);};
+    try{
+      url=URL.createObjectURL(new Blob([pre+code+post],{type:"text/javascript"}));
+      wk=new Worker(url);
+      wk.onmessage=e=>fin(e.data);
+      wk.onerror=e=>{e.preventDefault();fin({out:[],err:(e.message||"エラー").replace(/^Uncaught\s*/,"")});};
+      setTimeout(()=>fin({out:[],err:"TIMEOUT"}),2000);
+    }catch(e){fin({out:[],err:"このブラウザではコードを実行できませんでした。"});}
+  });
+}
+/* HTMLを操作するJSは、プレビューの中で実行して結果を確かめる */
+function runDOM(ex,code,pv){
+  return new Promise(res=>{
+    const key="k"+Math.random().toString(36).slice(2);
+    let done=false;
+    const h=e=>{if(e.data&&e.data.k===key)fin(e.data);};
+    const fin=r=>{if(done)return;done=true;window.removeEventListener("message",h);res(r);};
+    window.addEventListener("message",h);
+    const safe=s=>s.replace(/<\/script/gi,"<\\/script");
+    pv.setAttribute("sandbox","allow-scripts");
+    pv.srcdoc=PV_BASE+ex.html+
+      `<script>window.onerror=function(m){parent.postMessage({k:"${key}",err:String(m)},"*");return true;};<\/script>`+
+      `<script>${safe(code)}<\/script>`+
+      `<script>setTimeout(function(){try{var m=(${ex.test})();parent.postMessage({k:"${key}",r:m},"*");}catch(e){parent.postMessage({k:"${key}",err:String(e&&e.message||e)},"*");}},60);<\/script>`;
+    setTimeout(()=>fin({err:"TIMEOUT"}),3000);
+  });
+}
+
+const wIdx={};
+function renderWrite(){
+  if(state.cat==="db") return renderSQL();
+  const cat=state.cat,list=WR[cat][state.lv],wk=cat+state.lv;
+  if(wIdx[wk]==null) wIdx[wk]=0;
+  const i=wIdx[wk],ex=list[i];
+  const kind=cat==="html"?"html":cat==="css"?"css":(ex.html?"dom":"js");
+  const lang={html:"HTML",css:"CSS",js:"JavaScript",dom:"JavaScript"}[kind];
+  const note={
+    html:"書いた HTML がすぐ下のプレビューに表示されます。「実行して答え合わせ」で、必要なタグが正しく書けているかをチェックします。",
+    css:"上の HTML に当てる CSS を書きます。見た目はプレビューで確認でき、答え合わせではブラウザが実際に計算したスタイルをチェックします。",
+    js:"console.log で表示した内容が下に出ます。答え合わせでは、表示された結果が正解のコードと同じかどうかをチェックします。",
+    dom:"上の HTML を操作する JavaScript を書きます。答え合わせでは、プレビューの中でボタンを押すなどして、正しく動くかをチェックします。"
+  }[kind];
+  const cleared=list.filter(e=>store.write[e.id]).length;
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">${SUBJ[cat].full} ・ ${LV[state.lv]} ・ 実践 ・ ${cleared} / ${list.length} クリア</div><h2>コードを書いて練習</h2></div>
+    <p class="note">${note}</p>
+    <div class="exlist">${list.map((e,k)=>`<button class="exbtn ${store.write[e.id]?"done":""}" aria-pressed="${k===i}" data-wx="${k}" aria-label="問題${k+1}">${k+1}</button>`).join("")}</div>
+    <div class="q">
+      <p class="qt"><span class="qn">問題${i+1}</span>${md(ex.t)}</p>
+      ${ex.html?`<div><div class="codehead"><span>${kind==="css"?"この HTML に CSS を当てます":"この HTML を JavaScript で操作します"}</span></div><pre><code>${esc(ex.html.replace(/\n?<style>[\s\S]*<\/style>/,""))}</code></pre></div>`:""}
+      <label for="codein" class="tname" style="font-family:var(--f-body)">${lang}を入力</label>
+      <textarea id="codein" spellcheck="false" autocapitalize="off" autocomplete="off">${esc(ex.starter||"")}</textarea>
+      <div class="row">
+        <button class="btn" id="wrun">実行して答え合わせ</button>
+        <button class="btn ghost" id="whint">ヒント</button>
+        <button class="btn ghost" id="wshow">答えを見る</button>
+      </div>
+      <div id="whintbox" class="fb" hidden>${md(ex.h)}</div>
+      <div id="wansbox" hidden>${answerHTML(ex)}</div>
+      <div id="wjudge" class="fb" hidden></div>
+      ${kind==="js"?`<div id="wout"></div>`:`<div><div class="codehead"><span>プレビュー</span></div><iframe id="pv" class="pv" title="プレビュー"></iframe></div><div id="wout"></div>`}
+    </div>`;
+  const ta=$("#codein"),j=$("#wjudge");
+  $("#panel").querySelectorAll("[data-wx]").forEach(b=>b.addEventListener("click",()=>{wIdx[wk]=+b.dataset.wx;renderWrite();}));
+  $("#whint").addEventListener("click",()=>$("#whintbox").hidden=!$("#whintbox").hidden);
+  $("#wshow").addEventListener("click",()=>$("#wansbox").hidden=!$("#wansbox").hidden);
+  ta.addEventListener("keydown",e=>{if(e.key==="Tab"&&!e.shiftKey){e.preventDefault();const s=ta.selectionStart;ta.setRangeText("  ",s,ta.selectionEnd,"end");ta.dispatchEvent(new Event("input"));}});
+  const say=(ok,msg)=>{j.hidden=false;j.innerHTML=`<strong class="${ok?"ok":"ng"}">${ok?"正解！":"もう少し"}</strong> ${md(msg)}`;};
+  const clear=()=>{if(!store.write[ex.id]){store.write[ex.id]=true;save();const b=$(`[data-wx="${i}"]`);b&&b.classList.add("done");}};
+  const mustFail=code=>{for(const [re,msg] of (ex.must||[])){if(!re.test(code))return msg;}return "";};
+
+  if(kind==="html"||kind==="css"){
+    const pv=$("#pv");let t;
+    pv.setAttribute("sandbox","allow-same-origin");
+    const doc=()=>kind==="css"?PV_BASE+"<style>"+ta.value+"</style>"+ex.html:PV_BASE+ta.value;
+    const show=after=>{pv.onload=after?()=>after(pv.contentDocument,pv.contentWindow):null;pv.srcdoc=doc();};
+    show();
+    ta.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(()=>show(),300);});
+    $("#wrun").addEventListener("click",()=>{
+      if(!ta.value.trim()){say(false,"コードを書いてから実行しましょう。");return;}
+      show((d,w)=>{let m;try{m=ex.check(d,w);}catch(e){m="うまくチェックできませんでした。書き方を見直してみましょう。";}
+        if(m)say(false,m);else{say(true,"期待どおりに書けています。");clear();}});
+    });
+  }else if(kind==="dom"){
+    const pv=$("#pv");
+    pv.setAttribute("sandbox","allow-scripts");
+    pv.srcdoc=PV_BASE+ex.html;
+    $("#wrun").addEventListener("click",async()=>{
+      const code=ta.value,out=$("#wout");
+      if(!code.trim()){say(false,"コードを書いてから実行しましょう。");return;}
+      out.innerHTML="";
+      const r=await runDOM(ex,code,pv);
+      if(r.err==="TIMEOUT"){say(false,"結果を確かめられませんでした。無限ループになっていないか確認しましょう。");return;}
+      if(r.err){say(false,"エラーが出ています。セレクタの書き間違いや `( )` `{ }` `\"` の閉じ忘れを見直しましょう。");out.innerHTML=`<pre class="console"><span class="err">${esc(r.err)}</span></pre>`;return;}
+      const mf=mustFail(code); if(mf){say(false,mf);return;}
+      if(r.r) say(false,r.r); else {say(true,"正しく動きました。プレビューでも試してみましょう。");clear();}
+    });
+  }else{
+    $("#wrun").addEventListener("click",async()=>{
+      const code=ta.value,out=$("#wout");
+      if(!code.trim()){say(false,"コードを書いてから実行しましょう。");return;}
+      out.innerHTML=`<p class="note">実行中…</p>`;
+      const r=await runJS(code);
+      const lines=r.out||[];
+      out.innerHTML=`<div class="codehead"><span>Console の表示</span></div><pre class="console">${lines.length?lines.map(esc).join("\n"):"（何も表示されていません）"}${r.err&&r.err!=="TIMEOUT"?`\n<span class="err">${esc(r.err)}</span>`:""}</pre>`;
+      if(r.err==="TIMEOUT"){say(false,"2秒以上終わらなかったので止めました。繰り返しの条件が終わらない（無限ループ）になっていないか確認しましょう。");return;}
+      if(r.err){say(false,"エラーが出ています。スペルや `( )` `{ }` `\"` の閉じ忘れを見直すと見つかることが多いです。");return;}
+      const mf=mustFail(code); if(mf){say(false,mf);return;}
+      const ans=await runJS(ex.a),norm=a=>a.map(s=>s.trim()).join("\n");
+      if(norm(lines)===norm(ans.out||[])){say(true,"期待どおりの結果が表示されました。");clear();}
+      else say(false,`表示された結果が答えと違います。正しい結果は「${(ans.out||[]).join(" / ")}」です。`);
+    });
+  }
+}
+
+/* ===== SQLを書いて練習 ===== */
+const SETUP=`
+CREATE TABLE members (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, city TEXT);
+INSERT INTO members VALUES ${MEM.map(r=>`(${r[0]},'${r[1]}',${r[2]},'${r[3]}')`).join(",")};
+CREATE TABLE orders (id INTEGER PRIMARY KEY, member_id INTEGER, item TEXT, price INTEGER, order_date TEXT);
+INSERT INTO orders VALUES
+ (1,1,'コーヒー豆',1200,'2026-09-01'),(2,2,'マグカップ',1800,'2026-09-03'),
+ (3,1,'ドリッパー',2500,'2026-09-10'),(4,4,'コーヒー豆',1200,'2026-09-12'),
+ (5,3,'紅茶セット',1500,'2026-09-20'),(6,2,'コーヒー豆',1200,'2026-09-25'),
+ (7,6,'マグカップ',1800,'2026-10-02');
+`;
+let SQL=null, sqlLoading=null;
+const sqlIdx={};
+function loadSQL(){
+  if(SQL) return Promise.resolve(SQL);
+  if(sqlLoading) return sqlLoading;
+  sqlLoading=new Promise((res,rej)=>{
+    const s=document.createElement("script");
+    s.src="https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-asm.js";
+    s.onload=()=>initSqlJs().then(m=>{SQL=m; res(m);},rej);
+    s.onerror=()=>{sqlLoading=null;rej(new Error("load"));};
+    document.head.appendChild(s);
+  });
+  return sqlLoading;
+}
+function freshDB(){const db=new SQL.Database(); db.run(SETUP); return db;}
+function tableHTML(r){
+  if(!r) return `<p class="note">結果は0行でした。</p>`;
+  return `<div class="tbl"><table><thead><tr>${r.columns.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${r.values.map(row=>`<tr>${row.map(v=>`<td>${v===null?"NULL":esc(v)}</td>`).join("")}</tr>`).join("")}</tbody></table></div><small style="color:var(--muted)">${r.values.length} 行</small>`;
+}
+function runQ(db,q){const res=db.exec(q); return res.length?res[res.length-1]:null;}
+function runSet(q,after){const db=freshDB(); let r=runQ(db,q); if(after) r=runQ(db,after); return r;}
+function norm(r,ordered){
+  if(!r) return "[]";
+  const rows=r.values.map(row=>JSON.stringify(row.map(v=>v===null?null:String(v))));
+  if(!ordered) rows.sort();
+  return rows.join("|");
+}
+function renderSQL(){
+  const list=SQLW[state.lv];
+  const cleared=list.filter(e=>store.sql[e.i]).length;
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">データベース ・ ${LV[state.lv]} ・ 実践 ・ ${cleared} / ${list.length} クリア</div><h2>SQLを書いて練習</h2></div>
+    <p class="note">ブラウザの中で本物のデータベース（SQLite）が動きます。MySQLとほぼ同じ書き方ですが、一部の関数や型は違います。何を実行しても、問題ごとにデータは元に戻ります。</p>
+    <div id="sqlbox"><p class="note">データベースを準備しています…</p></div>`;
+  loadSQL().then(drawSQL).catch(()=>{
+    $("#sqlbox").innerHTML=`<p class="note">データベースの読み込みに失敗しました。通信状況を確認して、ページを開き直してください。</p>`;
+  });
+}
+function drawSQL(){
+  const list=SQLW[state.lv],lv=state.lv;
+  if(sqlIdx[lv]==null) sqlIdx[lv]=0;
+  const k=sqlIdx[lv],ex=list[k];
+  $("#sqlbox").innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="exlist">${list.map((e,i)=>`<button class="exbtn ${store.sql[e.i]?"done":""}" aria-pressed="${i===k}" data-ex="${i}" aria-label="問題${i+1}">${i+1}</button>`).join("")}</div>
+      <div class="q">
+        <p class="qt"><span class="qn">問題${k+1}</span>${md(ex.t)}</p>
+        <label for="sqlin" class="tname" style="font-family:var(--f-body)">SQLを入力</label>
+        <textarea id="sqlin" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="例）SELECT * FROM members;"></textarea>
+        <div class="row">
+          <button class="btn" id="run">実行して答え合わせ</button>
+          <button class="btn ghost" id="hint">ヒント</button>
+          <button class="btn ghost" id="show">答えを見る</button>
+        </div>
+        <div id="hintbox" class="fb" hidden>${md(ex.h)}</div>
+        <div id="ansbox" hidden>${answerHTML(ex)}</div>
+        <div id="judge" class="fb" hidden></div>
+        <div id="out"></div>
+      </div>
+      <details>
+        <summary>使えるテーブルの中身を見る（members / orders）</summary>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">
+          <p class="tname">members（会員）</p>${tableHTML(runQ(freshDB(),"SELECT * FROM members"))}
+          <p class="tname">orders（注文）</p>${tableHTML(runQ(freshDB(),"SELECT * FROM orders"))}
+        </div>
+      </details>
+    </div>`;
+  $("#sqlbox").querySelectorAll("[data-ex]").forEach(b=>b.addEventListener("click",()=>{sqlIdx[lv]=+b.dataset.ex; drawSQL();}));
+  $("#hint").addEventListener("click",()=>$("#hintbox").hidden=!$("#hintbox").hidden);
+  $("#show").addEventListener("click",()=>$("#ansbox").hidden=!$("#ansbox").hidden);
+  const ta=$("#sqlin");
+  ta.addEventListener("keydown",e=>{if(e.key==="Tab"&&!e.shiftKey){e.preventDefault();const s=ta.selectionStart;ta.setRangeText("  ",s,ta.selectionEnd,"end");}});
+  $("#run").addEventListener("click",()=>{
+    const q=ta.value.trim(), out=$("#out"), j=$("#judge");
+    const say=(ok,msg)=>{j.hidden=false;j.innerHTML=`<strong class="${ok?"ok":"ng"}">${ok?"正解！":"もう少し"}</strong> ${md(msg)}`;};
+    if(!q){say(false,"SQLを書いてから実行しましょう。"); return;}
+    let mine;
+    try{mine=runSet(q,ex.after);}catch(err){
+      say(false,"SQLの書き方を確認しましょう。スペルや , ' ; を見直すと見つかることが多いです。");
+      out.innerHTML=`<p class="err">${esc(err.message)}</p>`; return;
+    }
+    out.innerHTML=(ex.after?`<p class="sub">実行後に <code>${esc(ex.after)}</code> で確認した結果：</p>`:"")+tableHTML(mine);
+    for(const [re,msg] of (ex.must||[])){if(!re.test(q)){say(false,msg);return;}}
+    const ok=norm(mine,ex.ordered)===norm(runSet(ex.a,ex.after),ex.ordered);
+    if(ok){say(true,"期待どおりの結果が出ました。"); if(!store.sql[ex.i]){store.sql[ex.i]=true; save(); const b=$(`[data-ex="${k}"]`); b&&b.classList.add("done");}}
+    else say(false,"結果が答えと違います。列や条件、並び順を見直してみましょう。");
+  });
+}
+
+/* ===== 画面の切り替え ===== */
+function render(){
+  if(!T[state.cat][state.lv]) state.lv=0;
+  if(typeof state.view==="number"&&!T[state.cat][state.lv][state.view]) state.view=0;
+  store.last=state; save();
+  refreshNav();
+  if(state.view==="mix") renderMix();
+  else if(state.view==="write") renderWrite();
+  else if(state.view==="miss") renderMiss();
+  else if(state.view==="tips") renderTips();
+  else if(state.view==="fill") renderFill();
+  else if(state.view==="gloss") renderGloss();
+  else if(state.view==="codes") renderCodes();
+  else renderTopic();
+  hideGl();
+}
+$("#cats").addEventListener("click",e=>{const b=e.target.closest("[data-cat]"); if(!b) return; state={cat:b.dataset.cat,lv:state.lv,view:0}; render();});
+$("#lvs").addEventListener("click",e=>{const b=e.target.closest("[data-lv]"); if(!b) return; state={cat:state.cat,lv:+b.dataset.lv,view:["write","miss","tips","fill","gloss","codes"].includes(state.view)?state.view:0}; render();});
+$("#banner").addEventListener("click",e=>{
+  const g=e.target.closest("[data-golv]"); if(g){state={cat:state.cat,lv:+g.dataset.golv,view:0}; render(); window.scrollTo({top:0,behavior:"smooth"}); return;}
+  const m=e.target.closest("[data-go]"); if(m){state.view=m.dataset.go; render();}
+});
+$("#panel").addEventListener("click",e=>{const b=e.target.closest(".gl"); if(b) showGl(b.dataset.g);});
+$("#glx").addEventListener("click",hideGl);
+document.addEventListener("keydown",e=>{if(e.key==="Escape") hideGl();});
+$("#chips").addEventListener("click",e=>{const b=e.target.closest("[data-view]"); if(!b) return; const v=b.dataset.view; state.view=isNaN(v)?v:+v; render();});
+$("#panel").addEventListener("click",e=>{const b=e.target.closest("[data-go]"); if(!b) return; const v=b.dataset.go; state.view=isNaN(v)?v:+v; render(); window.scrollTo({top:0,behavior:"smooth"});});
+render();
+</script>
+</body>
+</html>

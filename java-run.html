@@ -590,11 +590,17 @@ function render(){
     if(ev.key==="Tab"&&!ev.shiftKey){ev.preventDefault();const s=ta.selectionStart,en=ta.selectionEnd;ta.setRangeText("    ",s,en,"end");store.code[e.id]=ta.value;save();}
   });
   $("#run").addEventListener("click",doRun);
-  $("#hint").addEventListener("click",()=>fb(`<strong>ヒント</strong> ${md(e.hint)}`));
+  $("#hint").addEventListener("click",()=>{if(fbKind()==="hint") hideFb(); else fb(`<strong>ヒント</strong> ${md(e.hint)}`,"hint");});
   $("#reset").addEventListener("click",()=>{ta.value=e.start;delete store.code[e.id];save();fb("最初のコードに戻しました。");});
-  $("#show").addEventListener("click",()=>{fb(`<strong>答えの例</strong><pre style="margin-top:6px">${esc(e.ans)}</pre>`);});
+  $("#show").addEventListener("click",()=>{if(fbKind()==="ans") hideFb(); else fb(`<strong>答えの例</strong><pre style="margin-top:6px">${esc(e.ans)}</pre>`,"ans");});
 }
-function fb(html){const f=$("#fb");f.hidden=false;f.innerHTML=html;}
+/* ヒント・答えは、もう一度押すと隠れる */
+function fbKind(){const f=$("#fb");return f&&!f.hidden?f.dataset.kind:"";}
+function syncBtns(){const k=fbKind(),h=$("#hint"),a=$("#show");
+  if(h){h.textContent=k==="hint"?"ヒントを隠す":"ヒント";h.setAttribute("aria-pressed",k==="hint");}
+  if(a){a.textContent=k==="ans"?"答えを隠す":"答えを見る";a.setAttribute("aria-pressed",k==="ans");}}
+function fb(html,kind){const f=$("#fb");f.hidden=false;f.innerHTML=html;f.dataset.kind=kind||"";syncBtns();}
+function hideFb(){const f=$("#fb");f.hidden=true;f.innerHTML="";f.dataset.kind="";syncBtns();}
 function showOut(label,text){$("#outbox").hidden=false;$("#outlabel").textContent=label;$("#out").textContent=text||"（何も表示されませんでした）";}
 async function doRun(){
   if(!ready||busy) return;

@@ -1,6 +1,21 @@
+:root {
+  --bg: #eef4f2;
+  --text:#2b3a36;
+  --card:#fff;
+  --bar:#e3e9e7;
+  --muted:#6b7a76;
+}
+:root[data-theme="dark"]{
+  --bg: #141a19;
+  --text:#e3ece9;
+  --card:#1f2826;
+  --bar:#2f3b38;
+  --muted:#9aaba6;
+}
+
 body {
-  background-color:#eef4f2;
-  color: #2b3a36;
+  background-color:var(--bg);
+  color: var(--text);
   font-family: Meiryo,"Hiragino Sans",sans-serif;
   margin: auto;
   max-width: 960px;
@@ -13,7 +28,7 @@ body {
 }
 
 .card {
-  background-color: #fff;
+  background-color: var(--card);
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -49,7 +64,7 @@ body {
 .progress-bar {
   flex:1;
   height: 8px;
-  background-color:#e3e9e7;
+  background-color:var(--bar);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -67,8 +82,26 @@ body {
 }
 
 .progress-text {
-  color:#6b7a76;
+  color: var(--muted);
   font-size:0.85em;
+}
+
+.theme-btn {
+  background-color: var(--card);
+  color: var(--text);
+  border: 1px solid var(--bar);
+  border-radius: 99px;
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 0.85em;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+}
+
+.theme-btn:hover {
+  border-color: #0f8273;
 }
 
 /*ここからスマホ用*/

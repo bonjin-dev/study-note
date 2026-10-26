@@ -25,3 +25,30 @@ const javaPercent = Math.round(javaCount / javaTotal * 100);
 
 document.getElementById("java-text").textContent = javaPercent + "% 正解済み";
 document.getElementById("java-fill").style.width =javaPercent + "%";
+
+const themeBtn = document.getElementById("themeBtn");
+const savedTheme=localStorage.getItem("theme");
+if (savedTheme) {
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  if (savedTheme === "dark") {
+    themeBtn.textContent = "☀ ライト";
+  }
+}
+
+themeBtn.addEventListener("click",() => {
+  const current = document.documentElement.getAttribute("data-theme");
+  let next;
+  if (current === "dark") {
+    next = "light";
+  } else {
+    next = "dark";
+  }
+  document.documentElement.setAttribute("data-theme",next);
+  localStorage.setItem("theme",next);
+  if (next === "dark") {
+    themeBtn.textContent = "☀ ライト";
+  } else {
+    themeBtn.textContent = "🌙 ダーク";
+  }
+});
+

@@ -1,0 +1,48 @@
+body {
+  background-color:#eef4f2;
+  color: #2b3a36;
+  font-family: Meiryo,"Hiragino Sans",sans-serif;
+  margin: auto;
+  max-width: 960px;
+  padding: 24px;
+}
+
+.cardlist {
+  display: flex;
+  gap: 24px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  flex:1;
+  text-decoration: none;
+  color:inherit;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.start {
+  font-weight: bold;
+}
+
+.coding .start {
+  color:#d4501f;
+}
+
+.java .start {
+  color: #7a4fc4;
+}
+
+/*ここからスマホ用*/
+@media screen and (max-width:600px) {
+  .cardlist {
+    flex-direction:column;
+  }
+}

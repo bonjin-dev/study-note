@@ -26,6 +26,20 @@ const javaPercent = Math.round(javaCount / javaTotal * 100);
 document.getElementById("java-text").textContent = javaPercent + "% 正解済み";
 document.getElementById("java-fill").style.width =javaPercent + "%";
 
+const runData=localStorage.getItem("java-run-v1");
+
+const runStore = JSON.parse(runData);
+let runCount =0;
+if (runStore){
+  runCount = Object.keys(runStore.done).length;
+}
+
+const runTotal = 18;
+const runPercent = Math.round(runCount / runTotal * 100);
+
+document.getElementById("run-text").textContent = runPercent + "% 正解済み";
+document.getElementById("run-fill").style.width =runPercent + "%";
+
 const themeBtn = document.getElementById("themeBtn");
 const savedTheme=localStorage.getItem("theme");
 if (savedTheme) {
@@ -51,4 +65,3 @@ themeBtn.addEventListener("click",() => {
     themeBtn.textContent = "🌙 ダーク";
   }
 });
-

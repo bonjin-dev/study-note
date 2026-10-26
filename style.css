@@ -5,6 +5,7 @@
   --bar:#e3e9e7;
   --muted:#6b7a76;
 }
+
 :root[data-theme="dark"]{
   --bg: #141a19;
   --text:#e3ece9;
@@ -20,6 +21,24 @@ body {
   margin: auto;
   max-width: 960px;
   padding: 24px;
+}
+
+.theme-btn {
+  background-color: var(--card);
+  color: var(--text);
+  border: 1px solid var(--bar);
+  border-radius: 99px;
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 0.85em;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+}
+
+.theme-btn:hover {
+  border-color: #0f8273;
 }
 
 .cardlist {
@@ -55,6 +74,10 @@ body {
   color: #7a4fc4;
 }
 
+.run .start {
+  color: #2d68cf;
+}
+
 .progress {
   display:flex;
   gap:12px;
@@ -81,27 +104,13 @@ body {
   background-color:#7a4fc4;
 }
 
+.run .progress-fill {
+  background-color:#2d68cf;
+}
+
 .progress-text {
   color: var(--muted);
   font-size:0.85em;
-}
-
-.theme-btn {
-  background-color: var(--card);
-  color: var(--text);
-  border: 1px solid var(--bar);
-  border-radius: 99px;
-  padding: 4px 12px;
-  font-family: inherit;
-  font-size: 0.85em;
-  font-weight: bold;
-  cursor: pointer;
-  display: block;
-  margin-left: auto;
-}
-
-.theme-btn:hover {
-  border-color: #0f8273;
 }
 
 /*ここからスマホ用*/

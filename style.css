@@ -40,6 +40,37 @@ body {
   color: #7a4fc4;
 }
 
+.progress {
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.progress-bar {
+  flex:1;
+  height: 8px;
+  background-color:#e3e9e7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+}
+
+.coding .progress-fill {
+  background-color:#d4501f;
+}
+
+.java .progress-fill {
+  background-color:#7a4fc4;
+}
+
+.progress-text {
+  color:#6b7a76;
+  font-size:0.85em;
+}
+
 /*ここからスマホ用*/
 @media screen and (max-width:600px) {
   .cardlist {

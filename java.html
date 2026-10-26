@@ -321,6 +321,9 @@ footer{color:var(--muted);font-size:.8rem;text-align:center}
 .xfer-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .xfer-msg{font-weight:700}
 .xfer-msg.ok{color:var(--ok)} .xfer-msg.ng{color:var(--ng)}
+.runlink{display:flex;align-items:center;justify-content:space-between;gap:8px;text-decoration:none;color:var(--fg);background:var(--surface);border:1.5px solid var(--accent);border-radius:12px;padding:10px 14px;font-weight:700}
+.runlink span{color:var(--accent)}
+.runlink:hover{background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
 </style>
 </head>
 <body>
@@ -331,6 +334,7 @@ footer{color:var(--muted);font-size:.8rem;text-align:center}
     <h1>Java-Beginner練習帳</h1>
     <p>Notion の「Java-beginner」の内容に合わせた練習帳。分野とレベルを選んで、解説を読んでからクイズで確認しよう。</p>
   </header>
+  <a class="runlink" href="java-run.html">▶ Java を書いて、実際に動かして練習する<span>→</span></a>
   <nav class="cats" id="cats" role="tablist" aria-label="分野"></nav>
   <div class="lvs" id="lvs" role="tablist" aria-label="レベル"></div>
   <div class="chips" id="chips" aria-label="項目"></div>

@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
+<title>Java を書いて動かす練習</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Source+Code+Pro:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --surface-2:#e9edf3; --fg:#1d2433; --muted:#5d6779; --line:#d5dbe5;
+  --ok:#1f8a4c; --ok-bg:#e3f4ea; --ng:#c23b3b; --ng-bg:#fbe8e8;
+  --accent:#7a4fc4; --code-bg:#1f2633; --code-fg:#e7ecf4;
+  --f-display:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --f-code:"Source Code Pro",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141922; --surface:#1c2330; --surface-2:#252e3e; --fg:#e6ebf3; --muted:#9aa5b8; --line:#323c4f;
+  --ok:#5fd18f; --ok-bg:#173426; --ng:#f08080; --ng-bg:#3a1f22; --accent:#b896f5; --code-bg:#0e1219; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141922; --surface:#1c2330; --surface-2:#252e3e; --fg:#e6ebf3; --muted:#9aa5b8; --line:#323c4f;
+  --ok:#5fd18f; --ok-bg:#173426; --ng:#f08080; --ng-bg:#3a1f22; --accent:#b896f5; --code-bg:#0e1219; color-scheme:dark}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.75}
+.wrap{max-width:760px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:16px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.back{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:700}
+.back:hover{color:var(--accent);text-decoration:underline}
+.theme-btn{font:inherit;font-size:.8rem;font-weight:700;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:4px 12px;cursor:pointer}
+.theme-btn:hover{border-color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:800;font-size:1.6rem;margin:0}
+header p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+.status{font-size:.85rem;border-radius:10px;padding:8px 12px;background:var(--surface-2)}
+.status.ok{background:var(--ok-bg);color:var(--ok);font-weight:700}
+.status.ng{background:var(--ng-bg);color:var(--ng);font-weight:700}
+.lvs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--surface-2);border-radius:12px;padding:4px}
+.lv{font:inherit;border:0;background:transparent;border-radius:9px;padding:6px 4px;cursor:pointer;color:var(--muted);display:flex;flex-direction:column;align-items:center}
+.lv b{font-family:var(--f-display);font-size:.95rem;color:var(--fg);line-height:1.4}
+.lv small{font-size:.72rem}
+.lv[aria-selected="true"]{background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.lv[aria-selected="true"] b{color:var(--accent)}
+.exlist{display:flex;flex-wrap:wrap;gap:6px}
+.exbtn{font:inherit;font-size:.85rem;width:2.4em;height:2.4em;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.exbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--surface)}
+.exbtn.done{border-color:var(--ok);color:var(--ok)}
+.exbtn.done[aria-pressed="true"]{background:var(--ok);color:var(--surface)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;color:var(--accent);font-weight:700}
+.panel h2{font-family:var(--f-display);font-size:1.25rem;margin:0;line-height:1.4}
+.task{margin:0;white-space:pre-line}
+code{font-family:var(--f-code);font-size:.9em;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+.expect{font-size:.85rem;color:var(--muted)}
+.expect pre{margin:4px 0 0}
+textarea{width:100%;min-height:260px;font-family:var(--f-code);font-size:.88rem;line-height:1.55;color:var(--code-fg);background:var(--code-bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;resize:vertical;tab-size:4;white-space:pre;overflow-wrap:normal;overflow-x:auto}
+textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+pre{margin:0;background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:12px 14px;font-family:var(--f-code);font-size:.85rem;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-weight:700;font-size:.9rem;border-radius:10px;padding:8px 16px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn:focus-visible,.lv:focus-visible,.exbtn:focus-visible,.theme-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.fb{font-size:.92rem;border-radius:8px;padding:8px 12px;background:var(--surface-2)}
+.fb strong.ok{color:var(--ok)} .fb strong.ng{color:var(--ng)}
+.outlabel{font-size:.75rem;color:var(--muted);margin-bottom:4px}
+.note{font-size:.8rem;color:var(--muted);margin:0}
+#console{display:none}
+footer{color:var(--muted);font-size:.8rem;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><a class="back" href="java.html">← Java-Beginner練習帳に戻る</a><button type="button" class="theme-btn" id="themeBtn"></button></div>
+  <header>
+    <h1>Java を書いて動かす練習</h1>
+    <p>コードを書いて「実行」を押すと、ブラウザの中で本当に Java が動きます。表示された結果が問題どおりなら正解です。</p>
+  </header>
+  <div class="status" id="status" role="status">Java を準備しています…（はじめて開いたときは、1分くらいかかることがあります）</div>
+  <div class="lvs" id="lvs" role="tablist" aria-label="レベル"></div>
+  <div class="exlist" id="exlist" aria-label="問題"></div>
+  <main class="panel" id="panel"></main>
+  <p class="note">※ Java 8 の書き方で動きます（<code>List.of</code> や <code>var</code> など、Java 9 以降の書き方は使えません）。キーボードからの入力（Scanner）も使えません。<br>※ 無限ループになると止められないので、そのときはページを再読み込みしてください。</p>
+  <footer>正解した問題と書きかけのコードは、このブラウザに記録されます。</footer>
+</div>
+<pre id="console"></pre>
+
+<script src="https://cjrtnc.leaningtech.com/4.3/loader.js"></script>
+<script>
+/* 実行して練習：Java 8 の範囲で書ける問題（List.of などは使わない） */
+const EX=[
+/* ===== 初級 ===== */
+[
+ {id:"r-0-0",t:"「Hello, Java!」と表示しよう",task:"`System.out.println` を使って、`Hello, Java!` と1行表示します。",
+  start:`public class Main {
+    public static void main(String[] args) {
+        // ここに書く
+
+    }
+}`,
+  out:"Hello, Java!",hint:"表示して改行する命令は `System.out.println(…);` です。文字は `\"` で囲みます。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}`},
+ {id:"r-0-1",t:"変数で合計金額を計算しよう",task:"`int` の変数 `price`（120）と `count`（3）を作り、合計を `合計：360円` の形で表示します。",
+  start:`public class Main {
+    public static void main(String[] args) {
+        // price と count を作る
+
+        // 合計を表示する
+
+    }
+}`,
+  out:"合計：360円",hint:"`int 変数名 = 値;` で変数を作ります。文字と数字は `+` でつなげられます。計算部分は `( )` で囲むと安全です。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        int price = 120;
+        int count = 3;
+        System.out.println("合計：" + (price * count) + "円");
+    }
+}`},
+ {id:"r-0-2",t:"割り算の商と余りを出そう",task:"17 を 5 で割った「商」と「余り」を、それぞれ1行ずつ表示します。\n1行目：`3`、2行目：`2`",
+  start:`public class Main {
+    public static void main(String[] args) {
+        int a = 17;
+        int b = 5;
+        // 商を表示
+
+        // 余りを表示
+
+    }
+}`,
+  out:"3\n2",hint:"int どうしの `/` は商（小数は切り捨て）、`%` は余りです。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        int a = 17;
+        int b = 5;
+        System.out.println(a / b);
+        System.out.println(a % b);
+    }
+}`},
+ {id:"r-0-3",t:"if で合格・不合格を判定しよう",task:"`score` が 60 以上なら `合格`、そうでなければ `不合格` と表示します。\n（score は 75 なので、`合格` と出れば正解）",
+  start:`public class Main {
+    public static void main(String[] args) {
+        int score = 75;
+        // if と else で分ける
+
+    }
+}`,
+  out:"合格",hint:"「以上」は `>=` です。`if (条件) { … } else { … }` の形です。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        int score = 75;
+        if (score >= 60) {
+            System.out.println("合格");
+        } else {
+            System.out.println("不合格");
+        }
+    }
+}`},
+ {id:"r-0-4",t:"for で 1〜5 を表示しよう",task:"for 文を使って、1 から 5 までの数を1行に1つずつ表示します。",
+  start:`public class Main {
+    public static void main(String[] args) {
+        // for 文を書く
+
+    }
+}`,
+  out:"1\n2\n3\n4\n5",hint:"`for (int i = 開始; 条件; i++) { … }` の形です。5 も表示したいので、条件の記号に注意しましょう。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(i);
+        }
+    }
+}`},
+ {id:"r-0-5",t:"1〜10 の合計を出そう",task:"for 文で 1 から 10 までを足して、最後に合計だけを表示します（`55` と出れば正解）。",
+  start:`public class Main {
+    public static void main(String[] args) {
+        int sum = 0;
+        // for 文で足していく
+
+        System.out.println(sum);
+    }
+}`,
+  out:"55",hint:"ループの中で `sum += i;` のように足していきます。表示はループの外（後）です。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        int sum = 0;
+        for (int i = 1; i <= 10; i++) {
+            sum += i;
+        }
+        System.out.println(sum);
+    }
+}`}
+],
+/* ===== 中級 ===== */
+[
+ {id:"r-1-0",t:"配列の合計を出そう",task:"配列 `scores` の点数を全部足して、`合計：235` と表示します。",
+  start:`public class Main {
+    public static void main(String[] args) {
+        int[] scores = {80, 65, 90};
+        int total = 0;
+        // 拡張for文で足す
+
+        System.out.println("合計：" + total);
+    }
+}`,
+  out:"合計：235",hint:"拡張for文は `for (int s : scores) { … }` の形です。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        int[] scores = {80, 65, 90};
+        int total = 0;
+        for (int s : scores) {
+            total += s;
+        }
+        System.out.println("合計：" + total);
+    }
+}`},
+ {id:"r-1-1",t:"足し算のメソッドを作ろう",task:"2つの int を受け取って、足した結果を返す `add` メソッドを作ります。main では `add(3, 4)` の結果（`7`）を表示します。",
+  start:`public class Main {
+    // ここに add メソッドを作る
+
+
+    public static void main(String[] args) {
+        System.out.println(add(3, 4));
+    }
+}`,
+  out:"7",hint:"main から直接呼ぶので `static` をつけます。`public static 戻り値の型 メソッド名(引数) { return …; }` の形です。",
+  ans:`public class Main {
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(add(3, 4));
+    }
+}`},
+ {id:"r-1-2",t:"配列の最大値を探そう",task:"配列 `nums` の中でいちばん大きい数を表示します（`12` と出れば正解）。",
+  start:`public class Main {
+    public static void main(String[] args) {
+        int[] nums = {3, 12, 8, 5};
+        int max = nums[0];
+        // 1つずつ比べて、大きければ max を入れ替える
+
+        System.out.println(max);
+    }
+}`,
+  out:"12",hint:"拡張for文の中で `if (n > max)` なら `max = n;` にします。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        int[] nums = {3, 12, 8, 5};
+        int max = nums[0];
+        for (int n : nums) {
+            if (n > max) {
+                max = n;
+            }
+        }
+        System.out.println(max);
+    }
+}`},
+ {id:"r-1-3",t:"Car クラスを作って動かそう",task:"`brand` フィールドとコンストラクタ、`start()` メソッドを持つ `Car` クラスを作ります。\nmain では `new Car(\"Toyota\")` を作って `start()` を呼び、`Toyota is starting.` と表示します。",
+  start:`class Car {
+    // brand フィールド・コンストラクタ・start() を作る
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car("Toyota");
+        myCar.start();
+    }
+}`,
+  out:"Toyota is starting.",hint:"コンストラクタはクラスと同じ名前で、戻り値の型を書きません。`this.brand = brand;` でフィールドに入れます。",
+  ans:`class Car {
+    private String brand;
+
+    public Car(String brand) {
+        this.brand = brand;
+    }
+
+    public void start() {
+        System.out.println(brand + " is starting.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car("Toyota");
+        myCar.start();
+    }
+}`},
+ {id:"r-1-4",t:"List に追加して数を数えよう",task:"`ArrayList` に「田中」「佐藤」「鈴木」を追加して、要素の数を表示します（`3` と出れば正解）。",
+  start:`import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> names = new ArrayList<>();
+        // 3人追加する
+
+        // 数を表示する
+
+    }
+}`,
+  out:"3",hint:"追加は `add()`、要素数は `size()` です。",
+  ans:`import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> names = new ArrayList<>();
+        names.add("田中");
+        names.add("佐藤");
+        names.add("鈴木");
+        System.out.println(names.size());
+    }
+}`},
+ {id:"r-1-5",t:"Map でコードを表示名に変えよう",task:"`statusMap` に `PENDING` → `受付中`、`DONE` → `完了` を入れて、`PENDING` の表示名を表示します。",
+  start:`import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        Map<String, String> statusMap = new HashMap<>();
+        // 2つ入れる
+
+        // PENDING の表示名を表示する
+
+    }
+}`,
+  out:"受付中",hint:"入れるのは `put(キー, 値)`、取り出すのは `get(キー)` です。",
+  ans:`import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        Map<String, String> statusMap = new HashMap<>();
+        statusMap.put("PENDING", "受付中");
+        statusMap.put("DONE", "完了");
+        System.out.println(statusMap.get("PENDING"));
+    }
+}`}
+],
+/* ===== 上級 ===== */
+[
+ {id:"r-2-0",t:"例外を受け止めよう",task:"`Integer.parseInt(\"abc\")` で起きる例外を catch して、`数値に変換できません` と表示します。",
+  start:`public class Main {
+    public static void main(String[] args) {
+        // try-catch で囲む
+        int n = Integer.parseInt("abc");
+        System.out.println(n);
+    }
+}`,
+  out:"数値に変換できません",hint:"数字にできない文字列を変換したときの例外は `NumberFormatException` です。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        try {
+            int n = Integer.parseInt("abc");
+            System.out.println(n);
+        } catch (NumberFormatException e) {
+            System.out.println("数値に変換できません");
+        }
+    }
+}`},
+ {id:"r-2-1",t:"finally で必ず実行しよう",task:"0 で割る計算を try で囲み、catch で `0で割れません`、finally で `終了` と表示します。\n1行目：`0で割れません`、2行目：`終了`",
+  start:`public class Main {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 0;
+        // try-catch-finally を書く
+        System.out.println(a / b);
+    }
+}`,
+  out:"0で割れません\n終了",hint:"0 で割ったときの例外は `ArithmeticException` です。finally は catch の後ろに書きます。",
+  ans:`public class Main {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 0;
+        try {
+            System.out.println(a / b);
+        } catch (ArithmeticException e) {
+            System.out.println("0で割れません");
+        } finally {
+            System.out.println("終了");
+        }
+    }
+}`},
+ {id:"r-2-2",t:"Stream で偶数だけにしよう",task:"`numbers` から偶数だけを取り出したリストを表示します（`[2, 4, 6]` と出れば正解）。",
+  start:`import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> evens = numbers.stream()
+            // ここに filter と collect を書く
+            ;
+        System.out.println(evens);
+    }
+}`,
+  out:"[2, 4, 6]",hint:"`filter(n -> 条件)` で絞り込み、`collect(Collectors.toList())` でリストにまとめます。偶数は「2で割った余りが0」です。",
+  ans:`import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> evens = numbers.stream()
+            .filter(n -> n % 2 == 0)
+            .collect(Collectors.toList());
+        System.out.println(evens);
+    }
+}`},
+ {id:"r-2-3",t:"Stream で大文字に変換しよう",task:"`names` の文字を全部大文字にしたリストを表示します（`[JAVA, SPRING]` と出れば正解）。",
+  start:`import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("java", "spring");
+        List<String> upper = names.stream()
+            // ここに map と collect を書く
+            ;
+        System.out.println(upper);
+    }
+}`,
+  out:"[JAVA, SPRING]",hint:"変換は `map` です。大文字にするメソッドは `toUpperCase()`（メソッド参照なら `String::toUpperCase`）です。",
+  ans:`import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("java", "spring");
+        List<String> upper = names.stream()
+            .map(String::toUpperCase)
+            .collect(Collectors.toList());
+        System.out.println(upper);
+    }
+}`},
+ {id:"r-2-4",t:"継承してオーバーライドしよう",task:"`Animal` を継承した `Dog` クラスを作り、`sound()` をオーバーライドして `ワンワン！` と表示されるようにします。",
+  start:`class Animal {
+    void sound() {
+        System.out.println("動物の鳴き声");
+    }
+}
+
+// ここに Dog クラスを作る
+
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();
+    }
+}`,
+  out:"ワンワン！",hint:"`class Dog extends Animal { … }` の中で、同じ名前の `sound()` を書き直します。`@Override` も付けましょう。",
+  ans:`class Animal {
+    void sound() {
+        System.out.println("動物の鳴き声");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("ワンワン！");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();
+    }
+}`},
+ {id:"r-2-5",t:"インターフェースを実装しよう",task:"`Flyable` インターフェースを実装した `Bird` クラスを作り、`fly()` で `Bird is flying.` と表示されるようにします。",
+  start:`interface Flyable {
+    void fly();
+}
+
+// ここに Bird クラスを作る
+
+
+public class Main {
+    public static void main(String[] args) {
+        Flyable f = new Bird();
+        f.fly();
+    }
+}`,
+  out:"Bird is flying.",hint:"`class Bird implements Flyable { … }` の中で `fly()` を書きます。インターフェースのメソッドは `public` を付けて実装します。",
+  ans:`interface Flyable {
+    void fly();
+}
+
+class Bird implements Flyable {
+    @Override
+    public void fly() {
+        System.out.println("Bird is flying.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Flyable f = new Bird();
+        f.fly();
+    }
+}`}
+]];
+
+const LV=["初級","中級","上級"];
+const KEY="java-run-v1";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const md=s=>esc(s).replace(/`([^`]+)`/g,"<code>$1</code>");
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const norm=s=>String(s).replace(/\r/g,"").split("\n").map(l=>l.replace(/\s+$/,"")).join("\n").replace(/\s+$/,"");
+
+let store={done:{},code:{}};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s) store=Object.assign(store,s);}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}};
+let state={lv:0,i:0};
+try{const s=JSON.parse(localStorage.getItem(KEY+"-pos")||"null"); if(s&&EX[s.lv]&&EX[s.lv][s.i]) state=s;}catch(e){}
+
+/* ===== Java の準備（CheerpJ） ===== */
+let ready=false, busy=false, runNo=0;
+const APP="/app"+location.pathname.replace(/[^/]*$/,"");      /* 例：/app/study-note/ */
+const CP=APP+"tools.jar:/files/";
+function setStatus(cls,text){const s=$("#status");s.className="status "+cls;s.textContent=text;}
+async function initJava(){
+  if(typeof cheerpjInit!=="function"){setStatus("ng","Java の準備に失敗しました（読み込みができませんでした）。ネットワークを確認して、ページを再読み込みしてください。");return;}
+  try{
+    await cheerpjInit({status:"none"});
+    ready=true; setStatus("ok","準備ができました。最初の1回の実行は、少し時間がかかります。");
+    render();
+  }catch(e){setStatus("ng","Java の準備に失敗しました："+e);}
+}
+function addFile(path,text){
+  const f=window.cheerpOSAddStringFile||window.cheerpjAddStringFile;
+  f(path,new TextEncoder().encode(text));
+}
+async function readConsole(){await wait(80); return $("#console").textContent;}
+async function runJava(code){
+  const m=code.match(/public\s+class\s+(\w+)/); const cls=m?m[1]:"Main";
+  const pkg="run"+Date.now().toString(36)+(++runNo);
+  addFile("/str/"+cls+".java","package "+pkg+"; "+code);   /* 同じ行に書くので、エラーの行番号はずれない */
+  const con=$("#console"); con.textContent="";
+  const rc=await cheerpjRunMain("com.sun.tools.javac.Main",CP,"/str/"+cls+".java","-d","/files/","-encoding","UTF-8","-nowarn");
+  const ctext=await readConsole();
+  if(rc!==0) return {phase:"compile",text:ctext.replaceAll(pkg+".","")};
+  con.textContent="";
+  const rc2=await cheerpjRunMain(pkg+"."+cls,CP);
+  const rtext=await readConsole();
+  return {phase:"run",rc:rc2,text:rtext.replaceAll(pkg+".","")};
+}
+
+/* ===== 画面 ===== */
+const cur=()=>EX[state.lv][state.i];
+function renderNav(){
+  $("#lvs").innerHTML=LV.map((n,lv)=>{const d=EX[lv].filter(e=>store.done[e.id]).length;
+    return `<button class="lv" role="tab" aria-selected="${state.lv===lv}" data-lv="${lv}"><b>${n}${d===EX[lv].length?" ✓":""}</b><small>${d} / ${EX[lv].length}</small></button>`;}).join("");
+  $("#exlist").innerHTML=EX[state.lv].map((e,i)=>`<button class="exbtn ${store.done[e.id]?"done":""}" aria-pressed="${i===state.i}" data-i="${i}" aria-label="問題${i+1}">${i+1}</button>`).join("");
+}
+function render(){
+  try{localStorage.setItem(KEY+"-pos",JSON.stringify(state));}catch(e){}
+  renderNav();
+  const e=cur();
+  $("#panel").innerHTML=`
+    <div><div class="eyebrow">${LV[state.lv]} ・ ${state.i+1} / ${EX[state.lv].length}${store.done[e.id]?" ・ 正解済み":""}</div><h2>${esc(e.t)}</h2></div>
+    <p class="task">${md(e.task)}</p>
+    <div class="expect">正解の表示：<pre>${esc(e.out)}</pre></div>
+    <textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="コードを書く場所"></textarea>
+    <div class="row">
+      <button type="button" class="btn" id="run" ${ready&&!busy?"":"disabled"}>▶ 実行</button>
+      <button type="button" class="btn ghost" id="hint">ヒント</button>
+      <button type="button" class="btn ghost" id="reset">最初に戻す</button>
+      <button type="button" class="btn ghost" id="show">答えを見る</button>
+    </div>
+    <div class="fb" id="fb" hidden></div>
+    <div id="outbox" hidden><div class="outlabel" id="outlabel">実行結果</div><pre id="out"></pre></div>`;
+  const ta=$("#code"); ta.value=store.code[e.id]!=null?store.code[e.id]:e.start;
+  ta.addEventListener("input",()=>{store.code[e.id]=ta.value;save();});
+  ta.addEventListener("keydown",ev=>{
+    if(ev.key==="Tab"&&!ev.shiftKey){ev.preventDefault();const s=ta.selectionStart,en=ta.selectionEnd;ta.setRangeText("    ",s,en,"end");store.code[e.id]=ta.value;save();}
+  });
+  $("#run").addEventListener("click",doRun);
+  $("#hint").addEventListener("click",()=>fb(`<strong>ヒント</strong> ${md(e.hint)}`));
+  $("#reset").addEventListener("click",()=>{ta.value=e.start;delete store.code[e.id];save();fb("最初のコードに戻しました。");});
+  $("#show").addEventListener("click",()=>{fb(`<strong>答えの例</strong><pre style="margin-top:6px">${esc(e.ans)}</pre>`);});
+}
+function fb(html){const f=$("#fb");f.hidden=false;f.innerHTML=html;}
+function showOut(label,text){$("#outbox").hidden=false;$("#outlabel").textContent=label;$("#out").textContent=text||"（何も表示されませんでした）";}
+async function doRun(){
+  if(!ready||busy) return;
+  const e=cur(),code=$("#code").value;
+  busy=true; const btn=$("#run"); btn.disabled=true; btn.textContent="実行中…";
+  fb("コンパイルして実行しています…");
+  try{
+    const r=await runJava(code);
+    if(r.phase==="compile"){
+      showOut("コンパイルエラー",r.text);
+      fb(`<strong class="ng">コンパイルエラー</strong> 書き方にまちがいがあります。上のメッセージの「:数字:」が行番号です。その行のあたりを見直してみましょう。`);
+    }else if(r.rc!==0){
+      showOut("実行時エラー",r.text);
+      fb(`<strong class="ng">実行時エラー</strong> 実行中に例外が起きました。メッセージの最初の行に、例外の名前が出ています。`);
+    }else if(norm(r.text)===norm(e.out)){
+      showOut("実行結果",r.text);
+      const first=!store.done[e.id]; store.done[e.id]=true; save(); renderNav();
+      fb(`<strong class="ok">正解！</strong> 問題どおりに表示されました。${first?"":"（前にも正解しています）"}`);
+    }else{
+      showOut("実行結果",r.text);
+      fb(`<strong class="ng">もう少し</strong> 動きましたが、表示が問題と違います。「正解の表示」と1文字ずつ見比べてみましょう（記号やスペースも見られます）。`);
+    }
+  }catch(err){
+    fb(`<strong class="ng">うまく実行できませんでした</strong> ${esc(String(err))}`);
+  }finally{
+    busy=false; const b=$("#run"); if(b){b.disabled=!ready; b.textContent="▶ 実行";}
+  }
+}
+$("#lvs").addEventListener("click",ev=>{const b=ev.target.closest("[data-lv]");if(!b||busy)return;state={lv:+b.dataset.lv,i:0};render();});
+$("#exlist").addEventListener("click",ev=>{const b=ev.target.closest("[data-i]");if(!b||busy)return;state.i=+b.dataset.i;render();});
+
+/* ===== ライト / ダーク切り替え（ほかのページと共通の "theme"） ===== */
+(function(){
+  const btn=$("#themeBtn"), root=document.documentElement;
+  const now=()=>root.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  const show=()=>{const d=now()==="dark";btn.textContent=d?"☀ ライト":"🌙 ダーク";btn.setAttribute("aria-label",d?"ライトモードにする":"ダークモードにする");};
+  btn.addEventListener("click",()=>{const t=now()==="dark"?"light":"dark";root.dataset.theme=t;try{localStorage.setItem("theme",t);}catch(e){}show();});
+  show();
+})();
+
+render();
+initJava();
+</script>
+</body>
+</html>

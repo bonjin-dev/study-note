@@ -312,6 +312,15 @@ footer{color:var(--muted);font-size:.8rem;text-align:center}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .theme-btn{font:inherit;font-size:.8rem;font-weight:700;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:4px 12px;cursor:pointer}
 .theme-btn:hover{border-color:var(--accent)}
+.xfer{border-top:1px solid var(--line);padding-top:12px;text-align:left;max-width:560px;margin:4px auto 0;width:100%}
+.xfer summary{text-align:center}
+.xfer-box{display:flex;flex-direction:column;gap:10px;margin-top:12px;font-size:.88rem;color:var(--fg)}
+.xfer-box h3{font-family:var(--f-display);font-size:.95rem;margin:6px 0 0}
+.xfer-box p{margin:0;color:var(--muted)}
+.xfer-box textarea{font-family:var(--f-code);font-size:.75rem;width:100%;min-height:84px;box-sizing:border-box;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);resize:vertical}
+.xfer-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.xfer-msg{font-weight:700}
+.xfer-msg.ok{color:var(--ok)} .xfer-msg.ng{color:var(--ng)}
 </style>
 </head>
 <body>
@@ -328,7 +337,21 @@ footer{color:var(--muted);font-size:.8rem;text-align:center}
   <div class="banner" id="banner" hidden></div>
   <main class="panel" id="panel"></main>
   <div class="glpop" id="glpop" role="dialog" aria-label="用語の意味" hidden><b id="glw"></b><p id="gld"></p><button class="btn ghost" id="glx">閉じる</button></div>
-  <footer>正解した問題と苦手リストは、このブラウザに記録されます。</footer>
+  <footer>正解した問題と苦手リストは、このブラウザに記録されます。
+  <details class="xfer" id="xfer">
+    <summary>記録の引き継ぎ（書き出し・読み込み）</summary>
+    <div class="xfer-box">
+      <h3>① 記録を書き出す</h3>
+      <p>このブラウザの記録を文字にします。コピーして、引き継ぎ先の練習帳の「② 記録を読み込む」に貼りつけてください。</p>
+      <div class="xfer-row"><button type="button" class="btn" id="xferOut">書き出す</button><button type="button" class="btn ghost" id="xferCopy" hidden>コピー</button><span class="xfer-msg" id="xferOutMsg" role="status"></span></div>
+      <textarea id="xferOutText" readonly hidden aria-label="書き出した記録"></textarea>
+      <h3>② 記録を読み込む</h3>
+      <p>書き出した文字を貼りつけて「読み込む」を押します。今の記録は消えずに、正解済みの問題が足されます。</p>
+      <textarea id="xferInText" placeholder="ここに貼りつけ" aria-label="読み込む記録"></textarea>
+      <div class="xfer-row"><button type="button" class="btn" id="xferIn">読み込む</button><span class="xfer-msg" id="xferInMsg" role="status"></span></div>
+    </div>
+  </details>
+  </footer>
 </div>
 
 <script>
@@ -2124,6 +2147,35 @@ render();
   const show=()=>{const d=now()==="dark";btn.textContent=d?"☀ ライト":"🌙 ダーク";btn.setAttribute("aria-label",d?"ライトモードにする":"ダークモードにする");};
   btn.addEventListener("click",()=>{const t=now()==="dark"?"light":"dark";root.dataset.theme=t;try{localStorage.setItem("theme",t);}catch(e){}show();});
   show();
+})();
+
+/* ===== 記録の引き継ぎ（書き出し・読み込み） ===== */
+(function(){
+  const outBtn=$("#xferOut"),copyBtn=$("#xferCopy"),outText=$("#xferOutText"),outMsg=$("#xferOutMsg");
+  const inBtn=$("#xferIn"),inText=$("#xferInText"),inMsg=$("#xferInMsg");
+  const say=(el,ok,t)=>{el.className="xfer-msg "+(ok?"ok":"ng");el.textContent=t;};
+  outBtn.addEventListener("click",()=>{
+    outText.value=JSON.stringify({app:KEY,data:store});
+    outText.hidden=false; copyBtn.hidden=false; outText.focus(); outText.select();
+    const n=Object.keys(store.ok||{}).length+Object.keys(store.fill||{}).length;
+    say(outMsg,true,`書き出しました（正解済み ${n}問ぶん）。`);
+  });
+  copyBtn.addEventListener("click",()=>{
+    const fallback=()=>{outText.focus();outText.select();say(outMsg,false,"自動でコピーできませんでした。選択された文字を長押し（Ctrl+C）でコピーしてください。");};
+    try{navigator.clipboard.writeText(outText.value).then(()=>say(outMsg,true,"コピーしました。"),fallback);}catch(e){fallback();}
+  });
+  inBtn.addEventListener("click",()=>{
+    let obj;
+    try{obj=JSON.parse(inText.value.trim());}catch(e){say(inMsg,false,"読み込めませんでした。書き出した文字を、全部そのまま貼りつけてください。");return;}
+    if(!obj||typeof obj!=="object"){say(inMsg,false,"読み込めませんでした。");return;}
+    if(obj.app&&obj.app!==KEY){say(inMsg,false,"これは別の練習帳の記録です。同じ練習帳どうしで引き継いでください。");return;}
+    const d=obj.data||obj; let added=0;
+    ["ok","sql","write","fill","fav"].forEach(k=>{const src=d[k]; if(!src||typeof src!=="object") return; store[k]=store[k]||{};
+      Object.keys(src).forEach(id=>{if(src[id]&&!store[k][id]){store[k][id]=true; if(k==="ok"||k==="fill") added++;}});});
+    if(d.miss&&typeof d.miss==="object"){store.miss=store.miss||{};Object.keys(d.miss).forEach(id=>{store.miss[id]=Math.max(store.miss[id]||0,+d.miss[id]||1);});}
+    save(); render(); inText.value="";
+    say(inMsg,true,added?`読み込みました。正解済みが ${added}問 増えました。`:"読み込みました（新しく増えた正解はありませんでした）。");
+  });
 })();
 </script>
 </body>

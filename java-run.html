@@ -553,7 +553,7 @@ async function runJava(code){
   const con=$("#console"); con.textContent="";
   const rc=await cheerpjRunMain("com.sun.tools.javac.Main",CP,"/str/"+cls+".java","-d","/files/","-encoding","UTF-8","-nowarn");
   const ctext=await readConsole();
-  if(rc!==0) return {phase:"compile",text:ctext.replaceAll(pkg+".","")};
+  if(rc!==0) return {phase:"compile",text:ctext.replaceAll(pkg+".","").replaceAll("/str/","")};
   con.textContent="";
   const rc2=await cheerpjRunMain(pkg+"."+cls,CP);
   const rtext=await readConsole();
@@ -605,10 +605,10 @@ async function doRun(){
     const r=await runJava(code);
     if(r.phase==="compile"){
       showOut("コンパイルエラー",r.text);
-      fb(`<strong class="ng">コンパイルエラー</strong> 書き方にまちがいがあります。上のメッセージの「:数字:」が行番号です。その行のあたりを見直してみましょう。`);
+      fb(`<strong class="ng">コンパイルエラー</strong> 書き方にまちがいがあります。下のメッセージの「Main.java:数字:」の数字が行番号です。その行のあたりを見直してみましょう。`);
     }else if(r.rc!==0){
       showOut("実行時エラー",r.text);
-      fb(`<strong class="ng">実行時エラー</strong> 実行中に例外が起きました。メッセージの最初の行に、例外の名前が出ています。`);
+      fb(`<strong class="ng">実行時エラー</strong> 実行中に例外が起きました。下のメッセージの最初の行に、例外の名前が出ています。`);
     }else if(norm(r.text)===norm(e.out)){
       showOut("実行結果",r.text);
       const first=!store.done[e.id]; store.done[e.id]=true; save(); renderNav();

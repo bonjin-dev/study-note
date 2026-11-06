@@ -177,21 +177,33 @@ document.querySelectorAll("[data-theme-toggle]").forEach((b) => {
 });
 applyTheme(currentTheme());
 
+/* ===== 画面の下に出る、短いお知らせ ===== */
+const toastBox = document.createElement("div");
+toastBox.className = "soon-toast";
+toastBox.setAttribute("role", "status");
+toastBox.hidden = true;
+document.body.appendChild(toastBox);
+let toastTimer;
+function showToast(message) {
+  toastBox.textContent = message;
+  toastBox.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toastBox.hidden = true; }, 2200);
+}
+
 /* ===== まだ作っていないページ（準備中） ===== */
-(function () {
-  const toast = document.createElement("div");
-  toast.className = "soon-toast";
-  toast.setAttribute("role", "status");
-  toast.hidden = true;
-  toast.textContent = "このページは準備中です。もう少し待ってね。";
-  document.body.appendChild(toast);
-  let timer;
-  document.querySelectorAll("[data-soon]").forEach((a) => {
-    a.addEventListener("click", (e) => {
-      e.preventDefault();
-      toast.hidden = false;
-      clearTimeout(timer);
-      timer = setTimeout(() => { toast.hidden = true; }, 2000);
-    });
+document.querySelectorAll("[data-soon]").forEach((a) => {
+  a.addEventListener("click", (e) => {
+    e.preventDefault();
+    showToast("このページは準備中です。もう少し待ってね。");
   });
-})();
+});
+
+/* ===== 戻るボタン（前のページがなければトップへ） ===== */
+document.querySelectorAll("[data-back]").forEach((b) => {
+  b.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (history.length > 1 && document.referrer.indexOf(location.host) >= 0) history.back();
+    else location.href = "index.html";
+  });
+});

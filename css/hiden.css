@@ -1,0 +1,137 @@
+/* 秘伝の書：Notion のノートの中身（本文）の見た目 */
+.theme-l {
+  --hiden-text: #3b2a20;
+  --hiden-sub: #7a6556;
+  --hiden-line: #e6d6c6;
+  --hiden-head: #f3e6d8;
+  --hiden-accent: #a43c12;
+  --hiden-code-bg: #2b211c;
+  --hiden-code-text: #f4ece4;
+  --hiden-inline-bg: #f1e3d4;
+  --hiden-card: #fffaf4;
+}
+.theme-d {
+  --hiden-text: #ece3da;
+  --hiden-sub: #b3a395;
+  --hiden-line: #3a302a;
+  --hiden-head: #2a221d;
+  --hiden-accent: #ff8a3d;
+  --hiden-code-bg: #120e0c;
+  --hiden-code-text: #f1e9e1;
+  --hiden-inline-bg: #2e2621;
+  --hiden-card: #1d1815;
+}
+
+.hiden-list { display: flex; flex-direction: column; gap: 16px; }
+.hiden-list > article { margin: 0; }
+
+.hiden-body { color: var(--hiden-text); font-size: 14px; line-height: 1.8; overflow-wrap: anywhere; }
+.hiden-body > * + * { margin-top: 12px; }
+.hiden-body h4 {
+  margin-top: 22px; padding-left: 10px; border-left: 4px solid var(--hiden-accent);
+  font-size: 16px; font-weight: 700; line-height: 1.5; color: var(--hiden-text);
+}
+.hiden-body h4:first-child { margin-top: 0; }
+.hiden-body p { margin: 0; }
+.hiden-body b, .hiden-body strong { font-weight: 700; color: var(--hiden-text); }
+.hiden-body a { color: var(--hiden-accent); text-decoration: underline; }
+.hiden-body ul, .hiden-body ol { margin: 0; padding-left: 1.4em; }
+.hiden-body ul { list-style: disc; }
+.hiden-body ol { list-style: decimal; }
+.hiden-body li + li { margin-top: 4px; }
+.hiden-body li.chk { list-style: none; position: relative; }
+.hiden-body li.chk::before { content: "☐"; position: absolute; left: -1.3em; color: var(--hiden-accent); }
+.hiden-body code {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 0.88em;
+  background: var(--hiden-inline-bg); padding: 1px 5px; border-radius: 4px;
+}
+
+/* コード */
+.hiden-body .code { border-radius: 10px; overflow: hidden; background: var(--hiden-code-bg); }
+.hiden-body .code-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  padding: 6px 10px; font-size: 11px; color: #c9b8a8; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+.hiden-body .code-head .copy {
+  font-size: 11px; color: #f4ece4; background: rgba(255, 255, 255, 0.08); border: 0;
+  padding: 3px 10px; border-radius: 6px; cursor: pointer; min-height: 28px;
+}
+.hiden-body .code-head .copy:hover { background: rgba(255, 255, 255, 0.16); }
+.hiden-body pre { margin: 0; padding: 12px; overflow: auto; max-height: 420px; }
+.hiden-body pre code {
+  background: none; padding: 0; color: var(--hiden-code-text); font-size: 12.5px; line-height: 1.65; white-space: pre;
+}
+
+/* 表 */
+.hiden-body .tbl { overflow-x: auto; border: 1px solid var(--hiden-line); border-radius: 8px; }
+.hiden-body table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.hiden-body th, .hiden-body td { min-width: 6.5em; padding: 7px 9px; border-bottom: 1px solid var(--hiden-line); text-align: left; vertical-align: top; }
+.hiden-body th { background: var(--hiden-head); font-weight: 700; white-space: nowrap; }
+.hiden-body tr:last-child td { border-bottom: 0; }
+
+/* 囲み（Notion の色つきの囲み） */
+.hiden-body .co {
+  display: flex; gap: 8px; padding: 10px 12px; border-radius: 8px;
+  background: var(--co-bg); border-left: 4px solid var(--co-line);
+}
+.hiden-body .co-i { flex: none; line-height: 1.8; }
+.hiden-body .co-b { min-width: 0; flex: 1; }
+.hiden-body .co-b > * + * { margin-top: 8px; }
+.theme-l .co-blue, .theme-l .c-blue { --co-bg: #e8f0fa; --co-line: #4a78b8; }
+.theme-l .co-yellow, .theme-l .c-yellow { --co-bg: #fbf3d9; --co-line: #c9971c; }
+.theme-l .co-red, .theme-l .c-red { --co-bg: #fbe7e2; --co-line: #c0472c; }
+.theme-l .co-green, .theme-l .c-green { --co-bg: #e7f3e6; --co-line: #4b8f48; }
+.theme-l .co-purple, .theme-l .c-purple { --co-bg: #efe8f7; --co-line: #7d5bb0; }
+.theme-l .co-orange, .theme-l .c-orange { --co-bg: #fcebdc; --co-line: #d27a2c; }
+.theme-l .co-pink, .theme-l .c-pink { --co-bg: #fbe8ef; --co-line: #c45580; }
+.theme-l .co-brown, .theme-l .c-brown { --co-bg: #f3ebe3; --co-line: #8c6a4f; }
+.theme-l .co-gray, .theme-l .c-gray { --co-bg: #f1ece7; --co-line: #9a8c80; }
+.theme-d .co-blue, .theme-d .c-blue { --co-bg: #1b2533; --co-line: #6f9fe0; }
+.theme-d .co-yellow, .theme-d .c-yellow { --co-bg: #2c2615; --co-line: #e0b23c; }
+.theme-d .co-red, .theme-d .c-red { --co-bg: #331d18; --co-line: #ec7a5c; }
+.theme-d .co-green, .theme-d .c-green { --co-bg: #1a2a1b; --co-line: #74c06f; }
+.theme-d .co-purple, .theme-d .c-purple { --co-bg: #261f33; --co-line: #a888e0; }
+.theme-d .co-orange, .theme-d .c-orange { --co-bg: #31231a; --co-line: #f0954a; }
+.theme-d .co-pink, .theme-d .c-pink { --co-bg: #321d26; --co-line: #e682aa; }
+.theme-d .co-brown, .theme-d .c-brown { --co-bg: #2a221c; --co-line: #b8936f; }
+.theme-d .co-gray, .theme-d .c-gray { --co-bg: #24201d; --co-line: #8f8277; }
+.hiden-body td[class^="c-"] { background: var(--co-bg); }
+
+/* 開け閉めできるところ・2列 */
+.hiden-body details.tg { border: 1px solid var(--hiden-line); border-radius: 8px; padding: 8px 12px; }
+.hiden-body details.tg summary { cursor: pointer; font-weight: 700; }
+.hiden-body details.tg[open] summary { margin-bottom: 8px; }
+.hiden-body details.tg > * + * { margin-top: 8px; }
+.hiden-body .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 520px) { .hiden-body .cols { grid-template-columns: 1fr; } }
+
+/* もっと見る・目録・なし */
+.hiden-more { display: block; width: 100%; padding: 12px; border-radius: 12px; cursor: pointer; }
+.hiden-empty { text-align: center; padding: 24px 0; color: var(--hiden-sub); font-size: 14px; }
+.hiden-toc { border: 1px solid var(--hiden-line); border-radius: 12px; padding: 12px 14px; background: var(--hiden-card); color: var(--hiden-text); }
+.hiden-toc-h { font-weight: 700; margin: 0 0 6px; }
+.hiden-toc ol { margin: 0; padding-left: 0; list-style: none; max-height: 360px; overflow: auto; font-size: 13px; }
+.hiden-toc li a { display: block; padding: 6px 2px; border-bottom: 1px dashed var(--hiden-line); color: inherit; text-decoration: none; }
+.hiden-toc li a:hover { color: var(--hiden-accent); }
+.hiden-toc small { color: var(--hiden-accent); margin-left: 4px; }
+
+/* 自分の覚書を書く窓 */
+.hiden-editor { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.45); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.hiden-editor[hidden] { display: none; }
+.hiden-editor-card {
+  width: 100%; max-width: 480px; background: #fffaf4; color: #3b2a20; border-radius: 16px; padding: 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); font-family: "Noto Sans JP", sans-serif;
+}
+html[data-theme="dark"] .hiden-editor-card { background: #1d1815; color: #ece3da; }
+.hiden-editor-h { font-weight: 700; font-size: 17px; margin: 0 0 4px; }
+.hiden-editor-note { font-size: 12px; opacity: 0.75; margin: 0 0 12px; }
+.hiden-editor input, .hiden-editor textarea {
+  width: 100%; box-sizing: border-box; font: inherit; font-size: 15px; padding: 10px 12px; margin-bottom: 10px;
+  border: 1px solid #d9c7b6; border-radius: 10px; background: transparent; color: inherit;
+}
+html[data-theme="dark"] .hiden-editor input, html[data-theme="dark"] .hiden-editor textarea { border-color: #4a3d34; }
+.hiden-editor-btns { display: flex; justify-content: flex-end; gap: 8px; }
+.hiden-editor-btns button { min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #d9c7b6; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.hiden-editor-btns [data-x="save"] { background: #a43c12; border-color: #a43c12; color: #fff; font-weight: 700; }
+html[data-theme="dark"] .hiden-editor-btns [data-x="save"] { background: #ff8a3d; border-color: #ff8a3d; color: #1a120d; }

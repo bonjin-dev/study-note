@@ -1,0 +1,75 @@
+/* =========================================================
+   Stitch のデザインを使うページの共通 CSS
+   （見た目そのものは css/sc-○○.css。ここは切り替えなどの仕組みだけ）
+   ========================================================= */
+
+/* ライト／ダークで、見せる画面を切り替える */
+html:not([data-theme="dark"]) .theme-d,
+html[data-theme="dark"] .theme-l {
+  display: none;
+}
+
+body {
+  margin: 0;
+}
+
+/* アイコン：読み込み前に英単語が見えて崩れないよう、1文字分の幅に固定 */
+.material-symbols-outlined {
+  display: inline-block;
+  width: 1em;
+  min-width: 1em;
+  height: 1em;
+  line-height: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* ロゴ（画像が届くまでの「凡」マーク） */
+.brand-mark {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #b83c12, #8d2a07);
+  color: #fff;
+  font-family: "Shippori Mincho", "Noto Serif JP", serif;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* まだ取っていない証（うすく表示） */
+[data-ach].locked {
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+
+/* 準備中のお知らせ */
+.soon-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background-color: #1c1917;
+  color: #fbf7f2;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+html[data-theme="dark"] .soon-toast {
+  background-color: #f5f0eb;
+  color: #141210;
+}
+
+.soon-toast[hidden] {
+  display: none;
+}

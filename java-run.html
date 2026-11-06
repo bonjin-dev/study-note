@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
-<title>Java を書いて動かす練習</title>
+<title>Java 実技道場</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Source+Code+Pro:wght@400;600&display=swap">
 <style>
@@ -72,9 +72,9 @@ footer{color:var(--muted);font-size:.8rem;text-align:center}
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><a class="back" href="java.html">← Java-Beginner練習帳に戻る</a><button type="button" class="theme-btn" id="themeBtn"></button></div>
+  <div class="topbar"><a class="back" href="java.html">← Java 道場に戻る</a><button type="button" class="theme-btn" id="themeBtn"></button></div>
   <header>
-    <h1>Java を書いて動かす練習</h1>
+    <h1>Java 実技道場</h1>
     <p>コードを書いて「実行」を押すと、ブラウザの中で本当に Java が動きます。表示された結果が問題どおりなら正解です。</p>
   </header>
   <div class="status" id="status" role="status">Java を準備しています…（はじめて開いたときは、1分くらいかかることがあります）</div>
@@ -522,6 +522,12 @@ const md=s=>esc(s).replace(/`([^`]+)`/g,"<code>$1</code>");
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const norm=s=>String(s).replace(/\r/g,"").split("\n").map(l=>l.replace(/\s+$/,"")).join("\n").replace(/\s+$/,"");
 
+/* ===== 修練の記録（トップページ・修練録と共通） =====
+   dojo-log  : {"2026-11-06": {"coding": {"ok": 3, "ng": 1}, "run": {"ok": 2, "ng": 0}}}  その日の正解・不正解の回数
+   dojo-last : {"coding": {"ch": 4, "title": "Flexbox", "sub": "CSS ・ 中級"}}  最後に開いた項目 */
+function dojoToday(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function dojoLog(dojo,ok){if(ok===undefined)ok=true;try{const L=JSON.parse(localStorage.getItem("dojo-log")||"{}");const k=dojoToday();L[k]=L[k]||{};let d=L[k][dojo];if(typeof d!=="object"||!d)d={ok:+d||0,ng:0};d[ok?"ok":"ng"]++;L[k][dojo]=d;localStorage.setItem("dojo-log",JSON.stringify(L));}catch(e){}}
+function dojoLast(dojo,info){try{const M=JSON.parse(localStorage.getItem("dojo-last")||"{}");info.at=Date.now();M[dojo]=info;localStorage.setItem("dojo-last",JSON.stringify(M));}catch(e){}}
 let store={done:{},code:{}};
 try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s) store=Object.assign(store,s);}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}};
@@ -569,6 +575,7 @@ function renderNav(){
 }
 function render(){
   try{localStorage.setItem(KEY+"-pos",JSON.stringify(state));}catch(e){}
+  {let ch=state.i+1;for(let l=0;l<state.lv;l++)ch+=EX[l].length; dojoLast("run",{ch:ch,title:EX[state.lv][state.i].t,sub:LV[state.lv]+" ・ 問題"+(state.i+1)});}
   renderNav();
   const e=cur();
   $("#panel").innerHTML=`
@@ -609,6 +616,7 @@ async function doRun(){
   fb("コンパイルして実行しています…");
   try{
     const r=await runJava(code);
+    if(r.phase!=="run"||r.rc!==0||norm(r.text)!==norm(e.out)) dojoLog("run",false);
     if(r.phase==="compile"){
       showOut("コンパイルエラー",r.text);
       fb(`<strong class="ng">コンパイルエラー</strong> 書き方にまちがいがあります。下のメッセージの「Main.java:数字:」の数字が行番号です。その行のあたりを見直してみましょう。`);
@@ -617,7 +625,7 @@ async function doRun(){
       fb(`<strong class="ng">実行時エラー</strong> 実行中に例外が起きました。下のメッセージの最初の行に、例外の名前が出ています。`);
     }else if(norm(r.text)===norm(e.out)){
       showOut("実行結果",r.text);
-      const first=!store.done[e.id]; store.done[e.id]=true; save(); renderNav();
+      const first=!store.done[e.id]; store.done[e.id]=true; save(); dojoLog("run"); renderNav();
       fb(`<strong class="ok">正解！</strong> 問題どおりに表示されました。${first?"":"（前にも正解しています）"}`);
     }else{
       showOut("実行結果",r.text);

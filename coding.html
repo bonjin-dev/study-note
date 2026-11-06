@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
-<title>コーディング練習帳</title>
+<title>Web & DB 道場</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Source+Code+Pro:wght@400;600&display=swap">
 <style>
@@ -328,7 +328,7 @@ footer{color:var(--muted);font-size:.8rem;text-align:center}
 <div class="wrap">
   <div class="topbar"><a class="back" href="./">← bonjin’s study note に戻る</a><button type="button" class="theme-btn" id="themeBtn"></button></div>
   <header>
-    <h1>コーディング練習帳</h1>
+    <h1>Web & DB 道場</h1>
     <p>科目とレベルを選んで、解説を読んでからクイズで確認しよう。</p>
   </header>
   <nav class="cats" id="cats" role="tablist" aria-label="科目"></nav>
@@ -2264,6 +2264,13 @@ const KEY="coding-drill-v1";
 let store={ok:{},sql:{},write:{},miss:{},fill:{},fav:{},last:null};
 try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s) store=Object.assign(store,s);}catch(e){}
 for(const k of ["ok","sql","write","miss","fill","fav"]) if(!store[k]||typeof store[k]!=="object") store[k]={};
+const DOJO_ID="coding";
+/* ===== 修練の記録（トップページ・修練録と共通） =====
+   dojo-log  : {"2026-11-06": {"coding": {"ok": 3, "ng": 1}, "run": {"ok": 2, "ng": 0}}}  その日の正解・不正解の回数
+   dojo-last : {"coding": {"ch": 4, "title": "Flexbox", "sub": "CSS ・ 中級"}}  最後に開いた項目 */
+function dojoToday(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function dojoLog(dojo,ok){if(ok===undefined)ok=true;try{const L=JSON.parse(localStorage.getItem("dojo-log")||"{}");const k=dojoToday();L[k]=L[k]||{};let d=L[k][dojo];if(typeof d!=="object"||!d)d={ok:+d||0,ng:0};d[ok?"ok":"ng"]++;L[k][dojo]=d;localStorage.setItem("dojo-log",JSON.stringify(L));}catch(e){}}
+function dojoLast(dojo,info){try{const M=JSON.parse(localStorage.getItem("dojo-last")||"{}");info.at=Date.now();M[dojo]=info;localStorage.setItem("dojo-last",JSON.stringify(M));}catch(e){}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
 
 let state={cat:"html",lv:0,view:0};
@@ -2357,10 +2364,10 @@ function bindQuiz(root,items,onAnswer){
       box.querySelectorAll(".choice").forEach((x,j)=>{x.disabled=true; if(j===a) x.classList.add("right");});
       let extra="";
       if(ok){
-        store.ok[it.id]=true;
+        store.ok[it.id]=true; dojoLog(DOJO_ID);
         if(store.miss[it.id]){delete store.miss[it.id]; extra=`<div class="why small">苦手リストから外しました。</div>`;}
       }else{
-        b.classList.add("wrong");
+        b.classList.add("wrong"); dojoLog(DOJO_ID,false);
         store.miss[it.id]=(store.miss[it.id]||0)+1;
         const w=whyOf(it.q,chosen);
         if(w) extra+=`<div class="why"><b>あなたの答え</b> ${md(chosen)}<br>${md(w)}</div>`;
@@ -2509,8 +2516,10 @@ function renderFill(){
     if(ok){
       inp.classList.add("ok");
       fb.innerHTML=`<strong class="ok">正解！</strong> ${md(q.e)}`;
+      dojoLog(DOJO_ID);
       if(!store.fill[q.id]){store.fill[q.id]=true;save();}
     }else{
+      dojoLog(DOJO_ID,false);
       const near=!cs?false:q.ans.some(a=>normAns(a,false)===normAns(inp.value,false));
       fb.innerHTML=`<strong class="ng">もう少し</strong> ${near?"大文字・小文字が違います。JavaScript では区別されます。":"もう一度考えてみましょう。"} <button class="btn ghost" data-show="${n}" style="padding:2px 10px;font-size:.78rem">答えを見る</button>`;
     }
@@ -2690,7 +2699,7 @@ function renderWrite(){
   $("#wshow").addEventListener("click",()=>$("#wansbox").hidden=!$("#wansbox").hidden);
   ta.addEventListener("keydown",e=>{if(e.key==="Tab"&&!e.shiftKey){e.preventDefault();const s=ta.selectionStart;ta.setRangeText("  ",s,ta.selectionEnd,"end");ta.dispatchEvent(new Event("input"));}});
   const say=(ok,msg)=>{j.hidden=false;j.innerHTML=`<strong class="${ok?"ok":"ng"}">${ok?"正解！":"もう少し"}</strong> ${md(msg)}`;};
-  const clear=()=>{if(!store.write[ex.id]){store.write[ex.id]=true;save();const b=$(`[data-wx="${i}"]`);b&&b.classList.add("done");}};
+  const clear=()=>{dojoLog(DOJO_ID);if(!store.write[ex.id]){store.write[ex.id]=true;save();const b=$(`[data-wx="${i}"]`);b&&b.classList.add("done");}};
   const mustFail=code=>{for(const [re,msg] of (ex.must||[])){if(!re.test(code))return msg;}return "";};
 
   if(kind==="html"||kind==="css"){
@@ -2832,7 +2841,7 @@ function drawSQL(){
     out.innerHTML=(ex.after?`<p class="sub">実行後に <code>${esc(ex.after)}</code> で確認した結果：</p>`:"")+tableHTML(mine);
     for(const [re,msg] of (ex.must||[])){if(!re.test(q)){say(false,msg);return;}}
     const ok=norm(mine,ex.ordered)===norm(runSet(ex.a,ex.after),ex.ordered);
-    if(ok){say(true,"期待どおりの結果が出ました。"); if(!store.sql[ex.i]){store.sql[ex.i]=true; save(); const b=$(`[data-ex="${k}"]`); b&&b.classList.add("done");}}
+    if(ok){say(true,"期待どおりの結果が出ました。"); dojoLog(DOJO_ID); if(!store.sql[ex.i]){store.sql[ex.i]=true; save(); const b=$(`[data-ex="${k}"]`); b&&b.classList.add("done");}}
     else say(false,"結果が答えと違います。列や条件、並び順を見直してみましょう。");
   });
 }
@@ -2842,6 +2851,8 @@ function render(){
   if(!T[state.cat][state.lv]) state.lv=0;
   if(typeof state.view==="number"&&!T[state.cat][state.lv][state.view]) state.view=0;
   store.last=state; save();
+  if(typeof state.view==="number"){const tp=T[state.cat][state.lv][state.view];let ch=state.view+1;for(let l=0;l<state.lv;l++)ch+=T[state.cat][l].length;
+    dojoLast(DOJO_ID,{ch:ch,title:tp.title,sub:SUBJ[state.cat].full.replace(/（.*）/,"")+" ・ "+LV[state.lv]});}
   refreshNav();
   if(state.view==="mix") renderMix();
   else if(state.view==="write") renderWrite();

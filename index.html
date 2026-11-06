@@ -2,49 +2,214 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>bonjin’s study note</title>
+  <!-- 開く前に、保存してあるライト／ダークを先につける（画面がチカッとしないように） -->
+  <script>
+    try {
+      const t = localStorage.getItem("theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@600;700;900&family=Shippori+Mincho:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
 </head>
 <body>
-  <button class="theme-btn" type="button" id="themeBtn">🌙 ダーク</button>
-  <h1>bonjin’s study note</h1>
-  <p>勉強したい練習帳を選んでね</p>
-  <div class="cardlist">
-      <a class="card coding" href="coding.html">
-        <h2>コーディング練習帳</h2>
-        <p>HTML・CSS・JavaScript・DBの練習</p>
-        <div class="progress">
-          <div class="progress-bar">
-            <div class="progress-fill" id="coding-fill"></div>
-          </div>
-          <p class="progress-text" id="coding-text">〇% 正解済み</p>
-        </div>
-        <p class="start">はじめる→</p>
+  <!-- ===== ヘッダー ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-logo">凡</span>
+        <span class="brand-text">
+          <span class="brand-name">bonjin's study note</span>
+          <span class="brand-sub">凡人道場デスク • Study Desk</span>
+        </span>
       </a>
-      <a class="card java" href="java.html">
-        <h2>Java-Beginner練習帳</h2>
-        <p>Java・Spring Boot・JPA・テストの練習</p>
-        <div class="progress">
-          <div class="progress-bar">
-            <div class="progress-fill" id="java-fill"></div>
-          </div>
-          <p class="progress-text" id="java-text">〇% 正解済み</p>
+      <div class="header-tools">
+        <!-- ライト／ダークのスイッチ -->
+        <button class="theme-switch" type="button" id="themeBtn" aria-label="ダークモードにする">
+          <span class="knob knob-light"><span class="material-symbols-outlined">wb_sunny</span></span>
+          <span class="knob-off"><span class="material-symbols-outlined">dark_mode</span></span>
+          <span class="knob knob-dark"><span class="material-symbols-outlined">dark_mode</span></span>
+        </button>
+        <!-- 設定（歯車） -->
+        <a class="gear" href="settings.html" data-soon aria-label="設定">
+          <span class="material-symbols-outlined">settings</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- ===== あいさつ ===== -->
+    <section class="hero">
+      <p class="hero-badge"><span class="pulse-dot"></span>今日の修行をここからはじめよう 🌱</p>
+      <div class="hero-head">
+        <h1 class="hero-title">勉強したい道場を選んでね</h1>
+        <p class="hero-lead">日々の鍛錬の積み重ねが、一生モノの力になる。今日の1問と向き合おう。</p>
+      </div>
+
+      <!-- 本日の鍛錬状況 -->
+      <div class="strip">
+        <div class="strip-left">
+          <span class="strip-icon"><span class="material-symbols-outlined">local_fire_department</span></span>
+          <span class="strip-col">
+            <span class="strip-label">連続修練日数</span>
+            <span class="strip-value"><span id="streak">0日目</span><span class="strip-note" id="streak-note">今日から始めよう</span></span>
+          </span>
         </div>
-        <p class="start">はじめる→</p>
-      </a>
-      <a class="card run" href="java-run.html">
-        <h2>Java を書いて動かす練習</h2>
-        <p>書いたコードを本物の Java で実行</p>
-        <div class="progress">
-          <div class="progress-bar">
-            <div class="progress-fill" id="run-fill"></div>
-          </div>
-          <p class="progress-text" id="run-text">〇% 正解済み</p>
+        <div class="strip-right">
+          <span class="strip-label">本日達成</span>
+          <span class="strip-value"><span id="today-count">0</span><small> / <span id="today-goal">5</span>問</small></span>
         </div>
-        <p class="start">はじめる→</p>
-      </a>
-  </div>
+      </div>
+    </section>
+
+    <!-- ===== 見出し ===== -->
+    <div class="section-head">
+      <h2 class="section-title"><span class="material-symbols-outlined">auto_stories</span>マイ道場</h2>
+      <span class="section-chip">全 3 冊</span>
+    </div>
+
+    <!-- ===== 道場のカード ===== -->
+    <section class="cardlist">
+
+      <!-- Web & DB 道場 -->
+      <div class="card coding">
+        <span class="card-hole"><span></span></span>
+        <span class="card-glow"></span>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-tag"><span class="material-symbols-outlined">html</span>Webフロント &amp; DB</span>
+            <span class="card-badge"><span class="material-symbols-outlined fill">star</span>入門</span>
+          </div>
+          <div class="card-title">
+            <span class="card-icon"><span class="material-symbols-outlined">code</span></span>
+            <div class="card-name">
+              <h2>Web &amp; DB 道場</h2>
+              <p>HTML・CSS・JavaScript・DBの練習</p>
+            </div>
+          </div>
+          <div class="plate">
+            <div class="plate-head">
+              <span class="plate-label">現在のチャプター</span>
+              <span class="plate-ch" id="coding-ch">Chapter --</span>
+            </div>
+            <span class="plate-title" id="coding-last">まだはじめていません</span>
+          </div>
+        </div>
+        <div class="card-foot">
+          <div class="progress">
+            <div class="progress-head">
+              <span class="progress-label"><span class="material-symbols-outlined">check_circle</span>進捗状況</span>
+              <span class="progress-text" id="coding-text">0% 正解済み</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="coding-fill"></div></div>
+          </div>
+          <a class="start" href="coding.html"><span>はじめる</span><span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+      </div>
+
+      <!-- Java 道場 -->
+      <div class="card java">
+        <span class="card-hole"><span></span></span>
+        <span class="card-glow"></span>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-tag"><span class="material-symbols-outlined">storage</span>バックエンド開発</span>
+            <span class="card-badge"><span class="material-symbols-outlined">trending_up</span>基礎強化</span>
+          </div>
+          <div class="card-title">
+            <span class="card-icon"><span class="material-symbols-outlined">coffee</span></span>
+            <div class="card-name">
+              <h2>Java 道場</h2>
+              <p>Java・Spring Boot・JPA・テストの練習</p>
+            </div>
+          </div>
+          <div class="plate">
+            <div class="plate-head">
+              <span class="plate-label">現在のチャプター</span>
+              <span class="plate-ch" id="java-ch">Chapter --</span>
+            </div>
+            <span class="plate-title" id="java-last">まだはじめていません</span>
+          </div>
+        </div>
+        <div class="card-foot">
+          <div class="progress">
+            <div class="progress-head">
+              <span class="progress-label"><span class="material-symbols-outlined">check_circle</span>進捗状況</span>
+              <span class="progress-text" id="java-text">0% 正解済み</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="java-fill"></div></div>
+          </div>
+          <a class="start" href="java.html"><span>はじめる</span><span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+      </div>
+
+      <!-- Java 実技道場 -->
+      <div class="card run">
+        <span class="card-hole"><span></span></span>
+        <span class="card-glow"></span>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-tag"><span class="material-symbols-outlined">terminal</span>実践・コード実行環境</span>
+            <span class="card-badge"><span class="material-symbols-outlined">bolt</span>リアル実行</span>
+          </div>
+          <div class="card-title">
+            <span class="card-icon"><span class="material-symbols-outlined">play_circle</span></span>
+            <div class="card-name">
+              <h2>Java 実技道場</h2>
+              <p>書いたコードを本物の Java で実行</p>
+            </div>
+          </div>
+          <div class="plate">
+            <div class="plate-head">
+              <span class="plate-label">現在のチャプター</span>
+              <span class="plate-ch" id="run-ch">Chapter --</span>
+            </div>
+            <span class="plate-title" id="run-last">まだはじめていません</span>
+          </div>
+        </div>
+        <div class="card-foot">
+          <div class="progress">
+            <div class="progress-head">
+              <span class="progress-label"><span class="material-symbols-outlined">check_circle</span>進捗状況</span>
+              <span class="progress-text" id="run-text">0% 正解済み</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="run-fill"></div></div>
+          </div>
+          <a class="start" href="java-run.html"><span>はじめる</span><span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 凡人のコツ ===== -->
+    <section class="advice">
+      <span class="advice-icon"><span class="material-symbols-outlined">tips_and_updates</span></span>
+      <div class="advice-body">
+        <p class="advice-head">BONJIN'S STUDY ADVICE <span id="advice-no">• 凡人のコツ（巻の壱）</span></p>
+        <p class="advice-text" id="advice-text">「エラーが出たらラッキー！」動かない理由を1つ知るたびに、プログラミングは必ず上達します。焦らず1問ずつ、我がペースで歩みを進めましょう。</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== 下のメニュー ===== -->
+  <nav class="bottom-nav" aria-label="メニュー">
+    <div class="bottom-nav-inner">
+      <a class="nav-item active" href="index.html" aria-current="page"><span class="material-symbols-outlined">menu_book</span><span>道場</span></a>
+      <a class="nav-item" href="scrolls.html" data-soon><span class="material-symbols-outlined">folder_open</span><span>巻物・ノート</span></a>
+      <a class="nav-item" href="java-run.html"><span class="material-symbols-outlined">terminal</span><span>鍛錬室</span></a>
+      <a class="nav-item" href="log.html"><span class="material-symbols-outlined">insights</span><span>修練録</span></a>
+      <a class="nav-item" href="secrets.html" data-soon><span class="material-symbols-outlined">menu_book</span><span>秘伝の書</span></a>
+    </div>
+  </nav>
+
+  <!-- まだ作っていないページを押したときのお知らせ -->
+  <div class="toast" id="toast" role="status" hidden>このページは準備中です。もう少し待ってね。</div>
+
   <script src="script.js"></script>
 </body>
 </html>

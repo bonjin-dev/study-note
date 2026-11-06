@@ -363,6 +363,7 @@ views.forEach((v) => {
     const copy = e.target.closest(".hiden-body .copy");
     if (copy) {
       const code = copy.closest(".code").querySelector("code").textContent;
+      countCopy();
       try { navigator.clipboard.writeText(code).then(() => showToast("型を写経台（クリップボード）に複写しました"), () => showToast("コピーできませんでした")); } catch (err) { showToast("コピーできませんでした"); }
     }
   });

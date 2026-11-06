@@ -49,6 +49,32 @@ document.querySelectorAll('[data-ach="seven"]').forEach((el) => {
   el.title = best < 7 ? "7日連続で修練すると手に入ります" : "7日連続の修練を達成";
 });
 
+// 段位と、ほかの称号も「証」の並びに足す
+const rk = rankInfo();
+const earned = titlesEarned().map((t) => t.id);
+document.querySelectorAll('[data-ach="seven"]').forEach((seven) => {
+  const row = seven.parentElement;
+  row.style.flexWrap = "wrap";
+  const make = (text, locked, title) => {
+    const el = seven.cloneNode(true);
+    el.removeAttribute("data-ach");
+    el.style.flex = "0 0 auto";
+    const spans = [...el.querySelectorAll("span")].filter((x) => !x.classList.contains("material-symbols-outlined"));
+    const target = spans.length ? spans[spans.length - 1] : el;
+    target.textContent = text;
+    el.classList.toggle("locked", locked);
+    el.title = title;
+    return el;
+  };
+  // 段位（いちばん前）
+  row.insertBefore(make("段位：" + rk.name + "（" + rk.exp.toLocaleString() + " EXP）", false,
+    rk.next ? "次の「" + rk.next + "」まで あと " + rk.need.toLocaleString() + " EXP" : "最高の段位です"), row.firstChild);
+  TITLES.filter((t) => t.id !== "three" && t.id !== "seven").forEach((t) => {
+    const got = earned.indexOf(t.id) >= 0;
+    row.appendChild(make(t.name, !got, got ? t.how + "を達成" : t.how + "で手に入ります"));
+  });
+});
+
 /* ===== 修練帖（今月のカレンダー） ===== */
 const year = today.getFullYear(), month = today.getMonth();
 const first = new Date(year, month, 1);

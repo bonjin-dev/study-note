@@ -1,0 +1,5 @@
+/* 鍛錬室：問題文の中のコードと、差しかえたコード表示 */
+.kc { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 0.9em; padding: 1px 5px; border-radius: 4px; background: rgba(164, 60, 18, 0.1); }
+.theme-d .kc { background: rgba(255, 138, 61, 0.14); }
+.kpre { margin: 0; padding: 12px; overflow: auto; max-height: 420px; white-space: pre; font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.65; }
+[data-view] [role="radio"]:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }

@@ -1549,6 +1549,8 @@ const DOJO_ID="java";
    dojo-last : {"coding": {"ch": 4, "title": "Flexbox", "sub": "CSS ・ 中級"}}  最後に開いた項目 */
 function dojoToday(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function dojoLog(dojo,ok){if(ok===undefined)ok=true;try{const L=JSON.parse(localStorage.getItem("dojo-log")||"{}");const k=dojoToday();L[k]=L[k]||{};let d=L[k][dojo];if(typeof d!=="object"||!d)d={ok:+d||0,ng:0};d[ok?"ok":"ng"]++;L[k][dojo]=d;localStorage.setItem("dojo-log",JSON.stringify(L));}catch(e){}}
+function dojoRevenge(id){try{const R=JSON.parse(localStorage.getItem("dojo-revenge")||"{}");R[id]={at:Date.now(),n:((R[id]&&R[id].n)||0)+1};localStorage.setItem("dojo-revenge",JSON.stringify(R));}catch(e){}}
+function dojoCopy(){try{localStorage.setItem("dojo-copy",String((+localStorage.getItem("dojo-copy")||0)+1));}catch(e){}}
 function dojoLast(dojo,info){try{const M=JSON.parse(localStorage.getItem("dojo-last")||"{}");info.at=Date.now();M[dojo]=info;localStorage.setItem("dojo-last",JSON.stringify(M));}catch(e){}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
 
@@ -1643,7 +1645,7 @@ function bindQuiz(root,items,onAnswer){
       let extra="";
       if(ok){
         store.ok[it.id]=true; dojoLog(DOJO_ID);
-        if(store.miss[it.id]){delete store.miss[it.id]; extra=`<div class="why small">苦手リストから外しました。</div>`;}
+        if(store.miss[it.id]){delete store.miss[it.id]; dojoRevenge(it.id); extra=`<div class="why small">苦手リストから外しました。</div>`;}
       }else{
         b.classList.add("wrong"); dojoLog(DOJO_ID,false);
         store.miss[it.id]=(store.miss[it.id]||0)+1;
@@ -1680,7 +1682,7 @@ function renderTopic(){
   $("#copy").addEventListener("click",e=>{
     const btn=e.currentTarget;
     const done=()=>{btn.textContent="コピーしました"; setTimeout(()=>btn.textContent="コピー",1500);};
-    try{navigator.clipboard.writeText(tp.code).then(done,selectCode);}catch(err){selectCode();}
+    dojoCopy();try{navigator.clipboard.writeText(tp.code).then(done,selectCode);}catch(err){selectCode();}
   });
 }
 function selectCode(){const r=document.createRange(); r.selectNodeContents($("#panel pre")); const s=getSelection(); s.removeAllRanges(); s.addRange(r);}
@@ -1849,7 +1851,7 @@ function renderCodes(){
     const c=e.target.closest("[data-copy]");
     if(c){const s=list.find(x=>x.id===c.dataset.copy);const done=()=>{c.textContent="コピーしました";setTimeout(()=>c.textContent="コピー",1500);};
       const sel=()=>{const r=document.createRange();r.selectNodeContents(c.closest(".cd").querySelector("pre"));const g=getSelection();g.removeAllRanges();g.addRange(r);c.textContent="選択しました（コピーしてください）";};
-      try{navigator.clipboard.writeText(s.code).then(done,sel);}catch(err){sel();}return;}
+      dojoCopy();try{navigator.clipboard.writeText(s.code).then(done,sel);}catch(err){sel();}return;}
     const p=e.target.closest("[data-pv]");
     if(p){const s=list.find(x=>x.id===p.dataset.pv),box=p.closest(".cd").querySelector(".cd-pv");
       if(box.innerHTML){box.innerHTML="";p.textContent="見た目を見る";return;}

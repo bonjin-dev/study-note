@@ -60,7 +60,7 @@ document.querySelectorAll('[data-act="save"]').forEach((b) => {
 });
 
 /* ===== 修練録の継承（書き出し・読み込み） ===== */
-const KEYS = ["coding-drill-v1", "java-drill-v2", "java-run-v1", "java-run-v1-pos", "dojo-log", "dojo-last", "dojo-goal", "theme", "hiden-state", "hiden-mine"];
+const KEYS = ["coding-drill-v1", "java-drill-v2", "java-run-v1", "java-run-v1-pos", "dojo-log", "dojo-last", "dojo-goal", "theme", "hiden-state", "hiden-mine", "dojo-revenge", "dojo-copy", "keiko-star"];
 
 function feedback(ok, text) {
   document.querySelectorAll('[id^="transfer-feedback"]').forEach((box) => {
@@ -179,6 +179,13 @@ document.querySelectorAll('[data-act="import"]').forEach((b) => {
           Object.keys((v || {})[f] || {}).forEach((id) => { cur[f][id] = Math.max(cur[f][id] || 0, v[f][id] || 0); });
         });
         writeJSON(k, cur);
+      } else if (k === "dojo-revenge" || k === "keiko-star") {
+        // 克服の記録・急所の印（両方を合わせる）
+        const cur = readJSON(k, {}) || {};
+        Object.keys(v || {}).forEach((id) => { if (!cur[id]) cur[id] = v[id]; });
+        writeJSON(k, cur);
+      } else if (k === "dojo-copy") {
+        writeJSON(k, Math.max(Number(readJSON(k, 0)) || 0, Number(v) || 0));
       } else if (k === "hiden-mine") {
         // 秘伝の書：自分の覚書（同じものは増やさない）
         const cur = readJSON(k, []) || [];

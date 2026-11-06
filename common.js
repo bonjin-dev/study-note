@@ -134,6 +134,73 @@ function lastStudied(id) {
   return keys.length ? keys[keys.length - 1] : null;
 }
 
+/* ===== 答えた記録を残す（鍛錬室で使う） ===== */
+function logAnswer(id, ok) {
+  const k = dayKey(new Date());
+  const day = LOG[k] = LOG[k] || {};
+  const e = dayEntry(k, id);
+  e[ok ? "ok" : "ng"]++;
+  day[id] = e;
+  writeJSON("dojo-log", LOG);
+}
+// 苦手（不覚）を克服した記録 {"問題のid": {at: 時刻, n: 回数}}
+function revengeLog() { return readJSON("dojo-revenge", {}) || {}; }
+function addRevenge(qid) {
+  const r = revengeLog();
+  r[qid] = { at: Date.now(), n: ((r[qid] && r[qid].n) || 0) + 1 };
+  writeJSON("dojo-revenge", r);
+}
+// コピー（写経）した回数
+function countCopy() { writeJSON("dojo-copy", (Number(readJSON("dojo-copy", 0)) || 0) + 1); }
+
+/* ===== 経験値（EXP）・段位・称号 =====
+   1問正解（4択）10 ／ 穴埋め・記述・SQL・Java 実行の正解 20 ／ 雪辱 15 ／ 1日の目標達成 30 ／ 秘伝の書を1巻読む 5 */
+const RANKS = [
+  ["入門", 0], ["白帯", 100], ["黄帯", 300], ["緑帯", 700], ["青帯", 1500],
+  ["茶帯", 3000], ["黒帯", 5000], ["師範代", 8000], ["師範", 12000]
+];
+function countKeys(o) { return o && typeof o === "object" ? Object.keys(o).filter((k) => o[k]).length : 0; }
+function expParts() {
+  const c = dojoStore("coding") || {}, j = dojoStore("java") || {}, r = dojoStore("run") || {};
+  const quiz = countKeys(c.ok) + countKeys(j.ok);
+  const input = countKeys(c.fill) + countKeys(c.write) + countKeys(c.sql) + countKeys(j.fill) + countKeys(j.write) + countKeys(j.sql) + countKeys(r.done);
+  const revenge = Object.keys(revengeLog()).length;
+  const goalDays = Object.keys(LOG).filter((k) => dayStat(k).ok >= goal()).length;
+  const read = countKeys((readJSON("hiden-state", {}) || {}).read);
+  return { quiz, input, revenge, goalDays, read };
+}
+function totalExp() {
+  const p = expParts();
+  return p.quiz * 10 + p.input * 20 + p.revenge * 15 + p.goalDays * 30 + p.read * 5;
+}
+// 段位 {name, exp, next(次の段位の名前), need(あと何 EXP), pct(次までの%)}
+function rankInfo(exp) {
+  if (exp === undefined) exp = totalExp();
+  let i = 0;
+  RANKS.forEach((r, k) => { if (exp >= r[1]) i = k; });
+  const nx = RANKS[i + 1];
+  return {
+    name: RANKS[i][0], exp, level: i,
+    next: nx ? nx[0] : null, need: nx ? nx[1] - exp : 0,
+    pct: nx ? Math.round((exp - RANKS[i][1]) / (nx[1] - RANKS[i][1]) * 100) : 100
+  };
+}
+// 称号
+const TITLES = [
+  { id: "first", name: "初陣", how: "はじめて1問正解", ok: (p) => p.quiz + p.input > 0 },
+  { id: "three", name: "三日坊主卒業", how: "3日連続で修練", ok: () => longestStreak() >= 3 },
+  { id: "seven", name: "七日の行", how: "7日連続で修練", ok: () => longestStreak() >= 7 },
+  { id: "hundred", name: "百問斬り", how: "正解済みが100問", ok: () => DOJO_IDS.reduce((t, d) => t + solvedCount(d), 0) >= 100 },
+  { id: "revenge", name: "雪辱の士", how: "まちがえた問題を10問克服", ok: (p) => p.revenge >= 10 },
+  { id: "copy", name: "写経好き", how: "コードを10回写経（コピー）", ok: () => (Number(readJSON("dojo-copy", 0)) || 0) >= 10 },
+  { id: "reader", name: "読書家", how: "秘伝の書を10巻読む", ok: (p) => p.read >= 10 },
+  { id: "master", name: "皆伝", how: "どれか1つの道場を全問正解", ok: () => DOJO_IDS.some((d) => solvedCount(d) >= DOJOS[d].total) }
+];
+function titlesEarned() {
+  const p = expParts();
+  return TITLES.filter((t) => t.ok(p));
+}
+
 /* ===== 画面に値を入れる ===== */
 // data-b="名前" がついている場所（ライト・ダーク両方）に文字を入れる
 function setText(name, value) {
@@ -162,18 +229,18 @@ function currentTheme() {
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   // ページの外側の色を、いま見えている画面に合わせる
-  const root = document.querySelector(theme === "dark" ? ".theme-d .sc-root" : ".theme-l .sc-root");
+  const root = [...document.querySelectorAll(theme === "dark" ? ".theme-d .sc-root" : ".theme-l .sc-root")].find((r) => !r.closest("[hidden]"));
   if (root) document.body.style.backgroundColor = getComputedStyle(root).backgroundColor;
   document.querySelectorAll("[data-theme-toggle]").forEach((b) => {
     b.setAttribute("aria-label", theme === "dark" ? "ライトモードにする" : "ダークモードにする");
   });
 }
-document.querySelectorAll("[data-theme-toggle]").forEach((b) => {
-  b.addEventListener("click", () => {
-    const next = currentTheme() === "dark" ? "light" : "dark";
-    try { localStorage.setItem("theme", next); } catch (e) {}
-    applyTheme(next);
-  });
+// あとから作り直した画面のボタンでも効くように、ページ全体で受け取る
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("[data-theme-toggle]")) return;
+  const next = currentTheme() === "dark" ? "light" : "dark";
+  try { localStorage.setItem("theme", next); } catch (err) {}
+  applyTheme(next);
 });
 applyTheme(currentTheme());
 

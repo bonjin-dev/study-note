@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>本日の修練問 | bonjin&#x27;s study note</title>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,600;0,700;1,600&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/keiko.css">
+<link rel="stylesheet" href="css/sc-day-l.css">
+<link rel="stylesheet" href="css/sc-day-d.css">
+<link rel="stylesheet" href="css/sc-ok-l.css">
+<link rel="stylesheet" href="css/sc-ok-d.css">
+<link rel="stylesheet" href="css/sc-ng-l.css">
+<link rel="stylesheet" href="css/sc-ng-d.css">
+<link rel="stylesheet" href="css/sc-res-l.css">
+<link rel="stylesheet" href="css/sc-res-d.css">
+</head>
+<body>
+<!-- ライトモードの画面 -->
+<div class="theme-l">
+<div data-view="q"><div class="sc-day-l"><div class="bg-surface text-on-surface flex flex-col min-h-screen antialiased selection:bg-primary-fixed selection:text-on-primary-fixed sc-root">
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_2px_12px_rgba(58,45,34,0.06)]"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex flex-col justify-center"><h1 class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">bonjin's study note</h1><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase mt-0.5">凡人道場デスク・STUDY DESK</span></div><div class="flex items-center gap-space-xs"><button aria-label="夜の帳・ダークモード切替" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">dark_mode</span></button><a href="settings.html" aria-label="設定" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">settings</span></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full px-gutter py-space-md gap-space-lg">
+<!-- 1. 進捗・鍛錬ステータス帯 -->
+<section class="flex flex-col gap-space-sm">
+<!-- バッジ列 -->
+<div class="flex items-center justify-between gap-space-xs">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container rounded-lg shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold tracking-wider">実戦百人組手 本日 3 / 5 問 済</span>
+</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 bg-primary-fixed rounded-lg">
+<span class="text-[13px]">🔥</span>
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant font-bold">連続5日修練中</span>
+</div>
+</div>
+<!-- 修練問見出し & 達成率 -->
+<div class="flex items-end justify-between mt-1">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">本日の修練問</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold">[第参問]</span>
+</div>
+<div class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant">
+<span>目標達成率</span>
+<span class="font-bold text-primary">60%</span>
+</div>
+</div>
+<!-- 朱色プログレスバー -->
+<div class="w-full h-2 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary-container rounded-full transition-all duration-500 ease-out" style="width: 60%;"></div>
+</div>
+<!-- 篇・題目タグ -->
+<div class="flex items-center gap-2 mt-0.5">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-variant font-label-sm text-label-sm text-on-surface-variant font-medium">
+        Web &amp; DB 道場
+      </span>
+<span class="font-label-md text-label-md text-on-surface-variant truncate">
+        篇四：非同期処理の極意
+      </span>
+</div>
+</section>
+<!-- 2. 問題カード（和紙・木札風） -->
+<section class="relative bg-surface-container-lowest rounded-xl shadow-[0_4px_16px_rgba(58,45,34,0.06)] overflow-hidden">
+<!-- 左側の朱色縦アクセントバー -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+<div class="pl-space-lg pr-space-md py-space-md flex flex-col gap-space-md">
+<!-- 設問タイトル -->
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-primary-fixed flex items-center justify-center">
+<span class="font-headline-sm text-primary font-bold text-xs leading-none">参</span>
+</div>
+<h2 class="font-title-md text-title-md text-on-surface font-bold tracking-tight">
+          【問の参】async/await における例外捕捉の構え
+        </h2>
+</div>
+<!-- 問題文 -->
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+        下記の関数 <code class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-semibold text-xs">fetchDojoScroll</code> において、通信失敗時（レスポンス不首尾やネットワーク途絶）に正しく例外を捕捉し、道場の門を詰まらせぬ（安全にフォールバック値を返却する）正しい実装の型を選べ。
+      </p>
+<!-- 巻物コード枠（Scroll_Practice.js） -->
+<div class="rounded-xl bg-inverse-surface text-inverse-on-surface shadow-inner overflow-hidden">
+<!-- コードヘッダー -->
+<div class="flex items-center justify-between px-space-md py-2 bg-black/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">cloud_download</span>
+<span class="font-label-sm text-label-sm tracking-wider text-inverse-on-surface/80">Scroll_Practice.js</span>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 active:scale-95 transition-all text-inverse-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">edit_note</span>
+<span>写経</span>
+</button>
+</div>
+<!-- コードエディタ本体 -->
+<pre class="p-space-md font-mono text-[13px] leading-relaxed overflow-x-auto text-inverse-on-surface/90"><code><span class="text-on-surface-variant/70 italic">// 凡人修練用巻物：安全な定番コード</span>
+<span class="text-tertiary-fixed-dim">async function</span> <span class="text-primary-fixed">fetchDojoScroll</span>(url) {
+  <span class="text-on-surface-variant/70 italic">// 【ここに正しい構えを入れよ】</span>
+  <span class="text-tertiary-fixed-dim">const</span> res = <span class="text-tertiary-fixed-dim">await</span> fetch(url);
+  <span class="text-tertiary-fixed-dim">return await</span> res.json();
+}</code></pre>
+</div>
+</div>
+</section>
+<!-- 3. 四択の型（選択肢リスト） -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest font-semibold">四択の型・いずれか一つを採れ</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">1択 選択中</span>
+</div>
+<!-- 型・壱（選択中・アクティブ） -->
+<label class="group relative flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-lowest shadow-[0_2px_8px_rgba(194,65,12,0.12)] cursor-pointer transition-all">
+<div class="absolute inset-0 rounded-xl bg-primary-container/5 pointer-events-none"></div>
+<input checked="" class="sr-only kata-radio" name="kata" type="radio" value="1"/>
+<div class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[14px] font-bold">check</span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col gap-1">
+<div class="flex items-center justify-between gap-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">型・壱</span>
+<span class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold tracking-wider">選択中</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-snug">
+<code class="px-1 py-0.5 rounded bg-surface-container font-semibold text-xs">try / catch</code> ブロックで囲み、<code class="px-1 py-0.5 rounded bg-surface-container font-semibold text-xs">catch(err)</code> 内で安全なフォールバック値を返す。
+        </p>
+</div>
+</label>
+<!-- 型・弐（未選択） -->
+<label class="group relative flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-lowest hover:bg-surface-container-low shadow-sm cursor-pointer transition-all">
+<input class="sr-only kata-radio" name="kata" type="radio" value="2"/>
+<div class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-surface-variant group-hover:bg-outline-variant flex items-center justify-center transition-colors">
+<span class="w-2 h-2 rounded-full bg-transparent group-[.selected]:bg-primary-container"></span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col gap-1">
+<div class="flex items-center justify-between gap-2">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">型・弐</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+<code class="px-1 py-0.5 rounded bg-surface-container text-xs">fetch</code> の直後に <code class="px-1 py-0.5 rounded bg-surface-container text-xs">.catch()</code> をチェーンするのみで、<code class="px-1 py-0.5 rounded bg-surface-container text-xs">await</code> 構文をそのまま抜ける。
+        </p>
+</div>
+</label>
+<!-- 型・参（未選択） -->
+<label class="group relative flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-lowest hover:bg-surface-container-low shadow-sm cursor-pointer transition-all">
+<input class="sr-only kata-radio" name="kata" type="radio" value="3"/>
+<div class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-surface-variant group-hover:bg-outline-variant flex items-center justify-center transition-colors">
+<span class="w-2 h-2 rounded-full bg-transparent group-[.selected]:bg-primary-container"></span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col gap-1">
+<div class="flex items-center justify-between gap-2">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">型・参</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+          例外は握り潰して <code class="px-1 py-0.5 rounded bg-surface-container text-xs">null</code> を返し、エラー通知を一切行わない。
+        </p>
+</div>
+</label>
+<!-- 型・四（未選択） -->
+<label class="group relative flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-lowest hover:bg-surface-container-low shadow-sm cursor-pointer transition-all">
+<input class="sr-only kata-radio" name="kata" type="radio" value="4"/>
+<div class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-surface-variant group-hover:bg-outline-variant flex items-center justify-center transition-colors">
+<span class="w-2 h-2 rounded-full bg-transparent group-[.selected]:bg-primary-container"></span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col gap-1">
+<div class="flex items-center justify-between gap-2">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">型・四</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+<code class="px-1 py-0.5 rounded bg-surface-container text-xs">Promise.all</code> の中に単一の <code class="px-1 py-0.5 rounded bg-surface-container text-xs">fetch</code> を格納して同期処理に変換する。
+        </p>
+</div>
+</label>
+</section>
+<!-- 4. 鍛錬支援・補助ボタン -->
+<section class="flex flex-col gap-space-sm">
+<!-- 秘伝ヒント アコーディオン -->
+<div class="rounded-xl bg-surface-container-low overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between px-space-md py-space-sm text-left hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2">
+<span class="text-base">💡</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">凡人の勘所（秘伝ヒントを開く）</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform duration-200">expand_more</span>
+</button>
+<div class="hidden px-space-md pb-space-md pt-1 bg-surface-container-low text-on-surface-variant font-body-sm text-body-sm leading-relaxed">
+<div class="p-3 rounded-lg bg-surface-container-lowest text-on-surface flex flex-col gap-1">
+<span class="font-label-md text-label-md text-primary font-bold">【要点】</span>
+<span>非同期構文 <code class="text-xs bg-surface-variant px-1 rounded">await</code> は例外が発生すると直ちに後続処理を止め、大元の呼び出し元へエラーを投げ飛ばす。関数の内部で安全に抑え込むには、古典的かつ最強の結界 <code class="text-xs bg-surface-variant px-1 rounded">try { ... } catch (e) { ... }</code> で囲うのが定石である。</span>
+</div>
+</div>
+</div>
+<!-- 写経して試す（砂場・サンドボックス）ボタン -->
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-space-md rounded-xl bg-surface-container text-on-surface hover:bg-surface-variant active:scale-[0.99] transition-all shadow-sm font-label-lg text-label-lg font-semibold">
+<span class="material-symbols-outlined text-[18px] text-tertiary">code_blocks</span>
+<span>[ &lt; / &gt; ] 写経して試す（砂場・サンドボックス）</span>
+</button>
+</section>
+<!-- 5. メイン判定CTAボタン -->
+<section class="pt-space-xs">
+<button class="w-full relative py-3.5 px-space-lg rounded-xl bg-primary-container text-on-primary font-headline-sm text-headline-sm font-bold tracking-wider shadow-[0_8px_20px_rgba(194,65,12,0.28)] hover:brightness-105 active:translate-y-0.5 transition-all flex items-center justify-center gap-2 overflow-hidden">
+<!-- 漆光沢ハイライト -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/20 pointer-events-none"></div>
+<span class="material-symbols-outlined text-[24px]">gavel</span>
+<span>いざ尋常に勝負（判定する）</span>
+</button>
+</section>
+<!-- 6. 鍛錬帳の切り替え -->
+<section class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium flex items-center gap-1">
+<span>他の鍛錬帳へ切り替え</span>
+<span class="material-symbols-outlined text-[16px]">sync_alt</span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">全3巻</span>
+</div>
+<!-- 木札タグスクロール -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 -mx-gutter px-gutter">
+<!-- 選択中 -->
+<button class="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-primary-container text-on-primary shadow-sm font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Web &amp; DB (実践演習中)</span>
+</button>
+<!-- 未選択 1 -->
+<button class="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-variant shadow-sm font-label-md text-label-md font-medium transition-colors">
+<span class="material-symbols-outlined text-[16px] text-secondary">terminal</span>
+<span>Java 基礎鍛錬</span>
+</button>
+<!-- 未選択 2 -->
+<button class="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-variant shadow-sm font-label-md text-label-md font-medium transition-colors">
+<span class="material-symbols-outlined text-[16px] text-tertiary">memory</span>
+<span>Java 実技</span>
+</button>
+</div>
+</section>
+<!-- 7. 凡人師範の独り言（鍛錬の巻） -->
+<section class="mt-space-xs p-space-md rounded-xl bg-surface-container-low shadow-[0_2px_10px_rgba(58,45,34,0.04)] flex gap-space-md items-start">
+<!-- 落款印アイコン (赤印鑑風) -->
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-error text-on-error flex flex-col items-center justify-center font-headline-sm font-bold shadow-sm p-1 leading-none select-none">
+<span class="text-[10px] tracking-tighter">凡人</span>
+<span class="text-[10px] tracking-tighter">之印</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-bold tracking-wider">凡人のコツ（鍛錬の巻）</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">凡人師範の独り言</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface italic font-medium leading-snug">
+        「間違えた時こそ絶好の好機。エラーの理由を心に深く刻めば、二度と同じ罠にはまらぬ。」
+      </p>
+</div>
+</section>
+</div>
+</main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-low/90 backdrop-blur-xl shadow-[0_-2px_16px_rgba(58,45,34,0.08)]" data-active-classes="text-primary font-label-md font-semibold relative after:content-[''] after:absolute after:top-1.5 after:w-1 after:h-1 after:rounded-full after:bg-primary"><div class="h-16 px-space-xs flex items-center justify-around"><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="dojo" href="index.html"><span class="material-symbols-outlined text-[22px]">temple_buddhist</span><span class="font-label-sm text-label-sm">道場</span></a><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="scrolls" href="scrolls.html"><span class="material-symbols-outlined text-[22px]">history_edu</span><span class="font-label-sm text-label-sm">巻物</span></a><a aria-current="page" style="color:#a43c12;font-weight:700" class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="training-chamber" href="daily.html"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span class="font-label-sm text-label-sm">鍛錬室</span></a><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="practice-log" href="log.html"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm">修練録</span></a><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="secret-archive" href="secrets.html"><span class="material-symbols-outlined text-[22px]">auto_stories</span><span class="font-label-sm text-label-sm">秘伝の書</span></a></div></nav>
+</div></div></div>
+<div data-view="ok" hidden><div class="sc-ok-l"><div class="bg-surface text-on-surface flex flex-col min-h-screen antialiased selection:bg-primary-fixed selection:text-on-primary-fixed sc-root">
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_2px_12px_rgba(58,45,34,0.06)]"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex flex-col justify-center"><h1 class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">bonjin's study note</h1><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase mt-0.5">凡人道場デスク・STUDY DESK</span></div><div class="flex items-center gap-space-xs"><button aria-label="夜の帳・ダークモード切替" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">dark_mode</span></button><a href="settings.html" aria-label="設定" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">settings</span></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full">
+<!-- 1. Header Under-Progress Banner (日課進捗バナー) -->
+<section class="px-gutter pt-space-md pb-space-sm">
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between gap-space-xs mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="bg-primary/10 text-primary font-label-sm text-label-sm px-2 py-0.5 rounded">実戦百人組手</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">本日 3 / 5 問 完</span>
+</div>
+<div class="flex items-center gap-1 bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm px-2 py-0.5 rounded-full">
+<span class="">5日連続</span>
+<span class="text-sm">🔥</span>
+</div>
+</div>
+<!-- Progress Meter -->
+<div class="mt-space-xs mb-2">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">日課達成率 60%</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">目標 80% まであと1問</span>
+</div>
+<div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 60%;"></div>
+</div>
+</div>
+<!-- Gain status -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">military_tech</span>
+<span class="font-label-sm text-label-sm font-semibold">正解判定 +30pt 獲得</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="font-label-sm text-label-sm">練度ランク：</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold">凡人参段</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Victory & Result Badge (祝勝・判定結果 木札風カード) -->
+<section class="px-gutter py-space-sm">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-md relative overflow-hidden">
+<!-- Top Decorative Accent -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+<!-- Seal Stamp (落款印：皆伝 正解之証) -->
+<div class="absolute top-4 right-4 w-14 h-14 rounded bg-error/10 flex flex-col items-center justify-center rotate-6 select-none shadow-sm">
+<div class="w-12 h-12 rounded-sm bg-error/5 flex flex-col items-center justify-center text-error leading-tight font-headline-sm">
+<span class="text-[10px] tracking-widest font-bold">皆伝</span>
+<span class="text-[9px] tracking-tighter font-semibold">正解之証</span>
+</div>
+</div>
+<!-- Badge & Title -->
+<div class="pr-16">
+<div class="inline-flex items-center gap-1 bg-primary text-on-primary font-label-sm text-label-sm px-2.5 py-0.5 rounded-full mb-space-xs">
+<span class="material-symbols-outlined text-[14px]">sports_martial_arts</span>
+<span class="">判定完了・一本勝ち</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">
+          見事！ 正解「一本」
+        </h2>
+<p class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="text-primary font-semibold">問の参：</span>
+<span class="">async/await における例外捕捉の構え</span>
+</p>
+</div>
+<!-- Metrics Row (3-Pillar stats) -->
+<div class="grid grid-cols-3 gap-2 mt-space-md pt-space-sm bg-surface-container-low rounded-lg p-space-sm">
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">所要時間</span>
+<div class="flex items-baseline gap-0.5 mt-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface">42</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">秒</span>
+</div>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">修練経験値</span>
+<div class="flex items-baseline gap-0.5 mt-0.5">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">+50</span>
+<span class="font-label-sm text-label-sm text-primary">EXP</span>
+</div>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">自分の正答率</span>
+<div class="flex items-baseline gap-0.5 mt-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface">91.4</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Chosen Answer Adjudication (審判カード) -->
+<section class="px-gutter py-space-sm">
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm relative">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold tracking-wider uppercase">審判の記録</span>
+<span class="bg-primary text-on-primary font-label-sm text-label-sm px-2 py-0.5 rounded font-semibold">
+          正解選択
+        </span>
+</div>
+<!-- Selected Option Body -->
+<div class="bg-surface-container-lowest rounded-lg p-space-sm mb-space-sm flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0" style="font-variation-settings: 'FILL' 1;">
+          check_circle
+        </span>
+<div class="flex-1 min-w-0">
+<span class="font-label-sm text-label-sm text-primary font-bold block mb-0.5">型・壱（選んだ型）</span>
+<p class="font-body-md text-body-md text-on-surface font-semibold">
+            try/catch ブロックで await fetch を包み、通信例外と後続処理の両方を捕縛する
+          </p>
+</div>
+</div>
+<!-- Logic Explanation -->
+<div class="bg-surface-variant/40 rounded-lg p-space-sm flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">
+          lightbulb
+        </span>
+<div class="flex-1 min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface font-bold block mb-0.5">判定の理</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            ネットワーク寸断などの拒絶（Promise reject）は、同期的な try/catch 構文で同期コード同様に自然に捕捉するのが最も簡潔で堅牢な構えです。
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Master's Secret Scroll (凡人師範の秘伝解説) -->
+<section class="px-gutter py-space-sm">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-md relative overflow-hidden">
+<!-- Scroll Header Strip -->
+<div class="flex items-center justify-between mb-space-md pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-tight">凡人師範の秘伝解説</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">秘伝の巻物 其の参</span>
+</div>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded">修練伝授</span>
+</div>
+<!-- Teachings Item 1 -->
+<div class="mb-space-md">
+<div class="flex items-center gap-1.5 mb-1 text-primary">
+<span class="font-headline-sm text-headline-sm leading-none">壱.</span>
+<h4 class="font-title-md text-title-md text-on-surface font-bold">try/catch の結界で囲むべし</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant pl-5">
+<code class="bg-surface-container px-1 py-0.5 rounded font-mono text-[13px] text-primary">fetch()</code> は、通信断絶やDNS解決不能など、接続そのものが成立しない時にのみ Promise を拒絶（Reject）します。この大波を同期コードのように迎え撃つには、try/catch の結界が最も直感的かつ無駄がありません。
+        </p>
+</div>
+<!-- Teachings Item 2 -->
+<div class="mb-space-md">
+<div class="flex items-center gap-1.5 mb-1 text-primary">
+<span class="font-headline-sm text-headline-sm leading-none">弐.</span>
+<h4 class="font-title-md text-title-md text-on-surface font-bold">通信不首尾（HTTP 4xx/5xx）の落とし穴</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant pl-5">
+          「404 Not Found」や「500 Server Error」でも fetch 自体は完了とみなされ Reject されません。<code class="bg-surface-container px-1 py-0.5 rounded font-mono text-[13px] text-primary">!response.ok</code> を検知し、自ら <code class="bg-surface-container px-1 py-0.5 rounded font-mono text-[13px] text-primary">throw new Error()</code> を放つことで、正しく catch の構えへと誘導するのが常道です。
+        </p>
+</div>
+<!-- Exemplary Code Block (模範コード) -->
+<div class="rounded-lg overflow-hidden bg-surface-container-highest shadow-inner mb-space-md">
+<!-- Code Bar -->
+<div class="bg-surface-dim px-space-md py-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">code</span>
+<span class="font-label-sm text-label-sm text-on-surface font-bold tracking-wider">Scroll_Solution.js</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-1.5 py-0.2 rounded text-[10px]">ES2024</span>
+</div>
+<button class="flex items-center gap-1 text-primary hover:text-on-primary-fixed-variant transition-colors font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+<span class="">写経（コピー）</span>
+</button>
+</div>
+<!-- Code Content -->
+<pre class="p-space-md text-[13px] leading-relaxed font-mono overflow-x-auto text-on-surface select-text bg-surface-container-high/60"><code><span class="text-tertiary">async function</span> <span class="text-primary font-bold">masterFetchKata</span>(url) {
+  <span class="text-tertiary font-bold">try</span> {
+    <span class="text-on-surface-variant">// 一、通信試行の構え</span>
+    <span class="text-tertiary">const</span> res = <span class="text-tertiary font-bold">await</span> fetch(url);
+
+    <span class="text-on-surface-variant">// 二、不首尾（4xx/5xx）の検知と手動抜刀</span>
+    <span class="text-tertiary font-bold">if</span> (!res.ok) {
+      <span class="text-tertiary font-bold">throw new</span> <span class="text-secondary font-bold">Error</span>(<span class="text-primary-container">`秘伝通信断: ${res.status}`</span>);
+    }
+
+    <span class="text-tertiary">const</span> data = <span class="text-tertiary font-bold">await</span> res.json();
+    <span class="text-tertiary font-bold">return</span> data;
+  } <span class="text-tertiary font-bold">catch</span> (err) {
+    <span class="text-on-surface-variant">// 三、ネットワーク不通＆HTTP例外の両方を一手に捕縛</span>
+    console.error(<span class="text-primary-container">"【道場警告】捕縛せし例外:"</span>, err.message);
+    <span class="text-tertiary font-bold">throw</span> err;
+  }
+}</code></pre>
+</div>
+<!-- Action: Save to Notebook -->
+<button class="w-full flex items-center justify-center gap-2 bg-surface-container py-space-sm px-space-md rounded-lg text-on-surface hover:bg-surface-variant transition-colors active:scale-[0.99]">
+<span class="material-symbols-outlined text-primary text-[18px]">bookmark_add</span>
+<span class="font-label-md text-label-md font-semibold">模範コードをマイ巻物（ノート）に転記する</span>
+</button>
+</div>
+</section>
+<!-- 5. Traps & Other Options Commentary (他の型の講評) -->
+<section class="px-gutter py-space-sm">
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm">
+<div class="flex items-center gap-1.5 mb-space-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">psychology_alt</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">他の型の講評（罠の見極め）</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+        不正解の選択肢に潜む「甘え」と「落とし穴」を看破し、実戦の目を養う。
+      </p>
+<div class="flex flex-col gap-space-sm">
+<!-- Wrong 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md text-on-surface font-bold">型・弐：await と .catch() の混用</span>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-1.5 py-0.2 rounded font-semibold">乱れた構え</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            構文上は動作するが、非同期処理のスタイルが混濁する。返り値の型が不確定になりやすく、後続処理のエラー伝播を見失う温床となる。
+          </p>
+</div>
+<!-- Wrong 3 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md text-on-surface font-bold">型・参：エラー握り潰し（無言の null 返却）</span>
+<span class="bg-error text-on-error font-label-sm text-label-sm px-1.5 py-0.2 rounded font-semibold">最も危険</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            例外をログにも残さず平静を装う愚策。呼び出し元の深い場所で予期せぬ TypeError を引き起こし、原因究明に幾日も費やす惨事を生む。
+          </p>
+</div>
+<!-- Wrong 4 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md text-on-surface font-bold">型・四：単一通信に Promise.all を適用</span>
+<span class="bg-surface-variant text-on-surface-variant font-label-sm text-label-sm px-1.5 py-0.2 rounded font-semibold">過剰な構え</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            牛刀をもって鶏を裂くが如し。複数並列の要件がない単一リクエストで持ち出すのは無意味であり、コードの意図をいたずらに濁らせる。
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Master's Soliloquy / Column (凡人師範の独り言) -->
+<section class="px-gutter py-space-sm">
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<div class="flex items-center gap-space-xs mb-space-xs">
+<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[16px]">record_voice_over</span>
+</div>
+<span class="font-label-md text-label-md font-bold text-on-surface">凡人師範の独り言</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold ml-auto">正解の巻</span>
+</div>
+<blockquote class="font-headline-sm text-headline-sm text-on-surface leading-relaxed italic bg-surface-container-lowest/60 p-space-sm rounded-lg">
+        「正解した時こそ、なぜ他の選択肢が駄目だったかを噛みしめよ。間違いの理を知ることこそが、実戦で迷わぬ一生モノの勘所となる。」
+      </blockquote>
+</div>
+</section>
+<!-- 7. Action Navigation (次の手・下部アクション導線) -->
+<section class="px-gutter pt-space-md pb-space-xl flex flex-col gap-space-sm">
+<!-- Main CTA: Urushi Lacquer Primary Button -->
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg py-3.5 px-space-md rounded-xl shadow-md active:translate-y-0.5 transition-all flex items-center justify-center gap-2 group">
+<span class="font-bold">次の修練へ進む（第四問へ）</span>
+<span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<!-- Sub Actions Row -->
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="flex items-center justify-center gap-1.5 bg-surface-container-lowest hover:bg-surface-container text-on-surface py-2.5 px-space-sm rounded-lg shadow-sm transition-colors">
+<span class="material-symbols-outlined text-primary text-[18px]">rule</span>
+<span class="font-label-md text-label-md font-semibold">復習巻物に登録</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 bg-surface-container-lowest hover:bg-surface-container text-on-surface py-2.5 px-space-sm rounded-lg shadow-sm transition-colors">
+<span class="material-symbols-outlined text-tertiary text-[18px]">terminal</span>
+<span class="font-label-md text-label-md font-semibold">写経道場で試す</span>
+</button>
+</div>
+<!-- Quiet Escape Link -->
+<div class="text-center pt-space-xs">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span class="">鍛錬を一時中断して道場へ戻る</span>
+</a>
+</div>
+</section>
+</div>
+</main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-low/90 backdrop-blur-xl shadow-[0_-2px_16px_rgba(58,45,34,0.08)]" data-active-classes="text-primary font-label-md font-semibold relative after:content-[''] after:absolute after:top-1.5 after:w-1 after:h-1 after:rounded-full after:bg-primary"><div class="h-16 px-space-xs flex items-center justify-around"><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="dojo" href="index.html"><span class="material-symbols-outlined text-[22px]">temple_buddhist</span><span class="font-label-sm text-label-sm">道場</span></a><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="scrolls" href="scrolls.html"><span class="material-symbols-outlined text-[22px]">history_edu</span><span class="font-label-sm text-label-sm">巻物</span></a><a aria-current="page" class="flex flex-col items-center justify-center w-14 h-14 transition-all gap-0.5 text-primary font-label-md font-semibold relative after:content-[''] after:absolute after:top-1.5 after:w-1 after:h-1 after:rounded-full after:bg-primary" data-path="training-chamber" href="daily.html"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span class="font-label-sm text-label-sm">鍛錬室</span></a><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="practice-log" href="log.html"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm">修練録</span></a><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="secret-archive" href="secrets.html"><span class="material-symbols-outlined text-[22px]">auto_stories</span><span class="font-label-sm text-label-sm">秘伝の書</span></a></div></nav>
+
+
+</div></div></div>
+<div data-view="ng" hidden><div class="sc-ng-l"><div class="bg-surface text-on-surface flex flex-col min-h-screen antialiased selection:bg-primary-fixed selection:text-on-primary-fixed sc-root">
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_2px_12px_rgba(58,45,34,0.06)]"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex flex-col justify-center"><h1 class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">bonjin's study note</h1><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase mt-0.5">凡人道場デスク・STUDY DESK</span></div><div class="flex items-center gap-space-xs"><button aria-label="夜の帳・ダークモード切替" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">dark_mode</span></button><a href="settings.html" aria-label="設定" class="w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">settings</span></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full">
+<!-- 1. 進捗バナー (Dojo Daily Streak & Progress) -->
+<section class="px-gutter pt-space-md pb-space-sm bg-surface-container-low shadow-sm">
+<div class="flex items-center justify-between gap-space-sm mb-space-xs">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">swords</span>
+          実戦百人組手 本日 3 / 5 問 済
+        </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-lg bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px] text-primary-container" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+          5日連続
+        </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">目標 80% まであと1問</span>
+</div>
+<!-- プログレスバー -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-on-surface font-label-sm text-label-sm">
+<span class="font-semibold text-primary">日課達成率</span>
+<span class="font-bold text-primary">60%</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-variant overflow-hidden relative">
+<div class="h-full bg-primary rounded-full transition-all duration-500 ease-out" style="width: 60%;"></div>
+<!-- 目標ライン 80% -->
+<div class="absolute top-0 bottom-0 left-[80%] w-0.5 bg-outline opacity-60 z-10" title="目標 80%"></div>
+</div>
+</div>
+</section>
+<!-- メインコンテンツ領域 -->
+<div class="px-gutter py-space-md space-y-space-md">
+<!-- 2. 惜敗・判定結果カード -->
+<article class="relative bg-surface-container rounded-xl p-space-md shadow-md overflow-hidden bg-gradient-to-br from-surface-container via-surface-container-low to-error-container/20">
+<!-- 右上角の落款印「惜敗」 -->
+<div class="absolute top-3 right-3 rotate-[-6deg] select-none pointer-events-none">
+<div class="w-14 h-14 rounded-lg bg-error text-on-error flex flex-col items-center justify-center p-1 shadow-sm opacity-95">
+<span class="font-headline-sm text-headline-sm leading-none tracking-widest font-bold">惜</span>
+<span class="font-headline-sm text-headline-sm leading-none tracking-widest font-bold -mt-0.5">敗</span>
+</div>
+</div>
+<!-- 判定バッジ -->
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold mb-space-sm">
+<span class="material-symbols-outlined text-[16px]">heart_broken</span>
+        判定完了・一本負け
+      </div>
+<!-- 大見出し & サブタイトル -->
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-error font-bold tracking-tight mb-1 pr-16">
+        無念！ 一本取られた…
+      </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-outline">bookmark_border</span>
+        問の参：async/await における例外捕捉の構え
+      </p>
+<!-- メトリクス表示 (木札スタイル) -->
+<div class="grid grid-cols-3 gap-2 bg-surface-container-lowest rounded-lg p-2.5 shadow-sm mb-space-sm">
+<div class="flex flex-col items-center justify-center text-center py-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+            所要時間
+          </span>
+<span class="font-title-md text-title-md font-bold text-on-surface mt-0.5">58秒</span>
+</div>
+<div class="flex flex-col items-center justify-center text-center py-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px] text-primary">military_tech</span>
+            修練値
+          </span>
+<span class="font-title-md text-title-md font-bold text-primary mt-0.5">+15 EXP</span>
+</div>
+<div class="flex flex-col items-center justify-center text-center py-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">group</span> 自分の正答率</span>
+<span class="font-title-md text-title-md font-bold text-on-surface mt-0.5"><span class="material-symbols-outlined text-[14px]">group</span> 自分の正答率</span>
+</div>
+</div>
+<!-- 励ましの一言 -->
+<div class="flex items-start gap-2 pt-1">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">tips_and_updates</span>
+<p class="font-body-sm text-body-sm text-on-surface font-medium leading-relaxed">失敗の痛みこそ、真の記憶定着への最短路なり。</p>
+</div>
+</article>
+<!-- 3. 審判録・型の相違（構えの検証カード） -->
+<section class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">balance</span>
+          審判録・型の相違
+        </h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">構えの比較検証</span>
+</div>
+<!-- 悪手カード（赤系背景） -->
+<div class="bg-error-container/40 rounded-xl p-space-md shadow-sm space-y-2">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-error text-on-error font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">close</span>
+            あなたの選んだ型（悪手）
+          </span>
+<span class="font-label-sm text-label-sm font-bold text-error tracking-wider">OPTION B</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">
+          型・弐：fetch の直後に .catch() をチェーンするのみで、await 構文をそのまま抜ける
+        </p>
+<div class="bg-surface-container-lowest rounded-lg p-space-sm shadow-inner">
+<div class="flex items-center gap-1 text-error font-label-sm text-label-sm font-bold mb-1">
+<span class="material-symbols-outlined text-[15px]">warning</span>
+            陥穽（かんせい）：
+          </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+<code class="px-1 py-0.5 bg-surface-variant text-error rounded font-mono">.catch()</code> で握り潰しても await の戻り値は <code class="px-1 py-0.5 bg-surface-variant text-error rounded font-mono">undefined</code> となり、直後の <code class="px-1 py-0.5 bg-surface-variant rounded font-mono">res.json()</code> で TypeError の二次爆発を招きます。
+          </p>
+</div>
+</div>
+<!-- 正解カード（生成り・琥珀調） -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm space-y-2">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+            正解の構え（定石・模範）
+          </span>
+<span class="font-label-sm text-label-sm font-bold text-primary tracking-wider">OPTION A</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">
+          型・壱：一連の処理を try / catch ブロックの結界で包み、異常時は安全な初期値を返す
+        </p>
+<div class="bg-surface-container-lowest rounded-lg p-space-sm shadow-inner">
+<div class="flex items-center gap-1 text-primary font-label-sm text-label-sm font-bold mb-1">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+            極意：
+          </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            非同期処理群をひとつの境界線の中に収めることで、途中の通信障害やパース不備を漏れなく捕捉。戦線を崩さず防衛できます。
+          </p>
+</div>
+</div>
+</section>
+<!-- 4. 師範の敗北指南巻（秘伝 其の参） -->
+<section class="bg-surface-container rounded-xl p-space-md shadow-md space-y-space-md">
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-tight">師範の敗北指南巻</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">秘伝 其の参：非同期の防壁設計</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">JS奥義</span>
+</div>
+<!-- 要点箇条書き -->
+<div class="space-y-2">
+<div class="flex items-start gap-2 bg-surface-container-lowest p-2.5 rounded-lg shadow-sm">
+<span class="w-5 h-5 rounded-full bg-primary-fixed text-on-primary-fixed font-headline-sm text-headline-sm text-[12px] flex items-center justify-center shrink-0 mt-0.5">壱</span>
+<div class="space-y-0.5">
+<span class="font-label-md text-label-md font-bold text-on-surface">.catch() 単体では await の結界を維持できず</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+              Promiseチェーンの catch はその式単体で完結し、下流の同期処理へと未解決の虚無を流出させます。
+            </p>
+</div>
+</div>
+<div class="flex items-start gap-2 bg-surface-container-lowest p-2.5 rounded-lg shadow-sm">
+<span class="w-5 h-5 rounded-full bg-primary-fixed text-on-primary-fixed font-headline-sm text-headline-sm text-[12px] flex items-center justify-center shrink-0 mt-0.5">弐</span>
+<div class="space-y-0.5">
+<span class="font-label-md text-label-md font-bold text-on-surface">実戦の鉄則：境界線（例外結界）は外側に張る</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+              関数全体の責務として <code class="px-1 py-0.5 bg-surface-container rounded text-primary font-mono">try { ... } catch</code> を張り、エラー発生時の代替データ（フォールバック）を確実に確立せよ。
+            </p>
+</div>
+</div>
+</div>
+<!-- コード比較ブロック -->
+<div class="space-y-2">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant px-1">
+<span class="font-mono flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">code</span>
+            Scroll_Mistake_vs_Correct.js
+          </span>
+<span class="text-error font-semibold">構えの崩落箇所</span>
+</div>
+<div class="bg-inverse-surface text-inverse-on-surface rounded-lg p-space-sm font-mono text-[12px] leading-relaxed shadow-inner overflow-x-auto">
+<div class="text-outline-variant opacity-80 mb-1">// ❌ 不覚の構え（あなたのコード）</div>
+<div class="opacity-90">const res = await fetch(url).catch(err =&gt; {</div>
+<div class="opacity-90 pl-3">console.error(err); // 握り潰し</div>
+<div class="opacity-90">});</div>
+<div class="bg-error/30 text-error-container -mx-2 px-2 py-0.5 rounded flex items-center justify-between my-0.5">
+<span class="">const data = await res.json();</span>
+<span class="text-error font-bold shrink-0 ml-2">💥 TypeError: Cannot read res!</span>
+</div>
+<div class="opacity-70 mt-2">// ⭕ 定石の構え（try/catch で包括防衛）</div>
+<div class="text-primary-fixed-dim">try {</div>
+<div class="text-primary-fixed-dim pl-3">const res = await fetch(url);</div>
+<div class="text-primary-fixed-dim pl-3">return await res.json();</div>
+<div class="text-primary-fixed-dim">} catch (err) {</div>
+<div class="text-primary-fixed-dim pl-3">return { error: true, data: [] }; // 安全退避</div>
+<div class="text-primary-fixed-dim">}</div>
+</div>
+</div>
+<!-- 補助アクションボタン（写経 / 弱点巻物） -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-surface-container-highest text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-colors shadow-sm active:translate-y-0.5">
+<span class="material-symbols-outlined text-[18px] text-primary">edit_note</span>
+          写経して型を刻む
+        </button>
+<button class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-surface-container-highest text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-colors shadow-sm active:translate-y-0.5">
+<span class="material-symbols-outlined text-[18px] text-error">bookmark_add</span>
+          弱点巻物に登録
+        </button>
+</div>
+</section>
+<!-- 5. 凡人師範の独り言（捲土重来の巻） -->
+<section class="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<!-- 和の装飾背景アクセント -->
+<div class="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-primary-fixed/20 pointer-events-none"></div>
+<div class="flex items-start gap-space-sm relative z-10">
+<!-- 師範アイコン -->
+<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md shrink-0">
+<span class="material-symbols-outlined text-[26px]">self_improvement</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-primary text-[15px] font-bold">凡人師範の独り言</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">捲土重来の巻</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed italic">
+            「一本取られた時こそ、真の修行の始まり。間違えた問題こそが、三ヶ月後のそなたを救う最強の盾となる。胸を張って次の構えをとれ。」
+          </p>
+</div>
+</div>
+</section>
+<!-- 6. アクション導線 -->
+<section class="space-y-space-sm pt-space-xs pb-space-lg">
+<!-- メインCTA（朱色ボタン） -->
+<a class="w-full flex items-center justify-center gap-2 py-3.5 px-space-md rounded-xl bg-primary text-on-primary font-title-md text-title-md font-bold shadow-md hover:opacity-95 active:scale-[0.99] transition-all" data-path="training-chamber" href="#">
+        次の修練へ進む（第四問へ）
+        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</a>
+<!-- サブアクション -->
+<div class="grid grid-cols-2 gap-2">
+<button class="flex items-center justify-center gap-1.5 py-3 px-space-sm rounded-xl bg-surface-container-high text-on-surface font-label-lg text-label-lg hover:bg-surface-variant transition-colors active:translate-y-0.5 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+          この問に再戦
+        </button>
+<button class="flex items-center justify-center gap-1.5 py-3 px-space-sm rounded-xl bg-surface-container-high text-on-surface font-label-lg text-label-lg hover:bg-surface-variant transition-colors active:translate-y-0.5 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+          解説を熟読する
+        </button>
+</div>
+<!-- テキストリンク -->
+<div class="text-center pt-space-xs">
+<a class="inline-flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors py-1" data-path="dojo" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+          鍛錬を一時中断して道場へ戻る
+        </a>
+</div>
+</section>
+</div>
+</div>
+</main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-low/90 backdrop-blur-xl shadow-[0_-2px_16px_rgba(58,45,34,0.08)]" data-active-classes="text-primary font-label-md font-semibold relative after:content-[''] after:absolute after:top-1.5 after:w-1 after:h-1 after:rounded-full after:bg-primary"><div class="h-16 px-space-xs flex items-center justify-around"><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="dojo" href="index.html"><span class="material-symbols-outlined text-[22px]">temple_buddhist</span><span class="font-label-sm text-label-sm">道場</span></a><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="scrolls" href="scrolls.html"><span class="material-symbols-outlined text-[22px]">history_edu</span><span class="font-label-sm text-label-sm">巻物</span></a><a aria-current="page" class="flex flex-col items-center justify-center w-14 h-14 transition-all gap-0.5 text-primary font-label-md font-semibold relative after:content-[''] after:absolute after:top-1.5 after:w-1 after:h-1 after:rounded-full after:bg-primary" data-path="training-chamber" href="daily.html"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span class="font-label-sm text-label-sm">鍛錬室</span></a><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="practice-log" href="log.html"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-label-sm">修練録</span></a><a class="flex flex-col items-center justify-center w-14 h-14 text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="secret-archive" href="secrets.html"><span class="material-symbols-outlined text-[22px]">auto_stories</span><span class="font-label-sm text-label-sm">秘伝の書</span></a></div></nav>
+
+
+</div></div></div>
+<div data-view="res" hidden><div class="sc-res-l"><div class="bg-surface font-body-md text-on-surface antialiased sc-root">
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between"><button aria-label="Close" class="w-11 h-11 flex items-center justify-center text-on-surface hover:text-primary transition-colors focus:outline-none" type="button"><span class="material-symbols-outlined text-[24px]">close</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight text-center">Drill Results</h1><div class="w-11 h-11 flex items-center justify-end"></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full pb-12">
+<!-- Dynamic Confetti / Ink Dust Canvas -->
+<div class="relative w-full overflow-hidden px-gutter pt-space-md">
+<!-- Top Pill / Martial Banner -->
+<div class="flex items-center justify-between mb-space-sm">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-primary shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">bolt</span>
+<span class="font-label-sm text-label-sm tracking-wide">急所克服モード・五本組手 完遂</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+<span>二分四十五秒 稽古</span>
+</div>
+</div>
+<!-- Main Title with Traditional Rakkan Stamp -->
+<div class="flex items-start justify-between gap-3 mb-space-xs">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight font-bold">
+          五本組手 結び・修練完了
+        </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+          道場にて、己の急所を打ち払う五度の太刀筋。これにて本日の稽古を一結びとす。
+        </p>
+</div>
+<!-- Rakkan Vermilion Seal Stamp -->
+<div class="shrink-0 flex items-center justify-center w-12 h-12 bg-primary text-on-primary rounded shadow-md transform rotate-2">
+<div class="flex flex-col items-center justify-center p-0.5 leading-none">
+<span class="font-headline-sm text-[13px] font-bold tracking-tighter leading-tight">皆</span>
+<span class="font-headline-sm text-[13px] font-bold tracking-tighter leading-tight">伝</span>
+</div>
+</div>
+</div>
+<!-- SECTION 2: Overall Score Card (組手総成績) -->
+<div class="mt-space-md rounded-xl bg-surface-container-lowest p-space-md shadow-md relative overflow-hidden">
+<!-- Top Discipline Timber Accent -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary-container to-primary-fixed-dim"></div>
+<div class="flex items-center justify-between mb-space-sm pt-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">組手総成績</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">総特訓時間 02分45秒</span>
+</div>
+<div class="flex items-center justify-between gap-4 py-space-xs">
+<!-- Huge brush/serif score -->
+<div class="flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-xl-mobile text-headline-xl-mobile text-primary tracking-tight font-bold">四勝</span>
+<span class="font-headline-sm text-headline-sm text-outline">一敗</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            五戦中四撃的中（勝率 80%）
+          </p>
+</div>
+<!-- Progress Ring Gauge (80%) -->
+<div class="relative w-20 h-20 shrink-0 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 72 72">
+<!-- Background Track -->
+<circle class="text-surface-container" cx="36" cy="36" fill="transparent" r="30" stroke="currentColor" stroke-width="7"></circle>
+<!-- Progress Arc (80% of 188.5 circumference = 150.8) -->
+<circle class="text-primary-container" cx="36" cy="36" fill="transparent" r="30" stroke="currentColor" stroke-dasharray="188.5" stroke-dashoffset="37.7" stroke-linecap="round" stroke-width="7"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center">
+<span class="font-headline-sm text-[18px] font-bold text-on-surface leading-none">80</span>
+<span class="font-label-sm text-[9px] text-on-surface-variant font-bold leading-tight">%</span>
+</div>
+</div>
+</div>
+<!-- Sub-stat badges -->
+<div class="grid grid-cols-2 gap-space-xs mt-space-sm pt-space-xs">
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low shadow-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">急所克服の成果</span>
+<span class="font-title-md text-title-md font-bold text-primary">克服昇格 +2 巻</span>
+</div>
+<!-- Stamp Icon -->
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary font-headline-sm text-[10px] leading-tight font-bold">
+            克服<br/>之印
+          </div>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low shadow-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">次なる課題</span>
+<span class="font-title-md text-title-md font-bold text-on-surface">残る急所 5 巻</span>
+</div>
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">auto_stories</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 3: Full Match History Section (五本組手 結びの戦歴 壱〜伍本) -->
+<div class="mt-space-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">swords</span>
+<h3 class="font-title-md text-title-md font-bold text-on-surface tracking-wide">
+            五本組手 結びの戦歴
+          </h3>
+</div>
+<span class="font-label-sm text-label-sm text-outline tracking-widest font-semibold">壱 〜 伍本</span>
+</div>
+<!-- 壱本目 (Correct / Overcome) -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm transition-all duration-200">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center justify-center px-2 py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm font-bold shadow-xs">
+              壱本目
+            </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> 一本 (正解)
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">
+              克服昇格！
+            </span>
+</div>
+<span class="font-body-sm text-body-sm text-outline shrink-0">28秒</span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface mt-2.5 leading-snug">
+          async/await 例外捕捉の陥穽
+        </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+          典拠：Web &amp; DB 篇四
+        </p>
+<!-- Collapsed Explanation Preview -->
+<div class="mt-3 p-3 rounded-lg bg-surface-container-low text-on-surface-variant font-body-sm text-body-sm leading-relaxed">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">verified</span>
+<p>
+              try...catch 内での非同期関数の解決忘れを正確に見切り、Promiseの拒絶を適切に捕捉。急所判定が解除され「修得済み巻物」へ昇格しました。
+            </p>
+</div>
+<div class="flex items-center gap-2 mt-3 pt-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-variant transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+              解説の巻物を開く
+            </button>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-outline font-label-md text-label-md hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+              型を再確認
+            </button>
+</div>
+</div>
+</div>
+<!-- 弐本目 (Correct) -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center justify-center px-2 py-0.5 rounded bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-bold">
+              弐本目
+            </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> 一本 (正解)
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
+              二連勝
+            </span>
+</div>
+<span class="font-body-sm text-body-sm text-outline shrink-0">34秒</span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface mt-2.5 leading-snug">
+          SQL JOIN における NULL値の落とし穴
+        </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+          典拠：Web &amp; DB 篇二
+        </p>
+</div>
+<!-- 参本目 (Failed / Incorrect Highlight) -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-md relative overflow-hidden">
+<!-- Crimson Left Accent Ribbon for Mistake -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error"></div>
+<div class="flex items-start justify-between gap-2 pl-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center justify-center px-2 py-0.5 rounded bg-error text-on-error font-label-sm text-label-sm font-bold shadow-xs">
+              参本目
+            </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">close</span> 不覚 (不正解)
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-error/10 text-error font-label-sm text-label-sm font-semibold">
+              要再戦
+            </span>
+</div>
+<span class="font-body-sm text-body-sm text-error font-semibold shrink-0">42秒</span>
+</div>
+<div class="pl-1 mt-2.5">
+<h4 class="font-title-md text-title-md font-bold text-on-surface leading-snug">
+            Java Stream API の副作用混入
+          </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            典拠：Java実技篇
+          </p>
+<!-- Expanded Alert Box for the Failed Point -->
+<div class="mt-3 p-3.5 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-error text-[20px] shrink-0 mt-0.5">warning</span>
+<div>
+<span class="font-bold text-error">急所：parallelStream 内の可変コレクション操作</span>
+<p class="mt-1 text-on-surface-variant leading-relaxed">
+                  並列パイプライン内での非スレッドセーフな副作用を許容してしまいました。スレッド競合と非決定論的振る舞いへの注意が必要です。
+                </p>
+</div>
+</div>
+<!-- Links & Quick Revenge CTA -->
+<div class="flex items-center justify-between flex-wrap gap-2 mt-3 pt-2">
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-error">
+<span class="material-symbols-outlined text-[16px]">bookmark_added</span>
+                急所巻物に再登録済
+              </span>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold shadow-sm hover:opacity-90 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+                直ちに再戦
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- 四本目 (Correct / Overcome) -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center justify-center px-2 py-0.5 rounded bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-bold">
+              四本目
+            </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> 一本 (正解)
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">
+              克服昇格！
+            </span>
+</div>
+<span class="font-body-sm text-body-sm text-outline shrink-0">31秒</span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface mt-2.5 leading-snug">
+          CSS Grid 明示的トラックと暗黙配置
+        </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+          典拠：CSS 篇三
+        </p>
+</div>
+<!-- 伍本目 (大将戦 - Correct) -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center justify-center px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold">
+              伍本目 (大将戦)
+            </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> 一本 (正解)
+            </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">
+              見事な見切り！
+            </span>
+</div>
+<span class="font-body-sm text-body-sm text-outline shrink-0">30秒</span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface mt-2.5 leading-snug">
+          Promise.all エラー伝播の境界防御
+        </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+          典拠：Web &amp; DB 篇五
+        </p>
+</div>
+</div>
+<!-- SECTION 4: Master's Evaluation Card (師範の総括講評) -->
+<div class="mt-space-lg rounded-xl bg-surface-container-low p-space-md shadow-md relative">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">account_balance</span>
+<h3 class="font-title-md text-title-md font-bold text-on-surface">
+            師範の総括講評
+          </h3>
+</div>
+<!-- Vermilion Seal Stamp -->
+<div class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-[9px] font-bold leading-tight shadow-sm">
+          総括<br/>之印
+        </div>
+</div>
+<!-- Quote Block with Traditional Framing -->
+<div class="relative bg-surface-container-lowest p-space-md rounded-lg shadow-inner">
+<span class="font-headline-xl text-headline-xl text-primary/20 absolute -top-2 left-2 select-none leading-none">“</span>
+<p class="font-body-md text-body-md text-on-surface relative z-10 leading-relaxed indent-2 italic font-headline-sm">
+          四勝一敗、実に見事な太刀筋なり。落とした「Java Stream APIの副作用」も、一度の不覚を過度に恐れるなかれ。己の急所を知る者こそ、真に堅牢なる設計を手に入れる。明日の朝稽古にて再戦し、技を血肉とせよ。
+        </p>
+</div>
+<!-- Rewards Badges -->
+<div class="grid grid-cols-2 gap-space-xs mt-space-sm">
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-lowest shadow-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">獲得修練値</span>
+<span class="font-label-lg text-label-lg font-bold text-primary">+120 EXP</span>
+</div>
+</div>
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-lowest shadow-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">灯火継続（修練）</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">7日連続継続中</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 5: Action Buttons (次なる一手) -->
+<div class="mt-space-xl flex flex-col gap-space-sm">
+<!-- Primary Vermilion CTA Button -->
+<button class="w-full h-13 py-3.5 px-4 rounded-xl bg-primary text-on-primary font-title-md text-title-md font-bold shadow-md hover:bg-primary-container active:translate-y-0.5 transition-all flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[22px]">replay</span>
+<span>不覚を取った一問を直ちに復習する（リベンジ）</span>
+</button>
+<!-- Secondary Clean Outlined Light Button -->
+<button class="w-full h-12 py-3 px-4 rounded-xl bg-surface-container-low text-on-surface font-label-lg text-label-lg font-bold shadow-sm hover:bg-surface-container active:translate-y-0.5 transition-all flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[20px] text-outline">menu_book</span>
+<span>弱点巻物一覧へ戻る</span>
+</button>
+<!-- Bottom Return Navigation Link -->
+<div class="flex justify-center mt-space-xs">
+<button class="inline-flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors py-2 px-4 rounded-lg" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>道場トップへ凱旋</span>
+</button>
+</div>
+</div>
+</div>
+</div></main>
+</div></div></div>
+</div>
+<!-- ダークモードの画面 -->
+<div class="theme-d">
+<div data-view="q"><div class="sc-day-d"><div class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container sc-root">
+<header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_12px_rgba(0,0,0,0.5)]"><div class="h-16 px-gutter-sm flex items-center justify-between"><div class="flex flex-col justify-center min-w-0 pr-space-sm"><h1 class="font-headline-sm text-headline-sm text-on-surface truncate tracking-tight">bonjin's study note</h1><p class="font-label-sm text-label-sm text-primary tracking-widest uppercase opacity-90 truncate">凡人道場デスク・STUDY DESK</p></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Theme Indicator" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">dark_mode</span></button><a href="settings.html" aria-label="設定" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">settings</span></a></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-gutter-sm space-y-space-md">
+<!-- Training Stage Banner / Status -->
+<div class="w-full bg-surface-container-low rounded-xl p-space-md shadow-md">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="bg-primary-container/20 text-primary font-label-sm text-label-sm px-2 py-0.5 rounded">
+          実戦百人組手
+        </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+          本日 3 / 5 問
+        </span>
+</div>
+<div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm bg-surface-container-high px-2 py-0.5 rounded-full">
+<span>連続5日修練中</span>
+<span class="text-sm">🔥</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between mt-1 mb-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-display tracking-wide">
+        本日の修練問 <span class="text-primary font-body-sm text-body-sm font-sans ml-1">［第参問］</span>
+</h2>
+<span class="font-label-sm text-label-sm text-tertiary">目標達成率 60%</span>
+</div>
+<!-- Progress Meter -->
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden flex items-center p-0.5">
+<div class="bg-gradient-to-r from-secondary-container via-primary-container to-primary h-full rounded-full transition-all duration-500" style="width: 60%;"></div>
+</div>
+<!-- Sub-Topic Metadata -->
+<div class="flex items-center gap-space-sm mt-space-sm pt-space-xs">
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded">
+        Web &amp; DB 道場
+      </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">
+        篇四：非同期処理の極意
+      </span>
+</div>
+</div>
+<!-- Dojo Question Scroll Card -->
+<div class="w-full bg-surface-container rounded-xl p-space-md shadow-lg relative overflow-hidden">
+<!-- Visual Japanese Watermark Crest -->
+<div class="absolute -right-6 -bottom-6 opacity-5 pointer-events-none text-on-surface">
+<span class="material-symbols-outlined text-[140px]">token</span>
+</div>
+<div class="flex items-center gap-space-xs mb-space-sm">
+<span class="w-1.5 h-4 bg-primary-container rounded-full"></span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-display">
+        【問の参】async/await における例外捕捉の構え
+      </h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-space-md">
+      下記の関数 <code class="text-primary font-mono text-sm bg-surface-container-highest px-1.5 py-0.5 rounded">fetchDojoScroll</code> において、通信失敗時（レスポンス不首尾やネットワーク途絶）に正しく例外を捕捉し、道場の門を詰まらせぬ（安全にフォールバック値を返却する）正しい実装の型を選べ。
+    </p>
+<!-- Dojo Scroll Code Canvas -->
+<div class="w-full bg-surface-container-lowest rounded-lg p-space-md font-mono text-sm overflow-x-auto shadow-inner relative">
+<div class="flex items-center justify-between pb-2 mb-2 bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-sm">terminal</span>
+          Scroll_Practice.js
+        </span>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+<span class="text-[11px]">写本</span>
+</button>
+</div>
+<pre class="leading-6 text-on-surface"><code><span class="text-outline-variant font-display italic">// 凡人修練用巻物：安全な門番コード</span>
+<span class="text-primary">async function</span> <span class="text-secondary-fixed">fetchDojoScroll</span>(url) {
+  <span class="bg-primary/10 text-primary px-1.5 py-0.5 rounded text-xs border-dashed">// 【ここに正しい構えを入れよ】</span>
+  <span class="text-primary">const</span> res = <span class="text-primary">await</span> fetch(url);
+  <span class="text-primary">return await</span> res.json();
+}</code></pre>
+</div>
+</div>
+<!-- Choices (4 Styles of Dojo Kata) -->
+<div aria-label="問題の選択肢" class="space-y-space-sm" role="radiogroup">
+<!-- Choice A (Active/Selected by default) -->
+<div class="choice-item group cursor-pointer w-full bg-surface-container-high rounded-lg p-space-md shadow-md transition-all flex items-start gap-space-sm relative" data-choice="A">
+<div class="choice-indicator mt-0.5 w-5 h-5 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-primary font-display font-semibold">型・壱</span>
+<span class="badge-chosen font-label-sm text-label-sm text-primary uppercase tracking-widest bg-primary-container/20 px-1.5 py-0.5 rounded">選択中</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-snug">
+<span class="font-mono text-secondary-fixed">try / catch</span> ブロックで囲み、<span class="font-mono text-secondary-fixed">catch(err)</span> 内で安全なフォールバック値を返す。
+        </p>
+</div>
+</div>
+<!-- Choice B -->
+<div class="choice-item group cursor-pointer w-full bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md shadow-sm transition-all flex items-start gap-space-sm relative" data-choice="B">
+<div class="choice-indicator mt-0.5 w-5 h-5 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant font-display font-semibold">型・弐</span>
+<span class="badge-chosen hidden font-label-sm text-label-sm text-primary uppercase tracking-widest bg-primary-container/20 px-1.5 py-0.5 rounded">選択中</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+<span class="font-mono text-tertiary">fetch</span> の直後に <span class="font-mono text-tertiary">.catch()</span> をチェーンするのみで、await構文をそのまま抜ける。
+        </p>
+</div>
+</div>
+<!-- Choice C -->
+<div class="choice-item group cursor-pointer w-full bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md shadow-sm transition-all flex items-start gap-space-sm relative" data-choice="C">
+<div class="choice-indicator mt-0.5 w-5 h-5 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant font-display font-semibold">型・参</span>
+<span class="badge-chosen hidden font-label-sm text-label-sm text-primary uppercase tracking-widest bg-primary-container/20 px-1.5 py-0.5 rounded">選択中</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+          例外は握り潰して <span class="font-mono text-tertiary">null</span> を返し、エラー通知を一切行わない。
+        </p>
+</div>
+</div>
+<!-- Choice D -->
+<div class="choice-item group cursor-pointer w-full bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md shadow-sm transition-all flex items-start gap-space-sm relative" data-choice="D">
+<div class="choice-indicator mt-0.5 w-5 h-5 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant font-display font-semibold">型・四</span>
+<span class="badge-chosen hidden font-label-sm text-label-sm text-primary uppercase tracking-widest bg-primary-container/20 px-1.5 py-0.5 rounded">選択中</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">
+<span class="font-mono text-tertiary">Promise.all</span> の中に単一の fetch を格納して同期処理に変換する。
+        </p>
+</div>
+</div>
+</div>
+<!-- Dojo Assist / Hint & Actions Accordion -->
+<div class="w-full space-y-space-xs">
+<!-- Hint Collapsible Toggle -->
+<button class="w-full flex items-center justify-between bg-surface-container-low hover:bg-surface-container px-space-md py-space-sm rounded-lg text-left transition-colors">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+<span class="font-label-md text-label-md font-display font-medium">凡人の勘所（秘伝ヒントを開く）</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform text-[18px]">expand_more</span>
+</button>
+<!-- Hint Body (Collapsed by default) -->
+<div class="hidden w-full bg-surface-container-highest rounded-lg p-space-md shadow-inner text-on-surface-variant">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">local_fire_department</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-semibold mb-1">師範の注釈</h4>
+<p class="font-body-sm text-body-sm leading-relaxed text-tertiary-fixed">
+<span class="text-primary font-mono font-medium">await</span> は完了を待つが、Promiseが却下（reject）された場合は即座に例外をスローする。同期処理と同じ感覚で捕獲できるのが <span class="font-mono text-primary font-medium">try/catch</span> の美徳よ。
+          </p>
+</div>
+</div>
+</div>
+<!-- Secondary Action: SandBox Play -->
+<button class="w-full flex items-center justify-center gap-space-xs bg-surface-container-low hover:bg-surface-container text-on-surface py-2.5 rounded-lg transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary">code_blocks</span>
+<span class="font-label-md text-label-md">写経して試す（砂場・サンドボックス）</span>
+</button>
+</div>
+<!-- Submit / Judge Button (Primary CTA) -->
+<div class="pt-space-xs">
+<button class="w-full relative group overflow-hidden bg-primary-container hover:bg-secondary-container text-on-primary-container font-headline-sm text-headline-sm font-display font-semibold py-3.5 px-space-lg rounded-xl shadow-lg flex items-center justify-center gap-space-xs active:scale-[0.99] transition-transform">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+<span>いざ尋常に勝負（判定する）</span>
+</button>
+</div>
+<!-- Quick Mode Switch / Category Selector -->
+<div class="w-full bg-surface-container-low rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md text-on-surface-variant font-display">他の鍛錬帳へ切り替え</span>
+<span class="material-symbols-outlined text-tertiary text-[18px]">swap_horiz</span>
+</div>
+<div class="flex gap-space-xs overflow-x-auto pb-1">
+<button class="shrink-0 bg-primary-container text-on-primary-container font-label-sm text-label-sm px-3 py-1.5 rounded-full font-medium shadow-sm">
+        Web &amp; DB (実践演習中)
+      </button>
+<button class="shrink-0 bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm px-3 py-1.5 rounded-full font-medium transition-colors">
+        Java 基礎鍛錬
+      </button>
+<button class="shrink-0 bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm px-3 py-1.5 rounded-full font-medium transition-colors">
+        Java 実技組手
+      </button>
+<button class="shrink-0 bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm px-3 py-1.5 rounded-full font-medium transition-colors">
+        SQL 抜刀術
+      </button>
+</div>
+</div>
+<!-- Dojo Shihan's Maxim / Bottom Column Memo -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-md relative overflow-hidden shadow-inner">
+<div class="flex items-start gap-space-md">
+<!-- Stamp / Seal Icon -->
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0 text-primary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">workspace_premium</span>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="font-label-sm text-label-sm text-primary font-display font-semibold">凡人のコツ（鍛錬の巻）</span>
+<span class="text-tertiary text-xs">・</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">凡人師範の独り言</span>
+</div>
+<blockquote class="font-body-sm text-body-sm text-tertiary italic leading-relaxed">
+          「間違えた時こそ最大の好機。エラーの理由を心に深く刻めば、二度と同じ罠にはまらぬ。」
+        </blockquote>
+</div>
+</div>
+</div>
+</div>
+</main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(0,0,0,0.6)]" data-active-classes="text-primary-container font-semibold"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="dojo-home" href="index.html"><span class="material-symbols-outlined text-[22px]">temple_buddhist</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">道場</span></a><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="scrolls-notes" href="scrolls.html"><span class="material-symbols-outlined text-[22px]">history_edu</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">巻物</span></a><a aria-current="page" class="flex flex-col items-center justify-center flex-1 h-full py-space-xs transition-colors text-primary-container font-semibold" data-path="training-room" href="daily.html"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">鍛錬室</span></a><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="training-log" href="log.html"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">修練録</span></a><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="secret-scrolls" href="secrets.html"><span class="material-symbols-outlined text-[22px]">auto_stories</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">秘伝の書</span></a></div></nav>
+</div></div></div>
+<div data-view="ok" hidden><div class="sc-ok-d"><div class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container sc-root">
+<header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_12px_rgba(0,0,0,0.5)]"><div class="h-16 px-gutter-sm flex items-center justify-between"><div class="flex flex-col justify-center min-w-0 pr-space-sm"><h1 class="font-headline-sm text-headline-sm text-on-surface truncate tracking-tight">bonjin's study note</h1><p class="font-label-sm text-label-sm text-primary tracking-widest uppercase opacity-90 truncate">凡人道場デスク・STUDY DESK</p></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Theme Indicator" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">dark_mode</span></button><a href="settings.html" aria-label="設定" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">settings</span></a></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin-sm space-y-space-md">
+<!-- 1. 上部進行状況ヘッダー (HUD style) -->
+<section class="bg-surface-container-low rounded-xl p-space-md flex flex-col space-y-space-sm shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-primary-container/20 text-primary font-label-sm text-label-sm">
+          実戦百人組手
+        </span>
+<span class="font-headline-sm text-headline-sm text-on-surface">本日 3 / 5 問 完</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-highest px-space-sm py-1 rounded-full text-primary font-label-sm text-label-sm">
+<span class="">🔥</span>
+<span class="">5日連続</span>
+</div>
+</div>
+<!-- 進捗バー -->
+<div class="flex flex-col space-y-1">
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="text-tertiary">日課達成率</span>
+<span class="text-primary font-semibold">60% 完了 (目標 80% まであと1問)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary-container via-primary-container to-primary transition-all duration-700 ease-out" style="width: 60%;"></div>
+</div>
+</div>
+<!-- 獲得ポイントバッジ -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="font-label-md text-label-md">正解判定 +30pt 獲得</span>
+</div>
+<span class="text-on-surface-variant font-label-sm text-label-sm">練度ランク: 凡人参段</span>
+</div>
+</section>
+<!-- 2. 判定結果メインバナー (和風勝利演出・一本！) -->
+<section class="relative bg-gradient-to-b from-surface-container-high to-surface-container rounded-xl p-space-md overflow-hidden shadow-lg">
+<!-- 装飾：筆墨テクスチャ的スプラッシュ -->
+<div class="absolute -right-4 -bottom-6 w-32 h-32 rounded-full bg-primary-container/10 blur-2xl pointer-events-none"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex flex-col space-y-1">
+<div class="inline-flex items-center gap-1 text-primary font-label-sm text-label-sm uppercase tracking-widest">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+<span class="">判定完了 ・ 一本勝ち</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight flex items-center gap-2">
+<span class="">見事！ 正解</span>
+<span class="text-primary-container font-display">「一本」</span>
+</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">問の参：async/await における例外捕捉の構え</p>
+</div>
+<!-- 落款印 (和風スタンプ風) -->
+<div class="relative shrink-0 flex items-center justify-center w-16 h-16 rounded-lg bg-error-container/30 text-error p-1 transform rotate-[-6deg] shadow-sm select-none">
+<div class="w-full h-full flex flex-col items-center justify-center rounded bg-error-container/40 p-0.5">
+<span class="font-display font-bold text-[13px] leading-tight text-primary-fixed">皆伝</span>
+<span class="font-display font-medium text-[9px] text-primary-fixed-dim">正解之証</span>
+</div>
+</div>
+</div>
+<!-- 獲得リワードと所要時間 -->
+<div class="mt-space-md pt-space-sm bg-surface-container-lowest/80 rounded-lg p-space-sm flex items-center justify-around relative z-10">
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-tertiary">所要時間</span>
+<span class="font-label-md text-label-md text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">timer</span> 42秒
+        </span>
+</div>
+<div class="w-px h-6 bg-surface-variant"></div>
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-tertiary">修練経験値</span>
+<span class="font-label-md text-label-md text-primary flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[16px]">stars</span> +50 EXP
+        </span>
+</div>
+<div class="w-px h-6 bg-surface-variant"></div>
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-tertiary">自分の正答率</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">91.4%</span>
+</div>
+</div>
+</section>
+<!-- 3. あなたの選んだ型 & 正解の対比 -->
+<section class="bg-surface-container rounded-xl p-space-md space-y-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">選択した解答の審判</span>
+<span class="px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold">正解選択</span>
+</div>
+<div class="bg-surface-container-high rounded-lg p-space-sm flex items-start gap-space-sm">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-primary font-semibold">型・壱 (選んだ型)</span>
+<p class="font-body-sm text-body-sm text-on-surface mt-0.5 leading-relaxed">
+          「try/catch ブロックで await fetch を包み、通信例外と後続処理の両方を捕縛する」
+        </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest/60 rounded-lg p-space-sm flex items-start gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">lightbulb</span>
+<p class="font-body-sm text-body-sm leading-relaxed">
+<strong class="text-on-surface font-semibold">判定の理：</strong>ネットワーク寸断などの拒絶（Promise reject）は、同期的な try/catch 構文で同期コード同様に自然に捕捉するのが最も簡潔で堅牢な構えです。
+      </p>
+</div>
+</section>
+<!-- 4. 秘伝解説の巻物 (開かれた巻物デザイン) -->
+<section class="relative bg-surface-container-low rounded-xl p-space-md space-y-space-md shadow-md overflow-hidden">
+<!-- 装飾：巻物の軸木風ヘッダー -->
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[24px]">auto_stories</span>
+<div>
+<span class="font-label-sm text-label-sm text-tertiary block">秘伝の巻物 其の参</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-display">凡人師範の秘伝解説</h3>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-primary font-label-sm text-label-sm">
+        修練伝授
+      </span>
+</div>
+<!-- 巻物の奥義ポイント -->
+<div class="space-y-space-sm">
+<div class="bg-surface-container rounded-lg p-space-sm flex flex-col space-y-1">
+<div class="flex items-center gap-1.5 text-primary font-label-md text-label-md font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="">一、try/catch の結界で囲むべし</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed pl-3">
+<code class="text-primary font-mono">fetch()</code> は通信切断・DNS解決失敗時にのみ Reject されます。これを <code class="text-primary font-mono">await</code> する際は、外側を <code class="text-primary font-mono">try/catch</code> で結界を張ることで、非同期でありながら流麗にエラーを回収できます。
+        </p>
+</div>
+<div class="bg-surface-container rounded-lg p-space-sm flex flex-col space-y-1">
+<div class="flex items-center gap-1.5 text-primary font-label-md text-label-md font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="">二、通信不首尾（HTTP 4xx/5xx）の落とし穴</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed pl-3">
+          HTTPステータスが 404 や 500 でも fetch 自体は Reject されません。<code class="text-primary font-mono">if (!response.ok)</code> で明示的に自ら投げる（throw）のが凡人から達人への一歩です。
+        </p>
+</div>
+</div>
+<!-- 模範コードブロック (写経用) -->
+<div class="flex flex-col space-y-2">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-tertiary font-mono">Scroll_Solution.js</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface-variant font-mono">ES2024</span>
+</div>
+<button class="flex items-center gap-1 text-primary hover:text-primary-fixed transition-colors font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span class="">写経（コピー）</span>
+</button>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-sm font-mono text-[12px] leading-relaxed text-on-surface overflow-x-auto">
+<pre><code><span class="text-tertiary">// 【極意】堅牢なる非同期取得の構え</span>
+<span class="text-secondary font-semibold">async function</span> <span class="text-primary">fetchMasterScroll</span>(scrollId) {
+  <span class="text-secondary-container font-semibold">try</span> {
+    <span class="text-tertiary-fixed-dim">const</span> response = <span class="text-secondary font-semibold">await</span> fetch(<span class="text-primary-fixed">`/api/scrolls/${scrollId}`</span>);
+    
+    <span class="text-tertiary">// HTTP不首尾の検知 (404, 500等)</span>
+    <span class="text-secondary-container font-semibold">if</span> (!response.ok) {
+      <span class="text-secondary-container font-semibold">throw new</span> Error(<span class="text-primary-fixed">`伝令不通: ${response.status}`</span>);
+    }
+    
+    <span class="text-tertiary-fixed-dim">const</span> scrollData = <span class="text-secondary font-semibold">await</span> response.json();
+    <span class="text-secondary font-semibold">return</span> scrollData;
+  } <span class="text-secondary-container font-semibold">catch</span> (err) {
+    <span class="text-tertiary">// 結界内にて例外を安全に捕縛</span>
+    console.error(<span class="text-primary-fixed">"道場記録: 術の発動に失敗"</span>, err);
+    <span class="text-secondary font-semibold">throw</span> err;
+  }
+}</code></pre>
+</div>
+<!-- 写経ノート保存ボタン -->
+<button class="w-full flex items-center justify-center gap-2 py-2 px-space-sm rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">bookmark_add</span>
+<span class="">模範コードをマイ巻物（ノート）に転記する</span>
+</button>
+</div>
+<!-- 他の型の講評（なぜ型・弐〜四が罠なのか） -->
+<div class="space-y-space-xs pt-space-xs">
+<h4 class="font-label-md text-label-md text-tertiary uppercase tracking-wider">他の型の講評（罠の見極め）</h4>
+<div class="space-y-1.5">
+<div class="p-2.5 rounded bg-surface-container text-body-sm text-body-sm flex items-start gap-2">
+<span class="text-error font-mono font-bold text-[11px] shrink-0 mt-0.5">型・弐</span>
+<span class="text-on-surface-variant leading-normal">
+<code class="text-on-surface font-mono">await</code> と <code class="text-on-surface font-mono">.catch()</code> の混用：動くがコードの構えが乱れ、可読性とエラー伝播が濁る。
+          </span>
+</div>
+<div class="p-2.5 rounded bg-surface-container text-body-sm text-body-sm flex items-start gap-2">
+<span class="text-error font-mono font-bold text-[11px] shrink-0 mt-0.5">型・参</span>
+<span class="text-on-surface-variant leading-normal">
+            エラー握り潰し（無言の null 返却）：呼び出し元が原因不明の不全を起こす危険極まりない愚策。
+          </span>
+</div>
+<div class="p-2.5 rounded bg-surface-container text-body-sm text-body-sm flex items-start gap-2">
+<span class="text-error font-mono font-bold text-[11px] shrink-0 mt-0.5">型・四</span>
+<span class="text-on-surface-variant leading-normal">
+            単一通信に <code class="text-on-surface font-mono">Promise.all</code> を適用：牛刀をもって鶏を裂くが如し。無駄な複雑化を生む。
+          </span>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. 凡人のコツ（コラム） -->
+<section class="bg-surface-container-high rounded-xl p-space-md relative overflow-hidden shadow-sm">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">self_improvement</span>
+</div>
+<div class="flex flex-col space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md font-semibold text-primary font-display">凡人師範の独り言</span>
+<span class="font-label-sm text-label-sm text-tertiary">正解の巻</span>
+</div>
+<blockquote class="font-body-md text-body-md text-on-surface font-display italic leading-relaxed pt-1">
+          「正解した時こそ、なぜ他の選択肢が駄目だったかを噛みしめよ。間違いの理を知ることこそが、実戦で迷わぬ一生モノの勘所となる。」
+        </blockquote>
+</div>
+</div>
+</section>
+<!-- 6. 次のアクション導線 (CTAs) -->
+<section class="flex flex-col space-y-space-sm pb-space-sm">
+<!-- メインCTA -->
+<a class="w-full py-3.5 px-gutter rounded-xl bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg hover:opacity-95 active:scale-[0.99] transition-all" href="#">
+<span class="font-bold tracking-wide">次の修練へ進む（第四問へ）</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</a>
+<!-- サブアクション2列 -->
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="py-2.5 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">bookmark</span>
+<span class="">復習巻物に登録</span>
+</button>
+<button class="py-2.5 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">keyboard</span>
+<span class="">写経道場で試す</span>
+</button>
+</div>
+<!-- 道場へ戻る（中断） -->
+<div class="flex justify-center pt-space-xs">
+<a class="text-tertiary hover:text-on-surface font-label-sm text-label-sm flex items-center gap-1 py-1 transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">logout</span>
+<span class="">鍛錬を一時中断して道場へ戻る</span>
+</a>
+</div>
+</section>
+</div>
+</main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(0,0,0,0.6)]" data-active-classes="text-primary-container font-semibold"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="dojo-home" href="index.html"><span class="material-symbols-outlined text-[22px]">temple_buddhist</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">道場</span></a><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="scrolls-notes" href="scrolls.html"><span class="material-symbols-outlined text-[22px]">history_edu</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">巻物</span></a><a aria-current="page" style="color:#ff8a3d;font-weight:700" class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="training-room" href="daily.html"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">鍛錬室</span></a><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="training-log" href="log.html"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">修練録</span></a><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="secret-scrolls" href="secrets.html"><span class="material-symbols-outlined text-[22px]">auto_stories</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">秘伝の書</span></a></div></nav>
+
+
+</div></div></div>
+<div data-view="ng" hidden><div class="sc-ng-d"><div class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container sc-root">
+<header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_12px_rgba(0,0,0,0.5)]"><div class="h-16 px-gutter-sm flex items-center justify-between"><div class="flex flex-col justify-center min-w-0 pr-space-sm"><h1 class="font-headline-sm text-headline-sm text-on-surface truncate tracking-tight">bonjin's study note</h1><p class="font-label-sm text-label-sm text-primary tracking-widest uppercase opacity-90 truncate">凡人道場デスク・STUDY DESK</p></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Theme Indicator" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">dark_mode</span></button><a href="settings.html" aria-label="設定" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">settings</span></a></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-gutter-sm space-y-space-md pb-space-xl">
+<!-- Top Progress Bar & Status Pill -->
+<section class="flex flex-col space-y-space-xs pt-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm tracking-wider">
+<span class="material-symbols-outlined text-[13px] text-primary">swords</span>
+          実戦百人組手 本日 3 / 5 問 済
+        </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm">
+          🔥 5日連続
+        </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+        練度: <strong class="text-primary font-semibold">凡人参段</strong>
+</span>
+</div>
+<!-- Progress Tracker -->
+<div class="bg-surface-container-low rounded-xl p-space-sm flex flex-col space-y-1.5 shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">flag</span>
+          日課達成率 60%
+        </span>
+<span class="text-on-surface font-label-sm text-label-sm">目標 80% まであと 1 問</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-primary-container rounded-full" style="width: 60%"></div>
+</div>
+</div>
+</section>
+<!-- Hero Result Card: 不覚・一本取られた -->
+<section class="relative bg-surface-container rounded-xl p-space-lg shadow-md overflow-hidden flex flex-col space-y-space-md">
+<!-- Subtle ink atmosphere corner glow -->
+<div class="absolute -top-12 -right-12 w-40 h-40 bg-secondary-container/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex flex-col space-y-1">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-error-container/40 text-error font-label-sm text-label-sm w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+          判定完了・一本負け
+        </div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface pt-1 tracking-tight">
+          無念！一本取られた…
+        </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          問の参：async/await における例外捕捉の構え
+        </p>
+</div>
+<!-- Traditional Hanko / Inkan Stamp -->
+<div class="relative shrink-0 flex items-center justify-center w-14 h-14 rounded bg-error-container/20 text-error shadow-inner">
+<div class="w-12 h-12 flex flex-col items-center justify-center font-display text-[15px] font-bold leading-tight tracking-widest uppercase select-none rotate-3">
+<span class="">惜</span>
+<span class="">敗</span>
+</div>
+</div>
+</div>
+<!-- Metrics Row -->
+<div class="grid grid-cols-3 gap-space-xs pt-1 relative z-10">
+<div class="bg-surface-container-low rounded-lg p-2.5 flex flex-col items-center text-center">
+<span class="font-label-sm text-[10px] text-on-surface-variant tracking-wider flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px] text-tertiary">timer</span>所要時間
+        </span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5 font-semibold">58<span class="text-xs font-normal text-on-surface-variant ml-0.5">秒</span></span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-2.5 flex flex-col items-center text-center">
+<span class="font-label-sm text-[10px] text-on-surface-variant tracking-wider flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px] text-primary">military_tech</span>修練値
+        </span>
+<span class="font-headline-sm text-headline-sm text-primary mt-0.5 font-semibold">+15<span class="text-xs font-normal text-primary/80 ml-0.5">EXP</span></span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-2.5 flex flex-col items-center text-center">
+<span class="font-label-sm text-[10px] text-on-surface-variant tracking-wider flex items-center gap-0.5"><span class="material-symbols-outlined text-[13px] text-secondary">group</span>自分の正答率</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5 font-semibold">43.2<span class="text-xs font-normal text-on-surface-variant ml-0.5">%</span></span>
+</div>
+</div>
+<!-- Reassurance Pill -->
+<div class="bg-surface-container-lowest/80 rounded-lg px-3 py-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0">psychology</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        失敗の痛みこそ、真の記憶定着への最短路なり。
+      </p>
+</div>
+</section>
+<!-- Answer Comparison / Judicial Judgment (審判の段) -->
+<section class="flex flex-col space-y-space-sm">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">balance</span>
+        審判録・型の相違
+      </h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">構えの検証</span>
+</div>
+<!-- Picked Choice (Mistake) -->
+<div class="bg-surface-container rounded-xl p-space-md flex flex-col space-y-2 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-error-container/30 text-error font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">cancel</span>
+          あなたの選んだ型（悪手）
+        </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant font-mono">OPTION B</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium">
+        型・弐：fetch の直後に <code class="bg-surface-container-lowest text-secondary px-1.5 py-0.5 rounded font-mono text-xs">.catch()</code> をチェーンするのみで、await 構文をそのまま抜ける
+      </p>
+<!-- Trap explanation -->
+<div class="bg-surface-container-low rounded-lg p-2.5 mt-1 flex items-start gap-2">
+<span class="material-symbols-outlined text-error text-[16px] shrink-0 mt-0.5">warning</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+<strong class="text-on-surface">陥穽（かんせい）：</strong><code class="text-primary font-mono text-xs">.catch()</code> で握り潰しても await の戻り値は <code class="text-primary font-mono text-xs">undefined</code> となり、直後の <code class="text-primary font-mono text-xs">res.json()</code> で <span class="text-error font-mono">TypeError</span> の二次爆発を招きます。
+        </p>
+</div>
+</div>
+<!-- Correct Choice (The True Form) -->
+<div class="bg-surface-container rounded-xl p-space-md flex flex-col space-y-2 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary-container/20 text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+          正解の構え（定石・模範）
+        </span>
+<span class="font-label-sm text-[11px] text-primary font-mono">OPTION A</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium">
+        型・壱：一連の処理を <code class="bg-surface-container-lowest text-primary px-1.5 py-0.5 rounded font-mono text-xs">try / catch</code> ブロックの結界で包み、異常時は安全な初期値を返す
+      </p>
+<div class="bg-surface-container-low rounded-lg p-2.5 mt-1 flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-0.5">verified</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+<strong class="text-on-surface">極意：</strong>非同期処理群をひとつの境界線の中に収めることで、途中の通信障害やパース不備を漏れなく捕捉。戦線を崩さず防衛できます。
+        </p>
+</div>
+</div>
+</section>
+<!-- Master's Secret Commentary (凡人師範の秘伝解説) -->
+<section class="bg-surface-container rounded-xl p-space-lg flex flex-col space-y-space-md shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">history_edu</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">
+          師範の敗北指南巻
+        </h3>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container/20 text-secondary font-label-sm text-label-sm">
+        秘伝 其の参
+      </span>
+</div>
+<!-- Principles list -->
+<div class="space-y-space-sm">
+<div class="flex flex-col space-y-1">
+<div class="flex items-center gap-1.5 font-label-md text-label-md text-on-surface">
+<span class="w-5 h-5 rounded-full bg-primary-container text-on-primary-container font-mono text-xs flex items-center justify-center font-bold">1</span>
+<span class="">.catch() 単体では await の結界を維持できず</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-6 leading-relaxed">
+<code class="font-mono text-xs text-primary">fetch().catch(...)</code> は Promise の拒否を解決済みにすり替えるだけです。戻り値のない catch からは暗黙的に <code class="font-mono text-xs text-secondary">undefined</code> が排出され、次なる構えへ毒が回ります。
+        </p>
+</div>
+<div class="flex flex-col space-y-1">
+<div class="flex items-center gap-1.5 font-label-md text-label-md text-on-surface">
+<span class="w-5 h-5 rounded-full bg-primary-container text-on-primary-container font-mono text-xs flex items-center justify-center font-bold">2</span>
+<span class="">実戦の鉄則：境界線（例外結界）は外側に張る</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-6 leading-relaxed">
+          非同期呼び出しが連鎖する局面では、部分的な小手先の catch ではなく、大元の処理スコープを <code class="font-mono text-xs text-primary">try / catch</code> で囲むのが堅牢なる基本の型です。
+        </p>
+</div>
+</div>
+<!-- Code Comparison Terminal -->
+<div class="flex flex-col rounded-lg bg-surface-container-lowest overflow-hidden shadow-inner">
+<!-- Terminal Bar -->
+<div class="flex items-center justify-between px-3 py-2 bg-surface-container-high/80">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-error/70"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary/70"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-primary/70"></span>
+<span class="font-mono text-[11px] text-on-surface-variant ml-2 font-label-sm">Scroll_Mistake_vs_Correct.js</span>
+</div>
+<button class="font-label-sm text-[11px] px-2 py-0.5 rounded bg-surface-container text-primary hover:bg-surface-container-highest transition-colors">
+          模範の型へ切替
+        </button>
+</div>
+<!-- Code Snippet Container -->
+<div class="p-3 font-mono text-[12px] leading-relaxed overflow-x-auto text-on-surface-variant bg-surface-container-lowest">
+<!-- Mistake View (Default) -->
+<div class="block space-y-1">
+<div class="text-error font-semibold">// ❌ 不覚の構え（あなたのコード）</div>
+<div class=""><span class="text-secondary">async function</span> <span class="text-primary">fetchScroll</span>() {</div>
+<div class="pl-4 text-on-surface-variant">// 陥穽：.catch 内でエラー握り潰し</div>
+<div class="pl-4 text-error bg-error-container/20 rounded px-1">
+<span class="text-secondary">const</span> res = <span class="text-secondary">await</span> fetch(url).catch(e =&gt; console.log(e));
+          </div>
+<div class="pl-4 text-error bg-error-container/10 rounded px-1">
+<span class="text-secondary">const</span> data = <span class="text-secondary">await</span> res.json(); <span class="text-error font-bold">// 💥 TypeError!</span>
+</div>
+<div class="pl-4"><span class="text-secondary">return</span> data;</div>
+<div class="">}</div>
+</div>
+<!-- Correct View (Hidden) -->
+<div class="hidden space-y-1">
+<div class="text-primary font-semibold">// ⭕ 堅牢なる正解の構え（模範）</div>
+<div class=""><span class="text-secondary">async function</span> <span class="text-primary">fetchScroll</span>() {</div>
+<div class="pl-4 text-primary bg-primary-container/10 rounded px-1"><span class="text-secondary">try</span> {</div>
+<div class="pl-8"><span class="text-secondary">const</span> res = <span class="text-secondary">await</span> fetch(url);</div>
+<div class="pl-8"><span class="text-secondary">if</span> (!res.ok) <span class="text-secondary">throw new</span> Error(res.statusText);</div>
+<div class="pl-8"><span class="text-secondary">return await</span> res.json();</div>
+<div class="pl-4 text-primary bg-primary-container/10 rounded px-1">} <span class="text-secondary">catch</span> (err) {</div>
+<div class="pl-8 text-on-surface-variant">// 安全な防壁：フォールバックを返す</div>
+<div class="pl-8"><span class="text-secondary">return</span> { scrolls: [] };</div>
+<div class="pl-4">}</div>
+<div class="">}</div>
+</div>
+</div>
+<!-- Quick Interactive Actions -->
+<div class="grid grid-cols-2 gap-px bg-surface-container-high/40 p-1">
+<button class="flex items-center justify-center gap-1.5 py-2 px-2 text-on-surface hover:text-primary transition-colors text-center rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-[16px] text-primary">edit_note</span>
+<span class="font-label-sm text-label-sm font-display">写経して型を刻む</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 py-2 px-2 text-on-surface hover:text-secondary transition-colors text-center rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-[16px] text-secondary">bookmark_add</span>
+<span class="font-label-sm text-label-sm font-display">弱点巻物に登録</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Master's Soliloquy / Philosophical Advice (凡人師範の独り言) -->
+<section class="bg-surface-container-low rounded-xl p-space-md relative overflow-hidden flex items-start gap-3 shadow-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-primary text-[22px]">self_improvement</span>
+</div>
+<div class="flex flex-col space-y-1">
+<div class="flex items-center gap-1.5">
+<span class="font-display font-semibold text-on-surface text-label-md font-label-md">凡人師範の独り言</span>
+<span class="font-label-sm text-[10px] text-primary tracking-widest px-1.5 py-0.2 rounded bg-surface-container-highest">捲土重来の巻</span>
+</div>
+<blockquote class="font-display text-body-sm text-on-surface-variant italic leading-relaxed pt-0.5">
+        「一本取られた時こそ、真の修行の始まり。間違えた問題こそが、三ヶ月後のそなたを救う最強の盾となる。胸を張って次の構えをとれ。」
+      </blockquote>
+</div>
+</section>
+<!-- Action CTA Area -->
+<section class="flex flex-col space-y-space-sm pt-space-xs">
+<!-- Primary CTA: Try Again / Proceed -->
+<button class="w-full h-13 py-3 px-space-lg rounded-xl bg-primary-container text-on-primary-container font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-2 shadow-lg hover:opacity-95 active:scale-[0.99] transition-transform">
+<span class="">次の修練へ進む（第四問へ）</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<!-- Secondary Action Grid -->
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="w-full py-2.5 px-3 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px] text-primary">replay</span>
+<span class="">この問に再戦</span>
+</button>
+<button class="w-full py-2.5 px-3 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px] text-secondary">menu_book</span>
+<span class="">解説を熟読する</span>
+</button>
+</div>
+<!-- Exit Link -->
+<div class="text-center pt-1">
+<a class="inline-flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[15px]">meeting_room</span>
+        鍛錬を一時中断して道場へ戻る
+      </a>
+</div>
+</section>
+</div>
+</main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(0,0,0,0.6)]" data-active-classes="text-primary-container font-semibold"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="dojo-home" href="index.html"><span class="material-symbols-outlined text-[22px]">temple_buddhist</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">道場</span></a><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="scrolls-notes" href="scrolls.html"><span class="material-symbols-outlined text-[22px]">history_edu</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">巻物</span></a><a aria-current="page" style="color:#ff8a3d;font-weight:700" class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="training-room" href="daily.html"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">鍛錬室</span></a><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="training-log" href="log.html"><span class="material-symbols-outlined text-[22px]">menu_book</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">修練録</span></a><a class="flex flex-col items-center justify-center flex-1 h-full py-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="secret-scrolls" href="secrets.html"><span class="material-symbols-outlined text-[22px]">auto_stories</span><span class="font-label-sm text-[10px] mt-0.5 tracking-wider font-display">秘伝の書</span></a></div></nav>
+
+
+</div></div></div>
+<div data-view="res" hidden><div class="sc-res-d"><div class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen sc-root">
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)] pt-safe"><div class="h-16 px-gutter-sm flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="閉じる" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">close</span></button><div class="flex flex-col"><span class="font-label-sm text-label-sm text-primary tracking-widest uppercase">bonjin's study note</span><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Drill Results</h1></div></div><div class="flex items-center gap-space-sm"></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full">
+<div class="relative w-full overflow-hidden bg-surface-container-lowest px-gutter-sm pt-space-md pb-space-lg">
+<div class="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary-container via-transparent to-transparent"></div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm tracking-widest uppercase mb-space-sm shadow-sm">
+<span class="material-symbols-outlined text-[14px]">sports_martial_arts</span>
+        急所克服モード・五本組手 完遂
+      </div>
+<div class="relative flex items-center justify-center gap-space-sm mb-space-xs">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-wide">
+          五本組手 結び・修練完了
+        </h2>
+<div class="relative flex items-center justify-center w-9 h-9 rounded-lg bg-error-container text-on-error shadow-md transform rotate-[-4deg]">
+<span class="font-display text-[15px] font-bold tracking-tight leading-tight select-none">皆伝</span>
+<div class="absolute inset-0 rounded-lg opacity-25 mix-blend-screen bg-primary"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
+        夜更けの道場にて、己の急所を打ち払う五度の太刀筋。これにて本日の稽古を一結びとす。
+      </p>
+</div>
+</div>
+<div class="px-gutter-sm -mt-space-xs">
+<div class="relative overflow-hidden rounded-xl bg-surface-container p-space-md shadow-md">
+<div class="absolute top-0 right-0 w-24 h-24 opacity-5 pointer-events-none">
+<svg class="w-full h-full text-on-surface fill-current" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="40" stroke="currentColor" stroke-dasharray="8 6" stroke-width="6"></circle>
+<path d="M50 15 L50 85 M15 50 L85 50" stroke="currentColor" stroke-width="4"></path>
+</svg>
+</div>
+<div class="flex items-baseline justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm text-primary tracking-widest">組手総合成績</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">総特訓時間 02分45秒</span>
+</div>
+<div class="flex items-center justify-between mb-space-md bg-surface-container-low rounded-lg p-space-md">
+<div class="flex flex-col">
+<span class="font-display text-[32px] text-primary leading-none font-bold tracking-tight">四勝 一敗</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">五戦中四撃的中（勝率 80%）</span>
+</div>
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-16 h-16 transform -rotate-90" viewbox="0 0 64 64">
+<circle cx="32" cy="32" fill="none" r="26" stroke="#2c2927" stroke-width="5"></circle>
+<circle cx="32" cy="32" fill="none" r="26" stroke="#f97316" stroke-dasharray="163.36" stroke-dashoffset="32.67" stroke-linecap="round" stroke-width="5"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center">
+<span class="font-headline-sm text-[16px] font-bold text-on-surface leading-none">80</span>
+<span class="font-label-sm text-[9px] text-primary tracking-tighter">%</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-high">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] text-on-surface-variant leading-none">克服昇格</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-headline-sm text-headline-sm text-primary leading-none font-semibold">+2</span>
+<span class="font-label-sm text-label-sm text-on-surface">巻</span>
+<span class="px-1 py-0.5 rounded text-[9px] font-bold bg-primary-container text-on-primary-container leading-none ml-1">克服之印</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-high">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] text-on-surface-variant leading-none">残る急所</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface leading-none font-semibold">5</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">巻</span>
+<span class="font-label-sm text-[10px] text-secondary leading-none ml-1">修練継続</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-gutter-sm mt-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">swords</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">五本組手 結びの戦歴</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">壱 〜 伍本</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all duration-200">
+<button class="w-full text-left p-space-md flex flex-col gap-space-xs bg-surface-container hover:bg-surface-container-high transition-colors" type="button">
+<div class="flex items-center justify-between w-full">
+<div class="flex items-center gap-space-xs">
+<span class="font-display font-bold text-on-surface-variant text-[14px]">壱本目</span>
+<span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded text-[11px] font-bold bg-primary-container text-on-primary-container">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> 一本（正解）
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded text-[10px] font-bold bg-secondary-fixed text-on-secondary-fixed">克服昇格！</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] transform transition-transform duration-200">expand_more</span>
+</div>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate">async/await 例外捕捉の陥穽</span>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-[11px]">
+<span>典拠：Web &amp; DB 篇四</span>
+<span>所要：28秒</span>
+</div>
+</button>
+<div class="p-space-md bg-surface-container-low flex flex-col gap-space-sm">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            try...catch 内での非同期関数の解決忘れを正確に見切り、Promiseの拒絶を適切に捕捉。急所判定が解除され「修得済み巻物」へ昇格しました。
+          </p>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-space-xs px-space-sm rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+              解説の巻物を開く
+            </button>
+<button class="py-space-xs px-space-sm rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+              型を再確認
+            </button>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all duration-200">
+<button class="w-full text-left p-space-md flex flex-col gap-space-xs bg-surface-container hover:bg-surface-container-high transition-colors" type="button">
+<div class="flex items-center justify-between w-full">
+<div class="flex items-center gap-space-xs">
+<span class="font-display font-bold text-on-surface-variant text-[14px]">弐本目</span>
+<span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded text-[11px] font-bold bg-primary-container text-on-primary-container">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> 一本（正解）
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded text-[10px] font-bold bg-surface-container-highest text-primary">二連勝</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] transform transition-transform duration-200">expand_more</span>
+</div>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate">SQL JOIN における NULL値の落とし穴</span>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-[11px]">
+<span>典拠：Web &amp; DB 篇二</span>
+<span>所要：34秒</span>
+</div>
+</button>
+<div class="hidden p-space-md bg-surface-container-low flex-col gap-space-sm">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            LEFT OUTER JOIN時のWHERE句による内部結合化の罠を瞬時に看破。三値論理の扱いが見事でした。
+          </p>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-space-xs px-space-sm rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+              解説の巻物を開く
+            </button>
+<button class="py-space-xs px-space-sm rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+              型を再確認
+            </button>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all duration-200 ring-0">
+<button class="w-full text-left p-space-md flex flex-col gap-space-xs bg-surface-container hover:bg-surface-container-high transition-colors" type="button">
+<div class="flex items-center justify-between w-full">
+<div class="flex items-center gap-space-xs">
+<span class="font-display font-bold text-on-surface-variant text-[14px]">参本目</span>
+<span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded text-[11px] font-bold bg-error-container text-on-error-container">
+<span class="material-symbols-outlined text-[13px]">close</span> 不覚（不正解）
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded text-[10px] font-bold bg-surface-variant text-secondary">要再戦</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] transform rotate-180 transition-transform duration-200">expand_more</span>
+</div>
+</div>
+<span class="font-body-md text-body-md text-secondary font-medium truncate">Java Stream API の副作用混入</span>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-[11px]">
+<span>典拠：Java 実技篇</span>
+<span>所要：42秒</span>
+</div>
+</button>
+<div class="p-space-md bg-surface-container-low flex flex-col gap-space-sm">
+<div class="flex items-start gap-space-xs p-space-sm rounded-lg bg-surface-container-high">
+<span class="material-symbols-outlined text-error text-[18px] shrink-0 mt-0.5">priority_high</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">急所：parallelStream 内の可変コレクション操作</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                並列パイプライン内での非スレッドセーフな副作用を許容してしまいました。スレッド競合と非決定論的振る舞いへの注意が必要です。
+              </p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1.5 text-secondary font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[16px] text-secondary">auto_stories</span>
+<span>急所巻物に再登録済</span>
+</div>
+<button class="py-space-xs px-space-md rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold flex items-center gap-1 hover:brightness-110 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+              直ちに再戦
+            </button>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all duration-200">
+<button class="w-full text-left p-space-md flex flex-col gap-space-xs bg-surface-container hover:bg-surface-container-high transition-colors" type="button">
+<div class="flex items-center justify-between w-full">
+<div class="flex items-center gap-space-xs">
+<span class="font-display font-bold text-on-surface-variant text-[14px]">四本目</span>
+<span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded text-[11px] font-bold bg-primary-container text-on-primary-container">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> 一本（正解）
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded text-[10px] font-bold bg-secondary-fixed text-on-secondary-fixed">克服昇格！</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] transform transition-transform duration-200">expand_more</span>
+</div>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate">CSS Grid 明示的トラックと暗黙配置</span>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-[11px]">
+<span>典拠：CSS 篇三</span>
+<span>所要：31秒</span>
+</div>
+</button>
+<div class="hidden p-space-md bg-surface-container-low flex-col gap-space-sm">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            grid-auto-flow: dense と minmax() の相互作用を見事に見極めました。レイアウトの急所を完全に掌握しました。
+          </p>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-space-xs px-space-sm rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+              解説の巻物を開く
+            </button>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all duration-200">
+<button class="w-full text-left p-space-md flex flex-col gap-space-xs bg-surface-container hover:bg-surface-container-high transition-colors" type="button">
+<div class="flex items-center justify-between w-full">
+<div class="flex items-center gap-space-xs">
+<span class="font-display font-bold text-primary text-[14px]">伍本目（大将戦）</span>
+<span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded text-[11px] font-bold bg-primary-container text-on-primary-container">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> 一本（正解）
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded text-[10px] font-bold bg-surface-container-highest text-primary">見事な見切り！</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] transform transition-transform duration-200">expand_more</span>
+</div>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate">Promise.all エラー伝播の境界防御</span>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-[11px]">
+<span>典拠：Web &amp; DB 篇五</span>
+<span>所要：30秒</span>
+</div>
+</button>
+<div class="hidden p-space-md bg-surface-container-low flex-col gap-space-sm">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            最難関の大将戦。Promise.allSettled と個別の catch 境界の使い分けを迷いなく選択。完璧な見切りでした。
+          </p>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-space-xs px-space-sm rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+              解説の巻物を開く
+            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-gutter-sm mt-space-lg">
+<div class="relative rounded-xl bg-surface-container-high p-space-md overflow-hidden shadow-md">
+<div class="absolute -right-4 -bottom-4 w-28 h-28 opacity-10 pointer-events-none">
+<svg class="w-full h-full fill-current text-primary" viewbox="0 0 100 100">
+<path d="M50 5 L90 25 L90 75 L50 95 L10 75 L10 25 Z"></path>
+</svg>
+</div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">account_balance</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">師範の総括講評</h3>
+</div>
+<div class="px-space-xs py-0.5 rounded bg-error-container text-on-error font-display text-[10px] font-bold tracking-tight">
+          総括之印
+        </div>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest relative mb-space-md">
+<span class="material-symbols-outlined text-primary/40 text-[28px] absolute top-2 left-2 pointer-events-none">format_quote</span>
+<p class="font-display text-body-md text-on-surface leading-relaxed pl-space-md italic">
+          四勝一敗、実に見事な太刀筋なり。落とした「Java Stream APIの副作用」も、一度の不覚を過度に恐れるなかれ。己の急所を知る者こそが、真に堅牢なる設計を手に入れる。夜明け前に再戦し、技を血肉とせよ。
+        </p>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-[20px]">bolt</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] text-on-surface-variant">獲得修練値</span>
+<span class="font-label-md text-label-md text-primary font-bold">+120 EXP</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary-container text-[20px]">local_fire_department</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] text-on-surface-variant">灯火継続（修練）</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">7日連続継続中</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-gutter-sm mt-space-lg mb-space-lg flex flex-col gap-space-sm">
+<button class="w-full py-space-md px-space-lg rounded-xl bg-primary-container text-on-primary-container font-label-md text-label-md font-bold flex items-center justify-center gap-space-xs shadow-lg hover:brightness-110 active:scale-[0.99] transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">replay</span>
+      不覚を取った一問を直ちに復習する（リベンジ）
+    </button>
+<button class="w-full py-space-md px-space-lg rounded-xl bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-space-xs hover:bg-surface-container-high active:scale-[0.99] transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+      弱点巻物一覧へ戻る
+    </button>
+<button class="w-full py-space-sm px-space-md text-on-surface-variant hover:text-primary font-label-sm text-label-sm text-center transition-colors flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+      道場トップへ凱旋
+    </button>
+</div>
+</div>
+</main>
+</div></div></div>
+</div>
+<script src="common.js"></script>
+<script src="drill-data.js"></script>
+<script src="keiko-lib.js"></script>
+<script src="daily.js"></script>
+</body>
+</html>

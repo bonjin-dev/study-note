@@ -134,6 +134,7 @@ function fillCard(v, c) {
   const copyBtn = copyLabel && copyLabel.closest("button");
   if (copyBtn) copyBtn.addEventListener("click", () => {
     const done = () => { copyLabel.textContent = "写経済!"; showToast("型を写経台（クリップボード）に複写しました"); setTimeout(() => { copyLabel.textContent = "写経写し"; }, 1500); };
+    countCopy();
     try { navigator.clipboard.writeText(c.code).then(done, () => showToast("コピーできませんでした。コードを選んでコピーしてください。")); } catch (e) { showToast("コピーできませんでした。"); }
   });
   // お気に入り（★）

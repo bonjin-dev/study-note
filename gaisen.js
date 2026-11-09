@@ -65,8 +65,7 @@ function fill(root) {
   });
   const msg = "本日の目標 " + g + " 問を達成。鍛錬値 +" + expToday + " EXP を積み、段位は「" + rk.name + "」。" +
     (perfect ? "一本も取られぬ見事な太刀筋でした。" : "取られた一本は、弱点克服帳で取り返しましょう。");
-  const p = E(root, "見事雪辱を果たし");
-  if (p) p.textContent = msg;
+  const p = E(root, "見事雪辱を果たし"); // 文章は最後に入れる（あとの数字の入れかえに巻きこまれないように）
   R(root, "リベンジ正解率 100%", "本日の正答率 " + accToday + "%");
   R(root, "皆伝印可 授与", "段位：" + rk.name);
   // 写真のかわりの帯
@@ -81,10 +80,11 @@ function fill(root) {
   const dotBox = dots && dots.closest("div").parentElement.querySelector("div:last-child");
   if (dotBox && dotBox.children.length === 5) [...dotBox.children].forEach((d, i) => { d.style.opacity = i < Math.min(5, Math.round(st.ok / g * 5)) ? "1" : "0.25"; });
   // EXP
+  // 「80 EXP」は先に入れかえる（ほかの数字に「80 EXP」がふくまれても巻きこまないように）
+  R(root, "80 EXP", rk.next ? rk.need.toLocaleString() + " EXP" : "");
+  R(root, "次の階位まであと", rk.next ? "「" + rk.next + "」まであと" : "最高の段位");
   R(root, "+170 EXP 獲得済", "+" + expToday + " EXP 獲得済");
   R(root, "1,420 EXP", rk.exp.toLocaleString() + " EXP");
-  R(root, "次の階位まであと", rk.next ? "「" + rk.next + "」まであと" : "最高の段位");
-  R(root, "80 EXP", rk.next ? rk.need.toLocaleString() + " EXP" : "");
   R(root, "本日の累計:", "これまでの累計:");
   const ws = [...root.querySelectorAll('[style*="width"]')];
   if (ws[0]) ws[0].style.width = Math.max(0, rk.pct - 6) + "%";
@@ -139,6 +139,7 @@ function fill(root) {
   R(root, "弱点巻物", "弱点克服帳");
   R(root, "並列集約の型を読む", "まとめノートを読む");
   link(root, "秘伝の書", "secrets.html");
+  if (p) p.textContent = msg;
 }
 document.querySelectorAll(".theme-l, .theme-d").forEach(fill);
 // 今日はもう見た（トップから何度も来ないように）

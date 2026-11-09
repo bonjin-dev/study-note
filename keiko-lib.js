@@ -715,7 +715,7 @@ function fillResult(root, dark, r) {
   linkTo(root, ["弱点巻物一覧へ戻る"], "weak.html");
   R(root, ["弱点巻物一覧へ戻る"], "弱点克服帳へ");
   const back = E(root, ["道場トップへ凱旋"]);
-  if (back) { const b = back.closest("button"); if (b) b.addEventListener("click", () => { location.href = "index.html"; }); }
+  if (back) { const b = back.closest("button"); if (b) b.addEventListener("click", () => { location.href = dayStat(dayKey(new Date())).ok >= goal() ? "gaisen.html" : "index.html"; }); }
 }
 
 /* ===== 経過時間の表示（1秒ごと） ===== */

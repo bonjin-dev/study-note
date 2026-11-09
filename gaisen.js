@@ -59,7 +59,10 @@ function fill(root) {
   // 結びの見出し
   R(root, "五本組手 結び・凱旋帰還", "本日の修練 結び・凱旋帰還");
   R(root, "五本組手 結び", "本日の修練 結び");
-  textNodes(root).filter((n) => norm(n.nodeValue) === "全勝制覇").forEach((n) => { n.nodeValue = perfect ? "全勝制覇" : "目標達成"; });
+  textNodes(root).filter((n) => norm(n.nodeValue) === "全勝制覇").forEach((n) => {
+    n.nodeValue = perfect ? "全勝制覇" : "目標達成";
+    if (n.parentElement.tagName === "SPAN") n.parentElement.style.marginLeft = "0.4em"; // 「結び」との間をあける
+  });
   const msg = "本日の目標 " + g + " 問を達成。鍛錬値 +" + expToday + " EXP を積み、段位は「" + rk.name + "」。" +
     (perfect ? "一本も取られぬ見事な太刀筋でした。" : "取られた一本は、弱点克服帳で取り返しましょう。");
   const p = E(root, "見事雪辱を果たし");

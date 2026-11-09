@@ -68,3 +68,20 @@ html[data-theme="dark"] .soon-toast {
 .soon-toast[hidden] {
   display: none;
 }
+
+/* パソコンなど広い画面：中身を真ん中に寄せて、横に伸びすぎないようにする */
+@media (min-width: 1064px) {
+  .theme-l main,
+  .theme-d main {
+    max-width: 1024px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .theme-l header,
+  .theme-d header,
+  .theme-l nav.fixed,
+  .theme-d nav.fixed {
+    padding-left: max(20px, calc((100% - 1024px) / 2)) !important;
+    padding-right: max(20px, calc((100% - 1024px) / 2)) !important;
+  }
+}

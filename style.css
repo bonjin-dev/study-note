@@ -5,85 +5,85 @@
 
 /* ===== 色（ライト） ===== */
 :root {
-  --bg: #fbf7f2;
-  --text: #231f1d;
-  --sumi: #1c1917;            /* 見出しの墨色 */
-  --lead: #665448;            /* 説明文 */
-  --label: #7c695c;           /* 小さいラベル */
+  --bg: #f7f7f6;
+  --text: #20221e;
+  --sumi: #1a1b18;            /* 見出しの墨色 */
+  --lead: #585d51;            /* 説明文 */
+  --label: #6d7464;           /* 小さいラベル */
 
-  --header-bg: rgba(251, 247, 242, 0.9);
-  --header-line: #ebdccf;
-  --nav-bg: rgba(251, 247, 242, 0.95);
-  --nav-text: #7a675a;
-  --nav-hover: #231f1d;
-  --nav-active: #a63810;
+  --header-bg: rgba(247, 247, 246, 0.9);
+  --header-line: #adcbbc;
+  --nav-bg: rgba(247, 247, 246, 0.95);
+  --nav-text: #6b7163;
+  --nav-hover: #20221e;
+  --nav-active: #306b4d;
 
-  --badge-bg: #f1e5d4;
-  --badge-line: #dfd0be;
-  --badge-text: #70523e;
+  --badge-bg: #afd2c1;
+  --badge-line: #a1beb0;
+  --badge-text: #3e564a;
 
-  --strip-bg: #f4ebe0;
-  --strip-line: #e5d8c6;
-  --fire: #a63810;
-  --fire-soft: rgba(166, 56, 16, 0.12);
-  --fire-text: #a63810;
-  --fire-note: #a63810;
-  --strip-glow: rgba(166, 56, 16, 0.05);
+  --strip-bg: #b8d6c7;
+  --strip-line: #a6c5b5;
+  --fire: #306b4d;
+  --fire-soft: rgba(48, 107, 77, 0.12);
+  --fire-text: #306b4d;
+  --fire-note: #306b4d;
+  --strip-glow: rgba(48, 107, 77, 0.05);
 
-  --chip-bg: #ebdccb;
-  --chip-line: #dccebc;
-  --chip-text: #665448;
+  --chip-bg: #a9cbba;
+  --chip-line: #9fbbad;
+  --chip-text: #585d51;
 
-  --card-1: #fdfbf7;
-  --card-2: #f7f0e6;
-  --card-3: #f2e7d7;
-  --card-line: #d8c5ad;
-  --card-shadow: 0 4px 16px rgba(60, 40, 20, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --hole: #cbba9f;
-  --hole-line: #a49176;
-  --hole-dot: #827059;
-  --card-name: #1c1917;
-  --card-desc: #5e4b3f;
-  --badge-word: #825b39;
+  --card-1: #fafafa;
+  --card-2: #eff0ed;
+  --card-3: #b1d3c2;
+  --card-line: #94b7a5;
+  --card-shadow: 0 4px 16px rgba(28, 49, 38, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --hole: #89aa9a;
+  --hole-line: #8f9783;
+  --hole-dot: #6f7566;
+  --card-name: #1a1b18;
+  --card-desc: #4f5449;
+  --badge-word: #3e614f;
 
-  --plate-bg: rgba(237, 226, 210, 0.7);
-  --plate-line: #decbb4;
-  --plate-label: #786455;
-  --plate-title: #241f1a;
+  --plate-bg: rgba(175, 205, 190, 0.7);
+  --plate-line: #99bdab;
+  --plate-label: #686e5f;
+  --plate-title: #1f211d;
 
-  --prog-text: #5f4e42;
-  --prog-num: #1c1917;
-  --bar: #decbb3;
+  --prog-text: #51564b;
+  --prog-num: #1a1b18;
+  --bar: #98bdaa;
 
-  --advice-1: #f5ede2;
-  --advice-2: #f7f0e6;
-  --advice-3: #f4ebe0;
-  --advice-line: #ded1be;
-  --advice-head: #a63810;
-  --advice-sub: #7d695b;
-  --advice-text: #2a241f;
+  --advice-1: #b9d7c8;
+  --advice-2: #eff0ed;
+  --advice-3: #b8d6c7;
+  --advice-line: #a1bdaf;
+  --advice-head: #306b4d;
+  --advice-sub: #6d7464;
+  --advice-text: #252722;
 
-  --switch-bg: #eee3d5;
-  --switch-line: #ddccba;
-  --gear-bg: #9b2f00;
-  --gear-ring: #e6cbb9;
+  --switch-bg: #b1cec0;
+  --switch-line: #9ebcad;
+  --gear-bg: #295b42;
+  --gear-ring: #9cc5b0;
 
   /* 道場ごとの色（ライト） */
-  --coding: #a63810;  --coding-tag-bg: #fdeadc; --coding-tag-text: #9c320a; --coding-tag-line: rgba(223, 118, 67, 0.3);
-  --coding-icon-bg: rgba(201, 75, 18, 0.15); --coding-icon-line: rgba(201, 75, 18, 0.3); --coding-icon: #a63810;
-  --coding-badge: #c94b12; --coding-ch: #a63810; --coding-check: #a63810;
-  --coding-bar: linear-gradient(to right, #d9652c, #a63810);
-  --coding-btn: linear-gradient(to bottom, #b83c12, #8d2a07); --coding-btn-line: #7a2304; --coding-btn-shadow: rgba(141, 42, 7, 0.35);
-  --coding-glow: rgba(166, 56, 16, 0.1);
+  --coding: #306b4d;  --coding-tag-bg: #b5dec9; --coding-tag-text: #2c6147; --coding-tag-line: rgba(76, 170, 123, 0.3);
+  --coding-icon-bg: rgba(58, 128, 93, 0.15); --coding-icon-line: rgba(58, 128, 93, 0.3); --coding-icon: #306b4d;
+  --coding-badge: #3a805d; --coding-ch: #306b4d; --coding-check: #306b4d;
+  --coding-bar: linear-gradient(to right, #45996f, #306b4d);
+  --coding-btn: linear-gradient(to bottom, #357656, #27573f); --coding-btn-line: #214a36; --coding-btn-shadow: rgba(39, 87, 63, 0.35);
+  --coding-glow: rgba(48, 107, 77, 0.1);
 
-  --java: #572b8c;  --java-tag-bg: #f3ecf9; --java-tag-text: #55278c; --java-tag-line: rgba(129, 77, 189, 0.3);
-  --java-icon-bg: rgba(87, 43, 140, 0.15); --java-icon-line: rgba(87, 43, 140, 0.3); --java-icon: #572b8c;
-  --java-badge: #6935a8; --java-ch: #572b8c; --java-check: #572b8c;
-  --java-bar: linear-gradient(to right, #7a42be, #502482);
-  --java-btn: linear-gradient(to bottom, #6432a1, #471e78); --java-btn-line: #3b1766; --java-btn-shadow: rgba(71, 30, 120, 0.35);
-  --java-glow: rgba(87, 43, 140, 0.1);
+  --java: #8c642b;  --java-tag-bg: #f3f4f1; --java-tag-text: #8c6227; --java-tag-line: rgba(189, 142, 77, 0.3);
+  --java-icon-bg: rgba(140, 100, 43, 0.15); --java-icon-line: rgba(140, 100, 43, 0.3); --java-icon: #8c642b;
+  --java-badge: #a87835; --java-ch: #8c642b; --java-check: #8c642b;
+  --java-bar: linear-gradient(to right, #be8a42, #825b24);
+  --java-btn: linear-gradient(to bottom, #a17332, #78521e); --java-btn-line: #664517; --java-btn-shadow: rgba(120, 82, 30, 0.35);
+  --java-glow: rgba(140, 100, 43, 0.1);
 
-  --run: #15527a;  --run-tag-bg: #e9f2f8; --run-tag-text: #124d73; --run-tag-line: rgba(43, 122, 168, 0.3);
+  --run: #15527a;  --run-tag-bg: #f1f2ef; --run-tag-text: #124d73; --run-tag-line: rgba(43, 122, 168, 0.3);
   --run-icon-bg: rgba(21, 82, 122, 0.15); --run-icon-line: rgba(21, 82, 122, 0.3); --run-icon: #15527a;
   --run-badge: #1e618f; --run-ch: #15527a; --run-check: #15527a;
   --run-bar: linear-gradient(to right, #2a7aa8, #124d73);
@@ -275,6 +275,9 @@ a {
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
 }
 
+.brand-logo-img { background: none; border-radius: 0; }
+html:not([data-theme="dark"]) .brand-logo .logo-d,
+html[data-theme="dark"] .brand-logo .logo-l { display: none; }
 .brand-logo img {
   height: 32px;
   width: auto;

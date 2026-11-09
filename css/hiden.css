@@ -1,14 +1,14 @@
 /* 秘伝の書：Notion のノートの中身（本文）の見た目 */
 .theme-l {
-  --hiden-text: #3b2a20;
-  --hiden-sub: #7a6556;
-  --hiden-line: #e6d6c6;
-  --hiden-head: #f3e6d8;
-  --hiden-accent: #a43c12;
-  --hiden-code-bg: #2b211c;
-  --hiden-code-text: #f4ece4;
-  --hiden-inline-bg: #f1e3d4;
-  --hiden-card: #fffaf4;
+  --hiden-text: #1a1c18;
+  --hiden-sub: #5d6357;
+  --hiden-line: #dee3d7;
+  --hiden-head: #ecf0e7;
+  --hiden-accent: #2d5a43;
+  --hiden-code-bg: #1f2621;
+  --hiden-code-text: #eef2ea;
+  --hiden-inline-bg: #ecf0e7;
+  --hiden-card: #ffffff;
 }
 .theme-d {
   --hiden-text: #ece3da;
@@ -78,15 +78,15 @@
 .hiden-body .co-i { flex: none; line-height: 1.8; }
 .hiden-body .co-b { min-width: 0; flex: 1; }
 .hiden-body .co-b > * + * { margin-top: 8px; }
-.theme-l .co-blue, .theme-l .c-blue { --co-bg: #e8f0fa; --co-line: #4a78b8; }
-.theme-l .co-yellow, .theme-l .c-yellow { --co-bg: #fbf3d9; --co-line: #c9971c; }
-.theme-l .co-red, .theme-l .c-red { --co-bg: #fbe7e2; --co-line: #c0472c; }
+.theme-l .co-blue, .theme-l .c-blue { --co-bg: #f1f2f0; --co-line: #4a78b8; }
+.theme-l .co-yellow, .theme-l .c-yellow { --co-bg: #b2dcc7; --co-line: #3c8661; }
+.theme-l .co-red, .theme-l .c-red { --co-bg: #eff0ed; --co-line: #428764; }
 .theme-l .co-green, .theme-l .c-green { --co-bg: #e7f3e6; --co-line: #4b8f48; }
-.theme-l .co-purple, .theme-l .c-purple { --co-bg: #efe8f7; --co-line: #7d5bb0; }
-.theme-l .co-orange, .theme-l .c-orange { --co-bg: #fcebdc; --co-line: #d27a2c; }
-.theme-l .co-pink, .theme-l .c-pink { --co-bg: #fbe8ef; --co-line: #c45580; }
-.theme-l .co-brown, .theme-l .c-brown { --co-bg: #f3ebe3; --co-line: #8c6a4f; }
-.theme-l .co-gray, .theme-l .c-gray { --co-bg: #f1ece7; --co-line: #9a8c80; }
+.theme-l .co-purple, .theme-l .c-purple { --co-bg: #f0f1ee; --co-line: #b08d5b; }
+.theme-l .co-orange, .theme-l .c-orange { --co-bg: #b4ddc9; --co-line: #45936c; }
+.theme-l .co-pink, .theme-l .c-pink { --co-bg: #f2f3f0; --co-line: #589777; }
+.theme-l .co-brown, .theme-l .c-brown { --co-bg: #bcd4c8; --co-line: #4f6b5d; }
+.theme-l .co-gray, .theme-l .c-gray { --co-bg: #c1d0c9; --co-line: #8e9585; }
 .theme-d .co-blue, .theme-d .c-blue { --co-bg: #1b2533; --co-line: #6f9fe0; }
 .theme-d .co-yellow, .theme-d .c-yellow { --co-bg: #2c2615; --co-line: #e0b23c; }
 .theme-d .co-red, .theme-d .c-red { --co-bg: #331d18; --co-line: #ec7a5c; }
@@ -120,7 +120,7 @@
 .hiden-editor { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.45); display: flex; align-items: center; justify-content: center; padding: 16px; }
 .hiden-editor[hidden] { display: none; }
 .hiden-editor-card {
-  width: 100%; max-width: 480px; background: #fffaf4; color: #3b2a20; border-radius: 16px; padding: 18px;
+  width: 100%; max-width: 480px; background: #ffffff; color: #1a1c18; border-radius: 16px; padding: 18px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); font-family: "Noto Sans JP", sans-serif;
 }
 html[data-theme="dark"] .hiden-editor-card { background: #1d1815; color: #ece3da; }
@@ -128,10 +128,10 @@ html[data-theme="dark"] .hiden-editor-card { background: #1d1815; color: #ece3da
 .hiden-editor-note { font-size: 12px; opacity: 0.75; margin: 0 0 12px; }
 .hiden-editor input, .hiden-editor textarea {
   width: 100%; box-sizing: border-box; font: inherit; font-size: 15px; padding: 10px 12px; margin-bottom: 10px;
-  border: 1px solid #d9c7b6; border-radius: 10px; background: transparent; color: inherit;
+  border: 1px solid #dee3d7; border-radius: 10px; background: transparent; color: inherit;
 }
 html[data-theme="dark"] .hiden-editor input, html[data-theme="dark"] .hiden-editor textarea { border-color: #4a3d34; }
 .hiden-editor-btns { display: flex; justify-content: flex-end; gap: 8px; }
-.hiden-editor-btns button { min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #d9c7b6; background: transparent; color: inherit; font: inherit; cursor: pointer; }
-.hiden-editor-btns [data-x="save"] { background: #a43c12; border-color: #a43c12; color: #fff; font-weight: 700; }
+.hiden-editor-btns button { min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #dee3d7; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.hiden-editor-btns [data-x="save"] { background: #2d5a43; border-color: #2d5a43; color: #fff; font-weight: 700; }
 html[data-theme="dark"] .hiden-editor-btns [data-x="save"] { background: #ff8a3d; border-color: #ff8a3d; color: #1a120d; }

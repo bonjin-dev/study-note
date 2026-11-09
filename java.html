@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
 <title>Java 道場</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Source+Code+Pro:wght@400;600&display=swap">
 <style>
@@ -325,11 +326,20 @@ footer{color:var(--muted);font-size:.8rem;text-align:center}
 .runlink span{color:var(--accent)}
 .runlink:hover{background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Serif+JP:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
+<link rel="stylesheet" href="css/dojo-skin.css">
 </head>
 <body>
+<header class="dj-top"><div class="dj-top-in">
+  <a class="dj-brand" href="index.html"><img class="logo-l" src="logo.svg" alt="" width="32" height="32"><img class="logo-d" src="logo-dark.svg" alt="" width="32" height="32"><span><b>bonjin's study note</b><small>凡人道場デスク • STUDY DESK</small></span></a>
+  <div class="dj-tools"><button type="button" class="theme-btn" id="themeBtn"></button><a class="dj-gear" href="settings.html" aria-label="設定"><span class="material-symbols-outlined">settings</span></a></div>
+</div></header>
 
 <div class="wrap">
-  <div class="topbar"><a class="back" href="./">← bonjin’s study note に戻る</a><button type="button" class="theme-btn" id="themeBtn"></button></div>
+  <div class="topbar"><a class="back" href="index.html">← マイ道場一覧へ戻る</a></div>
   <header>
     <h1>Java 道場</h1>
     <p>Java の基礎から、オブジェクト指向・Spring Boot・JPA・テストまで。分野とレベルを選んで、解説を読んでからクイズで確認しよう。</p>
@@ -2195,5 +2205,12 @@ render();
   });
 })();
 </script>
+<nav class="dj-nav" aria-label="メニュー"><div class="dj-nav-in">
+  <a href="index.html" aria-current="page"><span class="material-symbols-outlined">menu_book</span><span>道場</span></a>
+  <a href="scrolls.html"><span class="material-symbols-outlined">folder_open</span><span>巻物・ノート</span></a>
+  <a href="daily.html"><span class="material-symbols-outlined">terminal</span><span>鍛錬室</span></a>
+  <a href="log.html"><span class="material-symbols-outlined">insights</span><span>修練録</span></a>
+  <a href="secrets.html"><span class="material-symbols-outlined">auto_stories</span><span>秘伝の書</span></a>
+</div></nav>
 </body>
 </html>

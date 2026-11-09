@@ -1,0 +1,172 @@
+/* =========================================================
+   道場の中（Web & DB 道場・Java 道場・Java 実技道場）の見た目
+   Stitch で作った道場の画面にそろえるための上書き
+   ========================================================= */
+
+/* ---------- 色と書体（ライト：緑の配色） ---------- */
+:root {
+  --bg: #f6f7f3; --surface: #ffffff; --surface-2: #ecf0e7; --fg: #1a1c18; --muted: #5d6357; --line: #dee3d7;
+  --ok: #217a4b; --ok-bg: #eef7f2; --ng: #c84b31; --ng-bg: #fbece8;
+  --c-html: #c84b31; --c-css: #1e6091; --c-js: #a25904; --c-db: #217a4b;
+  --code-bg: #1f2621; --code-fg: #eef2ea;
+  --brand: #2d5a43; --brand-soft: #e3ede6;
+  --f-display: "Noto Serif JP", "Noto Serif", serif;
+  --f-body: "Noto Sans JP", "Plus Jakarta Sans", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --f-code: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --dg-1: #1e6091; --dg-2: #c84b31; --dg-hl: #fdf3dc;
+  --nav-bg: rgba(246, 247, 243, 0.94); --head-bg: rgba(246, 247, 243, 0.92);
+  --shadow: 0 1px 2px rgba(26, 28, 24, 0.04), 0 4px 14px rgba(26, 28, 24, 0.05);
+}
+/* ---------- ダーク（夜の道場：墨と橙） ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151311; --surface: #1e1b19; --surface-2: #2a2522; --fg: #ece3da; --muted: #b3a395; --line: #3a322c;
+    --ok: #7fd6a0; --ok-bg: #1b2b21; --ng: #ff8a6b; --ng-bg: #3a201a;
+    --c-html: #ff8a3d; --c-css: #7fb2ff; --c-js: #f0c94a; --c-db: #5fd1b8;
+    --code-bg: #0f0d0c; --code-fg: #f1e9e1; --brand: #ff8a3d; --brand-soft: #3a2618;
+    --dg-1: #7fb2ff; --dg-2: #ff8a3d; --dg-hl: #3a3420;
+    --nav-bg: rgba(21, 19, 17, 0.94); --head-bg: rgba(21, 19, 17, 0.9);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151311; --surface: #1e1b19; --surface-2: #2a2522; --fg: #ece3da; --muted: #b3a395; --line: #3a322c;
+  --ok: #7fd6a0; --ok-bg: #1b2b21; --ng: #ff8a6b; --ng-bg: #3a201a;
+  --c-html: #ff8a3d; --c-css: #7fb2ff; --c-js: #f0c94a; --c-db: #5fd1b8;
+  --code-bg: #0f0d0c; --code-fg: #f1e9e1; --brand: #ff8a3d; --brand-soft: #3a2618;
+  --dg-1: #7fb2ff; --dg-2: #ff8a3d; --dg-hl: #3a3420;
+  --nav-bg: rgba(21, 19, 17, 0.94); --head-bg: rgba(21, 19, 17, 0.9);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3); color-scheme: dark;
+}
+body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); font-size: 15px; }
+.wrap { padding-top: 76px; gap: 14px; }
+
+/* ---------- ヘッダー（ほかのページと同じ） ---------- */
+.dj-top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--head-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.dj-top-in { max-width: 760px; margin: 0 auto; height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); }
+.dj-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--fg); min-width: 0; }
+.dj-brand img { width: 32px; height: 32px; flex: none; display: block; }
+.dj-brand b { display: block; font-family: var(--f-display); font-size: 1.05rem; line-height: 1.2; white-space: nowrap; }
+.dj-brand small { display: block; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted); font-weight: 700; white-space: nowrap; }
+.dj-tools { display: flex; align-items: center; gap: 8px; flex: none; }
+.dj-gear { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); text-decoration: none; border: 1px solid var(--line); background: var(--surface); }
+.dj-gear:hover { color: var(--brand); border-color: var(--brand); }
+.theme-btn { min-height: 36px; padding: 4px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--fg); font-weight: 700; font-size: 0.78rem; }
+.theme-btn:hover { border-color: var(--brand); }
+html:not([data-theme="dark"]) .logo-d, html[data-theme="dark"] .logo-l { display: none !important; }
+@media (prefers-color-scheme: dark) { html:not([data-theme]) .logo-l { display: none !important; } html:not([data-theme]) .logo-d { display: block !important; } }
+.material-symbols-outlined { font-family: "Material Symbols Outlined"; font-weight: normal; font-style: normal; font-size: 20px; line-height: 1; display: inline-block; white-space: nowrap; overflow: hidden; width: 1em; height: 1em; font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24; }
+
+/* ---------- 戻る・見出し ---------- */
+.topbar { display: block; }
+.back { display: inline-flex; align-items: center; gap: 4px; font-size: 0.85rem; font-weight: 700; color: var(--brand); text-decoration: none; }
+.back:hover { text-decoration: underline; color: var(--brand); }
+.wrap > header { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; box-shadow: var(--shadow); }
+.wrap > header h1, .wrap > header + * h1, h1 { font-family: var(--f-display); font-weight: 700; font-size: 1.45rem; letter-spacing: 0.01em; display: flex; align-items: center; gap: 10px; }
+.wrap > header h1::before { content: ""; width: 5px; height: 1.1em; border-radius: 3px; background: var(--brand); flex: none; }
+.wrap > header p { font-size: 0.86rem; line-height: 1.75; margin-top: 6px; }
+.runlink { border-radius: 14px; }
+
+/* ---------- 科目のタブ（2列のカード） ---------- */
+.cats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.cat { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "b s" "bar bar"; align-items: center; gap: 8px 6px; text-align: left; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); }
+.cat b { grid-area: b; font-family: var(--f-body); font-size: 0.98rem; font-weight: 800; letter-spacing: 0.01em; }
+.cat small { grid-area: s; font-size: 0.78rem; font-weight: 700; color: var(--muted); }
+.cat .bar { grid-area: bar; width: 100%; height: 5px; border-radius: 99px; }
+.cat[aria-selected="true"] { border: 1.5px solid var(--c); background: color-mix(in srgb, var(--c) 7%, var(--surface)); }
+.cat[aria-selected="true"] small { color: var(--c); }
+
+/* ---------- レベル（切りかえ） ---------- */
+.lvs { background: var(--surface-2); border-radius: 14px; padding: 4px; gap: 4px; }
+.lv { border-radius: 11px; padding: 8px 4px; flex-direction: row; justify-content: center; gap: 8px; }
+.lv b { font-family: var(--f-body); font-weight: 800; font-size: 0.95rem; }
+.lv small { font-size: 0.72rem; font-weight: 700; }
+.lv[aria-selected="true"] { background: var(--surface); box-shadow: var(--shadow); }
+.lv[aria-selected="true"] b, .lv[aria-selected="true"] small { color: var(--accent); }
+
+/* ---------- 項目の札 ---------- */
+.chips { gap: 8px; }
+.chip { border-radius: 12px; padding: 8px 14px; font-weight: 700; font-size: 0.86rem; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.chip .dot { width: 16px; height: 16px; border: 1.5px solid var(--line); background: transparent; display: inline-grid; place-items: center; }
+.chip .dot.done { background: var(--ok); border-color: var(--ok); }
+.chip .dot.done::after { content: ""; width: 5px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 30%, transparent); }
+.chip[aria-pressed="true"] .dot { border-color: rgba(255, 255, 255, 0.7); }
+.chip.special, .chip.codes, .chip.tips { border: 1px solid transparent; background: color-mix(in srgb, var(--accent) 8%, var(--surface)); color: var(--accent); box-shadow: none; }
+.chip.special[aria-pressed="true"], .chip.codes[aria-pressed="true"], .chip.tips[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.chip.miss { border: 1px solid transparent; background: var(--ng-bg); color: var(--ng); box-shadow: none; }
+.chip.miss[aria-pressed="true"] { background: var(--ng); color: #fff; }
+
+/* ---------- 本文のカード ---------- */
+.panel { border-radius: 18px; padding: 20px 18px; box-shadow: var(--shadow); gap: 18px; }
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.06em; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.panel h2 { font-family: var(--f-display); font-weight: 700; font-size: 1.3rem; line-height: 1.5; }
+.panel h3 { font-family: var(--f-body); font-weight: 800; font-size: 1rem; }
+.panel h3::before { width: 4px; border-radius: 2px; }
+.lead p { font-size: 0.95rem; line-height: 1.9; }
+code { font-size: 0.86em; background: color-mix(in srgb, var(--accent) 9%, var(--surface-2)); color: color-mix(in srgb, var(--accent) 70%, var(--fg)); border-radius: 5px; padding: 1px 6px; }
+pre { border-radius: 12px; padding: 14px 16px; font-size: 0.82rem; line-height: 1.75; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04); }
+pre code { color: inherit; background: none; }
+
+/* コードの見出し（ウィンドウの帯） */
+.codehead { background: var(--code-bg); color: #9aa39c; border-radius: 12px 12px 0 0; padding: 8px 12px; margin-bottom: 0; font-family: var(--f-code); font-size: 0.72rem; letter-spacing: 0.02em; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.codehead > span:first-child::before { content: "● ● ●"; letter-spacing: 2px; margin-right: 10px; color: #4f5a52; font-size: 0.6rem; vertical-align: 1px; }
+.codehead + pre, .codehead + iframe, .codehead + .pv { border-top-left-radius: 0; border-top-right-radius: 0; }
+.codehead .btn.ghost { background: rgba(255, 255, 255, 0.08); color: #eef2ea; border-color: rgba(255, 255, 255, 0.18); }
+
+/* 図 */
+.fig { border-radius: 14px; border: 1px solid var(--line); background: color-mix(in srgb, var(--accent) 4%, var(--surface)); }
+.fig figcaption { color: var(--accent); font-weight: 800; }
+
+/* ---------- 確認クイズ ---------- */
+.q { border-radius: 16px; border: 1px solid var(--line); background: var(--surface); padding: 16px; box-shadow: var(--shadow); }
+.q .qt { font-weight: 800; line-height: 1.7; }
+.q .qn { display: inline-grid; place-items: center; min-width: 30px; height: 26px; padding: 0 6px; border-radius: 8px; background: var(--accent); color: #fff; font-family: var(--f-body); font-size: 0.8rem; font-weight: 800; margin-right: 8px; vertical-align: 1px; }
+.choices { counter-reset: kata; gap: 8px; }
+.choice { counter-increment: kata; display: flex; align-items: center; gap: 12px; text-align: left; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); padding: 12px 14px; font-weight: 600; }
+.choice::before { content: counter(kata, upper-alpha); flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 0.78rem; font-weight: 800; color: var(--muted); background: var(--surface-2); }
+.choice:hover:not(:disabled) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, var(--surface)); }
+.choice.right { border-color: var(--ok); background: var(--ok-bg); }
+.choice.right::before { content: "✓"; background: var(--ok); color: #fff; }
+.choice.wrong { border-color: var(--ng); background: var(--ng-bg); }
+.choice.wrong::before { content: "✕"; background: var(--ng); color: #fff; }
+.fb { border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); padding: 12px 14px; }
+.fb strong.ok { display: inline-flex; align-items: center; padding: 2px 12px; border-radius: 999px; background: var(--ok); color: #fff; margin-right: 6px; }
+.why { border-left: 3px solid var(--line); padding-left: 10px; }
+
+/* ---------- ボタン ---------- */
+.btn { border-radius: 12px; padding: 10px 18px; font-weight: 800; min-height: 44px; box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 25%, transparent); }
+.btn.ghost { background: var(--surface); color: var(--accent); box-shadow: none; }
+.row { gap: 10px; }
+
+/* ---------- 入力・表・そのほか ---------- */
+textarea { border-radius: 12px; border: 1px solid var(--line); }
+.tbl { border-radius: 12px; }
+.banner { border-radius: 14px; }
+.glpop { border-radius: 16px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); }
+.exbtn { border-radius: 10px; min-width: 40px; min-height: 40px; font-weight: 800; }
+.exbtn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ---------- 下の注意書き・記録の引き継ぎ ---------- */
+footer { color: var(--muted); }
+.xfer, .note, .dj-top *, .dj-nav * { box-sizing: border-box; }
+.xfer { max-width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin-top: 10px; text-align: left; }
+.xfer summary { color: var(--brand); font-weight: 800; }
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+
+/* ---------- 下のメニュー（ほかのページと同じ） ---------- */
+.dj-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; background: var(--nav-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.dj-nav-in { max-width: 760px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
+.dj-nav a { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 2px 10px; font-size: 0.66rem; font-weight: 700; color: var(--muted); text-decoration: none; min-height: 56px; }
+.dj-nav a .material-symbols-outlined { font-size: 22px; }
+.dj-nav a:hover { color: var(--fg); }
+.dj-nav a[aria-current="page"] { color: var(--brand); }
+.dj-nav a[aria-current="page"] .material-symbols-outlined { font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24; }
+
+/* ---------- Java 実技道場 ---------- */
+.run-page { --accent: var(--brand); }
+.run-page #run { flex: 1 1 100%; font-size: 1rem; min-height: 50px; }
+.run-page .expect { background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 0.82rem; font-weight: 700; color: var(--muted); }
+.run-page .expect pre { margin-top: 6px; }
+.run-page textarea { background: var(--code-bg); color: var(--code-fg); font-family: var(--f-code); font-size: 0.85rem; line-height: 1.7; border-color: transparent; }
